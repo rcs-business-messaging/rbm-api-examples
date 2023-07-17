@@ -1,0 +1,20 @@
+{
+    "name": "nodejs-mgmt-api",
+    "version": "0.0.1",
+    "description": "Node.js examples calling the RBM Mgmt API",
+    "author": "Google",
+    "private": true,
+    "scripts": {
+      "lint": "eslint src/",
+      "lint:fix": "eslint --fix --ext .js src/"
+    },
+    "dependencies": {
+      "googleapis": "^122.0.0",
+      "googleapis-common": "^6.0.4"
+    },
+    "devDependencies": {
+      "eslint": "^8.35.0",
+      "eslint-config-google": "^0.14.0"
+    }
+  }
+  
