@@ -344,7 +344,7 @@ export declare namespace rcsbusinessmessaging_v1 {
         uploadMetadataContainer?: string | null;
     }
     /**
-     * A sequence of media data references representing composite data. Introduced to support Bigstore composite objects. For details, visit http://go/bigstore-composites.
+     * A sequence of media data references representing composite data. Introduced to support Bigstore composite objects. 
      */
     export interface Schema$GdataCompositeMedia {
         /**
@@ -418,11 +418,11 @@ export declare namespace rcsbusinessmessaging_v1 {
         fromUrlPath?: string | null;
     }
     /**
-     * Backend response for a Diff get checksums response. For details on the Scotty Diff protocol, visit http://go/scotty-diff-protocol.
+     * Backend response for a Diff get checksums response. 
      */
     export interface Schema$GdataDiffChecksumsResponse {
         /**
-         * Exactly one of these fields must be populated. If checksums_location is filled, the server will return the corresponding contents to the user. If object_location is filled, the server will calculate the checksums based on the content there and return that to the user. For details on the format of the checksums, see http://go/scotty-diff-protocol.
+         * Exactly one of these fields must be populated. If checksums_location is filled, the server will return the corresponding contents to the user. If object_location is filled, the server will calculate the checksums based on the content there and return that to the user. 
          */
         checksumsLocation?: Schema$GdataCompositeMedia;
         /**
@@ -443,7 +443,7 @@ export declare namespace rcsbusinessmessaging_v1 {
         objectVersion?: string | null;
     }
     /**
-     * Backend response for a Diff download response. For details on the Scotty Diff protocol, visit http://go/scotty-diff-protocol.
+     * Backend response for a Diff download response. 
      */
     export interface Schema$GdataDiffDownloadResponse {
         /**
@@ -452,11 +452,11 @@ export declare namespace rcsbusinessmessaging_v1 {
         objectLocation?: Schema$GdataCompositeMedia;
     }
     /**
-     * A Diff upload request. For details on the Scotty Diff protocol, visit http://go/scotty-diff-protocol.
+     * A Diff upload request. 
      */
     export interface Schema$GdataDiffUploadRequest {
         /**
-         * The location of the checksums for the new object. Agents must clone the object located here, as the upload server will delete the contents once a response is received. For details on the format of the checksums, see http://go/scotty-diff-protocol.
+         * The location of the checksums for the new object. Agents must clone the object located here, as the upload server will delete the contents once a response is received. 
          */
         checksumsInfo?: Schema$GdataCompositeMedia;
         /**
@@ -469,7 +469,7 @@ export declare namespace rcsbusinessmessaging_v1 {
         objectVersion?: string | null;
     }
     /**
-     * Backend response for a Diff upload request. For details on the Scotty Diff protocol, visit http://go/scotty-diff-protocol.
+     * Backend response for a Diff upload request. 
      */
     export interface Schema$GdataDiffUploadResponse {
         /**
@@ -482,7 +482,7 @@ export declare namespace rcsbusinessmessaging_v1 {
         originalObject?: Schema$GdataCompositeMedia;
     }
     /**
-     * Backend response for a Diff get version response. For details on the Scotty Diff protocol, visit http://go/scotty-diff-protocol.
+     * Backend response for a Diff get version response. 
      */
     export interface Schema$GdataDiffVersionResponse {
         /**
@@ -641,7 +641,7 @@ export declare namespace rcsbusinessmessaging_v1 {
          */
         bucketName?: string | null;
         /**
-         * Generation of the object. Generations are monotonically increasing across writes, allowing them to be be compared to determine which generation is newer. If this is omitted in a request, then you are requesting the live object. See http://go/bigstore-versions
+         * Generation of the object. Generations are monotonically increasing across writes, allowing them to be be compared to determine which generation is newer. If this is omitted in a request, then you are requesting the live object. 
          */
         generation?: string | null;
         /**
