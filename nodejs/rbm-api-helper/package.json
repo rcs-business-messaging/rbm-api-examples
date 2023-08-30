@@ -18,13 +18,12 @@
   },
   "license": "Apache-2.0",
   "dependencies": {
-    "google-auth-library": "^8.8.0",
-    "googleapis": "^123.0.0",
-    "googleapis-common": "^6.0.4",
+    "googleapis": "^126.0.1",
+    "googleapis-common": "^7.0.0",
     "uuid": "^9.0.0"
   },
   "devDependencies": {
-    "eslint": "^8.42.0",
+    "eslint": "^8.48.0",
     "eslint-config-google": "^0.14.0"
   }
 }
