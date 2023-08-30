@@ -1,4 +1,4 @@
-# [Google's RCS Business Messaging: Node.js Client](https://github.com/google-business-communications/nodejs-rcsbusinessmessaging)
+# [Google's RCS Business Messaging: Node.js Client](https://github.com/rcs-business-messaging/rbm-api-examples/tree/master/nodejs/rbm-api-helper)
 
 [RCS Business Messaging](https://developers.google.com/business-communications/rcs-business-messaging/guides/get-started/how-it-works) upgrades SMS with branding, rich media, interactivity, and analytics. With RCS, businesses can bring branded, interactive mobile experiences, right to the native Android messaging app.
 
@@ -42,7 +42,7 @@ sendMessage('valid-rcs-enabled-phone-number');
 
 ## Sample usage
 
-Samples below assume a similar library initialization as shown in the [Using the client library](https://github.com/rcs-business-messaging/rbm-api-examples/blob/master/CONTRIBUTING.md#using-the-client-library) section.
+Samples below assume a similar library initialization as shown in the [Using the client library](https://github.com/rcs-business-messaging/rbm-api-examples/tree/master/nodejs/rbm-api-helper#using-the-client-library) section.
 
 ### Sending a text message
 
