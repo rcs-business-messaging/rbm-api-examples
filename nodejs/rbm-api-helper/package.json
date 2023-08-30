@@ -1,0 +1,30 @@
+{
+  "name": "@google/rcsbusinessmessaging",
+  "version": "1.0.3",
+  "author": "Google Inc.",
+  "engines": {
+    "node": ">=10"
+  },
+  "description": "Node.js helper library for the RCS Business Messages API",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint src",
+    "lint:fix": "eslint --fix --ext .js src"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:google-business-communications/nodejs-rcsbusinessmessaging.git"
+  },
+  "license": "Apache-2.0",
+  "dependencies": {
+    "google-auth-library": "^8.8.0",
+    "googleapis": "^123.0.0",
+    "googleapis-common": "^6.0.4",
+    "uuid": "^9.0.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.42.0",
+    "eslint-config-google": "^0.14.0"
+  }
+}
