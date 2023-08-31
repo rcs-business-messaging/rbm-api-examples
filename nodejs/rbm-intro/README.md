@@ -14,7 +14,17 @@ Now add the JSON into `resouces/rbm-agent-service-account-credentials.json`.
 
 Add your test phone number to `src/config.js`
 
-Install dependencies:
+These examples make use of the `rbm-api-helper` code that is packaged as source in this
+repository. Before you run these examples, you will need to install the dependencies
+that code requires:
+
+```
+cd ../rbm-api-helper
+npm install
+```
+
+Now return to this folder andcf 
++ install the dependencies for these samples:
 
 ``
 npm install
