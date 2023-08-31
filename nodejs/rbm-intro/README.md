@@ -23,8 +23,7 @@ cd ../rbm-api-helper
 npm install
 ```
 
-Now return to this folder andcf 
-+ install the dependencies for these samples:
+Now return to this folder and install the dependencies for these samples:
 
 ``
 npm install
