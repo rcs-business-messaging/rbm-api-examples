@@ -1,0 +1,131 @@
+<html>
+	<head>
+		<title>XYZ Telecom Group Billing Statement</title>
+
+		<link href='//fonts.googleapis.com/css?family=Marmelad' rel='stylesheet' type='text/css'>
+	    <link
+	        rel="stylesheet"
+	        href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+	        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+	        crossorigin="anonymous">
+	    </link>
+
+	    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+		<link rel="icon"
+	          type="image/png"
+	          href="/images/favicon.png">
+	</head>
+
+	<body>
+		<div style="width: 664px; margin: 20px auto;">
+			<div style="margin-bottom: 20px;">
+				<div style="float: left; width: 120px; margin-right: 20px;">
+					<img width="120" src="/images/xyz-logo.png" />
+				</div>
+				<div style="float: left; margin-top: 10px;">
+					<p style="margin-bottom: 5px;"><strong>XYZ Telecom Group</strong></p>
+					<p style="margin-bottom: 5px; margin-top: 0px;">1600 Amphitheatre Pkwy</p>
+					<p style="margin-bottom: 0px; margin-top: 0px;">Mountain View, CA 94043</p>
+				</div>
+
+				<div style="clear: both"></div>
+			</div>
+
+			<table style="width: 400px; margin-top: 20px;" cellpadding="2" cellspacing="0">
+				<thead>
+					<tr>
+						<th style="text-align: left;">Billing Summary</th>
+						<th style="text-align: right;">Charges</th>
+					</tr>
+				</thead>
+
+				<tbody>
+					<tr>
+						<td style="border-top: 2px solid #ccc; padding-top: 10px;">Extra consumption</td>
+						<td style="border-top: 2px solid #ccc; padding-top: 10px; text-align: right;">$5.00</td>
+					</tr>
+					<tr>
+						<td>Taxes</td>
+						<td style="text-align: right;">$10.00</td>
+					</tr>
+					<tr>
+						<td>Monthly fee</td>
+						<td style="text-align: right;">$10.00</td>
+					</tr>
+					<tr>
+						<td>Consumption</td>
+						<td style="text-align: right;">$6.00</td>
+					</tr>
+					<tr>
+						<td>International costs</td>
+						<td style="text-align: right;">$4.00</td>
+					</tr>
+					<tr>
+						<td>Television</td>
+						<td style="text-align: right;">$5.00</td>
+					</tr>
+					<tr>
+						<td>Last bill penalty</td>
+						<td style="text-align: right;">$45.00</td>
+					</tr>
+					<tr>
+						<td style="border-top: 2px solid #ccc; padding-top: 10px; color: red;">Total charges</td>
+						<td style="border-top: 2px solid #ccc; padding-top: 10px; color: red; text-align: right;">$100.00</td>
+					</tr>
+				</tbody>
+			</table>
+
+			<div style="margin-top: 30px;">
+				<div style="width: 350px; margin-right: 40px;">
+					<table style="width: 100%;" cellpadding="2" cellspacing="0">
+						<thead>
+							<tr>
+								<th style="text-align: left;" colspan="2">Remittance</th>
+							</tr>
+						</thead>
+
+						<tbody>
+							<tr>
+								<td style="border-top: 2px solid #ccc; padding-top: 10px;">Account number</td>
+								<td style="border-top: 2px solid #ccc; padding-top: 10px;">43598375983</td>
+							</tr>
+							<tr>
+								<td>Invoice number</td>
+								<td>767150</td>
+							</tr>
+							<tr>
+								<td>Invoice date</td>
+								<td>{{ start_date }}</td>
+							</tr>
+							<tr>
+								<td>Due date</td>
+								<td>{{ end_date }}</td>
+							</tr>
+							<tr>
+								<td style="border-top: 2px solid #ccc; padding-top: 10px; color: red;">Total amount due</td>
+								<td style="border-top: 2px solid #ccc; padding-top: 10px; color: red;">$100.00</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+
+				<div style="width: 250px; margin-top: 30px;">
+					<p><strong>PLEASE SEND PAYMENT TO</strong></p>
+
+					<p style="margin-left: 20px;">
+						XYZ Telecom Group<br/>
+						1600 Amphitheatre Pkwy<br/>
+						Mountain View, CA 94043
+					</p>
+				</div>
+
+				<div style="width: 250px; margin-top: 30px; text-align: left;">
+					<p>
+						<a href="#" class="btn btn-default">Login to pay online</a>
+					</p>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

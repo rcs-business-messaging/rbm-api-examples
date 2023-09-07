@@ -1,0 +1,6 @@
+Flask==2.3.2
+httplib2==0.22.0
+emoji
+oauth2client
+google-cloud-pubsub
+../rbm-api-helper
