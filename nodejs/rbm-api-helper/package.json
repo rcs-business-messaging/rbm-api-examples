@@ -20,10 +20,10 @@
   "dependencies": {
     "googleapis": "^126.0.1",
     "googleapis-common": "^7.0.0",
-    "uuid": "^9.0.0"
+    "uuid": "^9.0.1"
   },
   "devDependencies": {
-    "eslint": "^8.48.0",
+    "eslint": "^8.50.0",
     "eslint-config-google": "^0.14.0"
   }
 }
