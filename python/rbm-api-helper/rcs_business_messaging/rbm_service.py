@@ -54,21 +54,32 @@ def emojize(text):
 
   return return_text
 
-def send_message_with_body(msisdn, body, message_id):
+def send_message_with_body(msisdn, body, message_id, timeToLive=None, expireTime=None):
   """
   Sends a message represented by the given JSON to the given MSISDN.
 
   Args:
-      msisdn (str): The lmsisdn of the user in
+      msisdn (str): The msisdn of the user in
           E.164 format, e.g. '+14155555555'.
       body (dict): Object representing the full post body.
       message_id (str): The ID of the message.
+      timeToLive (str): (optional) Time that an RBM message can live in
+        seconds - if it is not delivered in this period then the
+        developer will be notified. Format is Ns e.g. "5s"
+      expireTime (str): (optional) Time that the message should expire if 
+        not delivered. Defined as a UTC timestamp i.e. "2014-10-02T15:01:23Z"
   """
   endpoint_url = (agent_config.RBM_BASE_ENDPOINT +
                   'phones/' +
                   msisdn +
                   '/agentMessages?messageId=' +
                   message_id)
+  
+  if timeToLive is not None:
+    body['ttl'] = timeToLive
+
+  if expireTime is not None:
+    body['expireTime'] = expireTime
 
   body_string = emojize(json.dumps(body))
 
@@ -124,7 +135,7 @@ def send_event_with_body(msisdn, body, message_id):
   app.logger.info(resp)
   app.logger.info(content)
 
-def send_message_with_body_and_suggestion_chip_list(msisdn, body, suggestion_chip_list, message_id):
+def send_message_with_body_and_suggestion_chip_list(msisdn, body, suggestion_chip_list, message_id, timeToLive=None, expireTime=None):
   """
   Sends a message represented by the given JSON with the
   additional suggestion chip list JSON to the given MSISDN.
@@ -136,9 +147,14 @@ def send_message_with_body_and_suggestion_chip_list(msisdn, body, suggestion_chi
       suggestionChipList (list): List of Suggestion objects
           representing a suggestion chip list
       message_id (str): The ID of the message.
+      timeToLive (str): (optional) Time that an RBM message can live in
+        seconds - if it is not delivered in this period then the
+        developer will be notified. Format is Ns e.g. "5s"
+      expireTime (str): (optional) Time that the message should expire if 
+        not delivered. Defined as a UTC timestamp i.e. "2014-10-02T15:01:23Z"
   """
   body['contentMessage']['suggestions'] = suggestion_chip_list
-  return send_message_with_body(msisdn, body, message_id)
+  return send_message_with_body(msisdn, body, message_id, timeToLive, expireTime)
 
 def upload_file(file_url, thumbnail_url=None):
   """

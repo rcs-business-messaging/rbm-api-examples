@@ -23,6 +23,7 @@ from google.cloud import pubsub
 from google.oauth2 import service_account
 
 import argparse
+import datetime
 import time
 import json
 import constants
@@ -95,9 +96,18 @@ def main():
     else:
         msisdn = args.msisdn
 
-        # Send user an opening message to start the conversation
         message_text = messages.TextMessage('What is your favorite color?')
+
+        # Send user an opening message to start the conversation
         messages.MessageCluster().append_message(message_text).send_to_msisdn(msisdn)
+
+        # Send a message with a 10 second expiry
+        # messages.MessageCluster().append_message(message_text).send_to_msisdn(msisdn, '10s')
+
+        # Send a message with a specified expiry time of 20 seconds from now
+        # d = datetime.datetime.utcnow() + datetime.timedelta(0, 20)
+        # timeToStop = d.strftime('%Y-%m-%dT%H:%M:%SZ')
+        # messages.MessageCluster().append_message(message_text).send_to_msisdn(msisdn, expireTime=timeToStop)
 
         # Create cloud credentials based on key file
         cred = service_account.Credentials.from_service_account_file(agent_config.PATH_TO_SERVICE_ACCOUNT)

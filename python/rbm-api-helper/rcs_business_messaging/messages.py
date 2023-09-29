@@ -74,12 +74,17 @@ class MessageCluster(object):
 
     return self
 
-  def send_to_msisdn(self, msisdn):
+  def send_to_msisdn(self, msisdn, timeToLive=None, expireTime=None):
     """
     Sends all the messages in the clsuter to the given MSISDN.
 
     Args:
       msisdn (str): MSISDN in E.164 format, e.g. '+14155555555'
+      timeToLive (str): (optional) Time that an RBM message can live in
+        seconds - if it is not delivered in this period then the
+        developer will be notified. Format is Ns e.g. "5s". 
+      expireTime (str): (optional) Time that the message should expire if 
+        not delivered. Defined as a UTC timestamp i.e. "2014-10-02T15:01:23Z"
     """
 
     # Do nothing if there are no messages
@@ -102,14 +107,16 @@ class MessageCluster(object):
       if i < len(self._messages) - 1:
         resp = rbm_service.send_message_with_body(msisdn,
                                            message.get_agent_message(),
-                                           str(uuid.uuid4().int) + "a")
+                                           str(uuid.uuid4().int) + "a",
+                                           timeToLive, expireTime)
       else:
         app.logger.debug(message.get_agent_message())
         resp = rbm_service.send_message_with_body_and_suggestion_chip_list(
             msisdn,
             message.get_agent_message(),
             get_suggestion_chip_list(self._suggestions),
-            str(uuid.uuid4().int) + "a")
+            str(uuid.uuid4().int) + "a",
+            timeToLive, expireTime)
         return resp
 
 class Message(object):
