@@ -72,6 +72,7 @@ const cardContents = [
 const params = {
 	msisdn: config.phoneNumber,
 	cardContents: cardContents,
+	// timeToLive: '10s',
 };
 
 // Send the device the carousel card defined above

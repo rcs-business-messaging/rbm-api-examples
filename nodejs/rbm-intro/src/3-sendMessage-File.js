@@ -26,6 +26,7 @@ rbmApiHelper.setAgentId(config.agentId);
 const params = {
 	fileUrl: 'https://storage.googleapis.com/kitchen-sink-sample-images/cute-dog.jpg',
 	msisdn: config.phoneNumber,
+	// timeToLive: '10s',
 };
 
 

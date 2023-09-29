@@ -82,6 +82,7 @@ const params = {
 	messageText: 'Hello, world!',
 	msisdn: config.phoneNumber,
 	suggestions: suggestions,
+	// timeToLive: '10s',
 };
 
 

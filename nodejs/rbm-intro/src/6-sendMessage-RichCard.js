@@ -50,6 +50,7 @@ const params = {
 	suggestions: suggestions,
 	imageUrl: imageUrl,
 	height: 'MEDIUM',
+	// timeToLive: '10s',
 };
 
 // Send rich card to device

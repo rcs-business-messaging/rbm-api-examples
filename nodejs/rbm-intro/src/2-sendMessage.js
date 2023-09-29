@@ -26,6 +26,7 @@ rbmApiHelper.setAgentId(config.agentId);
 const params = {
 	messageText: 'Hello, world https://news.bbc.co.uk/',
 	msisdn: config.phoneNumber,
+	// timeToLive: '10s',
 };
 
 

@@ -93,9 +93,21 @@ function getMessageBody(userEvent) {
 
 initPubsub();
 
+// Calculate UTC time in zulu format 20 seconds from now
+const d = new Date();
+
+d.setSeconds(d.getSeconds()+20);
+
+const expireTime = d.toISOString();
+
+
 const params = {
-	messageText: 'Hello, world!',
+	messageText: 'This message will expire!',
 	msisdn: config.phoneNumber,
+	// allow 10 seconds for message delivery
+	timeToLive: '10s',
+	// alternatively we can set an expiry time
+	// expireTime: expireTime
 };
 
 rbmApiHelper.initRbmApi(privatekey);

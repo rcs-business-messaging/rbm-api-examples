@@ -167,6 +167,13 @@ const rbmApiHelper = {
      * of the image for the rich card.
      * @param {array} params.suggestions The suggested chip
      * list of replies.
+	 * @param {string} params.timeToLive (optional) Time that
+     * an RBM message can live in seconds - if it is not delivered
+     * in this period then the developer will be notified.
+     * Format is Ns e.g. "5s".
+     * @param {string} params.expireTime (optional) Time that the
+     * message should expire if not delivered. Defined as a UTC timestamp
+     * i.e. "2014-10-02T15:01:23Z"
      * @param {function} callback Callback method for after
      * the method is complete.
      */
@@ -186,6 +193,13 @@ const rbmApiHelper = {
      * rich card objects.
      * @param {string} params.msisdn The phone number
      * in E.164 format.
+     * @param {string} params.timeToLive (optional) Time that
+     * an RBM message can live in seconds - if it is not delivered
+     * in this period then the developer will be notified.
+     * Format is Ns e.g. "5s".
+     * @param {string} params.expireTime (optional) Time that the
+     * message should expire if not delivered. Defined as a UTC timestamp
+     * i.e. "2014-10-02T15:01:23Z"
      * @param {function} callback Callback method for after
      * the method is complete.
      */
@@ -477,6 +491,15 @@ function sendRichCard_(params, authClient, callback) {
 		resource: options, // POST body
 	};
 
+	if (params.timeToLive != undefined) {
+		options.ttl = params.timeToLive;
+	} else {
+		// add expireTime if available
+		if (params.expireTime != undefined) {
+			options.expireTime = params.expireTime;
+		}
+	}
+
 	if (agentId != null) apiParams.agentId = agentId;
 
 	// send the client the message
@@ -529,6 +552,15 @@ function sendCarouselCard_(params, authClient, callback) {
 		auth: authClient,
 		resource: options, // POST body
 	};
+
+	if (params.timeToLive != undefined) {
+		options.ttl = params.timeToLive;
+	} else {
+		// add expireTime if available
+		if (params.expireTime != undefined) {
+			options.expireTime = params.expireTime;
+		}
+	}
 
 	if (agentId != null) apiParams.agentId = agentId;
 
