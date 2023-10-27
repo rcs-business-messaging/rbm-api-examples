@@ -1,0 +1,11 @@
+{
+    "rbm": {
+        "webhookToken": "<Add token here>"
+    },
+    "dialogflow": {
+        "projectId": "<Add projectId here>",
+        "location": "<Add location here>",
+        "agentId": "<Add agentId here>0",
+        "languageCode": "en"
+    }
+}

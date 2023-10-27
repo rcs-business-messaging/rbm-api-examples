@@ -1,0 +1,27 @@
+{
+    "name": "rbm-integration-module",
+    "version": "0.0.1",
+    "description": "A server that connects Google's dialogflow to RCS Business Messaging",
+    "main": "server.js",
+    "scripts": {
+        "start": "node server.js",
+        "lint": "eslint --ext .js .",
+        "lint:fix": "eslint --fix --ext .js ."
+    },
+    "dependencies": {
+        "@google-cloud/pubsub": "^4.0.6",
+        "@google-cloud/dialogflow-cx": "^4.2.0",
+        "body-parser": "~1.20.2",
+        "express": "~4.18.2",
+        "googleapis": "^126.0.1",
+        "googleapis-common": "^7.0.0",
+        "uuid": "^9.0.1"
+    },
+    "devDependencies": {
+        "eslint": "^8.52.0",
+        "eslint-config-google": "^0.14.0"
+    },
+    "engines": {
+    },
+    "license": "Apache-2.0"
+}

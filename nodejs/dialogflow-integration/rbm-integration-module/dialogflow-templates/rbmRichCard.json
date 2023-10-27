@@ -1,0 +1,22 @@
+{
+    "rbmRichCard": {
+        "messageText": "Hello, world!",
+        "messageDescription": "RBM is awesome!",
+        "suggestions": [
+            {
+                "reply": {
+                    "text": "Suggestion #1",
+                    "postbackData": "suggestion_1"
+                }
+            },
+            {
+                "reply": {
+                    "text": "Suggestion #2",
+                    "postbackData": "suggestion_2"
+                }
+            }
+        ],
+        "imageUrl": "https://storage.googleapis.com/kitchen-sink-sample-images/cute-dog.jpg",
+        "height": "MEDIUM"
+    }
+}
