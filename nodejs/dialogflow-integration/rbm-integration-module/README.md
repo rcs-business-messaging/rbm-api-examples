@@ -4,7 +4,7 @@ This code implements an integration model to connect Dialogflow to Google
 [RCS Business Messaging](https://developers.google.com/business-communications/rcs-business-messaging).
 See release notes below for details of current support. Feel free to extend this code for your needs.
 
-The module can be deployed as a Cloud Run sevice in your Dialogflow Google Cloud project:
+The module can be deployed as a Cloud Run service in your Dialogflow Google Cloud project:
 
 ![alt text](images/cloud-run-module.png)
 
@@ -41,7 +41,7 @@ Set your configuration:
 
 ## Choose your deployment model
 
-The preferred opton is to deploy this module as a Cloud Run service - the model that is used for other [DialogFlow
+The preferred option is to deploy this module as a Cloud Run service - the model that is used for other [Dialogflow
 integration modules](https://github.com/GoogleCloudPlatform/dialogflow-integrations). However, Google RBM
 webhooks implement their own [authentication model](https://developers.google.com/business-communications/rcs-business-messaging/guides/integrate/pubsub#push-setup)
 which requires that the Cloud Run service be configured for unauthenticated access.
@@ -107,7 +107,7 @@ with your RBM Platform Google account and create a new RBM agent.
 
 2. Select your RBM agent.
 
-3. In the left navigation, click **Integrations**.
+3. In the left navigation, click **Interactions**.
 
 4. Click either **Cloud Pub/Sub** or **Webhook**.
 
@@ -126,7 +126,7 @@ Ensure Dialogflow can be called by the integration model.
 
 ## Deploying into a different GCP project
 
-You will need to take the followign steps if you deploy this module into a GCP project that is not the
+You will need to take the following steps if you deploy this module into a GCP project that is not the
 one containing your Dialogflow agent:
 
 1. Enable the [Dialogflow API](https://console.developers.google.com/apis/api/dialogflow.googleapis.com/) in the project.
@@ -145,7 +145,7 @@ enter here will now go to your Dialogflow agent and you will receive the respons
 
 ## Dialogflow custom payload templates
 
-`dialogflow-templates/` contains templates that you can add to youer Dialogflow project. These define the
+`dialogflow-templates/` contains templates that you can add to your Dialogflow project. These define the
 message formats currently supported by this integration model.
 
 ## Further thoughts
