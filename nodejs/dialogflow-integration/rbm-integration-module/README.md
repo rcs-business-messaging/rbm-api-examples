@@ -19,24 +19,27 @@ Alternatively, this module can be deployed into AppEngine.
 
 Prepare credentials:
 
-1. Open the RBM Developer Console (https://business-communications.cloud.google.com/console/partner-console/)
-with your RBM Platform Google account and create a new RBM agent.
+1.  Open the RBM Developer Console (https://business-communications.cloud.google.com/console/partner-console/)
+    with your RBM Platform Google account and create a new RBM agent.
 
-2. When the agent is available, click the agent's card.
+2.  When the agent is available, click the agent's card.
 
-3. In the left navigation, click **Service account**.
+3.  In the left navigation, click **Service account**.
 
-4. Click **Create key**, then click **Create**. Your browser downloads a service account key for your agent. You need this key to make RBM API calls as your agent.
+4.  Click **Create key**, then click **Create**. Your browser downloads a service account key for your agent.
+    You need this key to make RBM API calls as your agent.
 
 5. Edit `resources/rbm-agent-service-account-credentials.json` and paste the JSON key structure here.
 
 Set your configuration:
 
-1. Edit `/resources/config.json`.
+1.  Edit `/resources/config.json`.
 
-2. Add the string you want to use for RBM webhook verification.
+2.  Add the string you want to use for RBM webhook verification (this can be the value from the RBM console webhook
+    screen or any complex string you want to use - as long as you remember the value and use it in the RBM console later).
 
-3. Add your Dialogflow model information.
+3.  Add your Dialogflow model information. You can find this information in the URL to your Dialogflow agent: 
+    `https://dialogflow.cloud.google.com/cx/projects/PROJECTID/locations/LOCATION/agents/AGENTID/intents`
 
 
 ## Choose your deployment model
@@ -49,6 +52,7 @@ which requires that the Cloud Run service be configured for unauthenticated acce
 If this is not possible in your environment then the module can alternatively be deployed into AppEngine.
 
 The module can be deployed directly into your Dialogflow-enabled Google Cloud Project. 
+
 
 ## Deploying the Integration Using Cloud Run
 
@@ -133,6 +137,7 @@ one containing your Dialogflow agent:
 2. Ensure that the Service Account the module is running under is able to invoke your Dialogflow agent - see
 **IAM permission denied** below.
 
+
 ## Testing
 
 1. Open the RBM Developer Console (https://business-communications.cloud.google.com/console/partner-console/),
@@ -143,15 +148,18 @@ one containing your Dialogflow agent:
 You will now see this message on your device. Keep this conversation in your history - any messages you
 enter here will now go to your Dialogflow agent and you will receive the response.
 
+
 ## Dialogflow custom payload templates
 
 `dialogflow-templates/` contains templates that you can add to your Dialogflow project. These define the
 message formats currently supported by this integration model.
 
+
 ## Further thoughts
 
 Beyond testing, you need to think about now the initial engagement between your Dialogflow agent and 
 an RCS user will take place. 
+
 
 ## Debugging
 
