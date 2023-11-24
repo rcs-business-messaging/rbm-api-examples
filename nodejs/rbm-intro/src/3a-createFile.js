@@ -15,28 +15,21 @@
 'use strict';
 
 const util = require('util');
-const config = require('./config');
 const rbmApiHelper = require('../../rbm-api-helper/src/rbm_api_helper');
 const privateKey =
 	require('../resources/rbm-agent-service-account-credentials.json');
 
 rbmApiHelper.initRbmApi(privateKey);
-rbmApiHelper.setAgentId(config.agentId);
 
+// Upload the file to Google's RBM content store first
 const params = {
 	fileUrl: 'https://storage.googleapis.com/kitchen-sink-sample-images/cute-dog.jpg',
-	// A thumbnail is optional. It will be displayed until the full image is
-	// downloaded.
 	thumbnailUrl: 'https://storage.googleapis.com/kitchen-sink-sample-images/elephant.jpg',
-	// Optional - whether RBM should retrieve the media every time or use its
-	// cached version. (the default is false).
-	// forceRefresh: true,
-	msisdn: config.phoneNumber,
-	// timeToLive: '10s',
+	// contentDescription: string
 };
 
 
-rbmApiHelper.sendMessage(params,
+rbmApiHelper.uploadFile(params,
 	function(response, err) {
 		if (err !== undefined) {
 			console.log(

@@ -24,13 +24,11 @@ rbmApiHelper.initRbmApi(privateKey);
 rbmApiHelper.setAgentId(config.agentId);
 
 const params = {
-	fileUrl: 'https://storage.googleapis.com/kitchen-sink-sample-images/cute-dog.jpg',
-	// A thumbnail is optional. It will be displayed until the full image is
-	// downloaded.
-	thumbnailUrl: 'https://storage.googleapis.com/kitchen-sink-sample-images/elephant.jpg',
-	// Optional - whether RBM should retrieve the media every time or use its
-	// cached version. (the default is false).
-	// forceRefresh: true,
+	// Uploaded file id. If this uplod also contains a thumbnail, it will be used
+	uploadedFileName: 'files/lpcg6f1tnYg1ryaQNho6hjka',
+	// Uploaded thumbnail id. If this upload contains a thumbnail then it will be
+	// used in preference to the one above.
+	// uploadedThumbnailName: "files/lpchblt9boYTjT8ck6UGQ8uK",
 	msisdn: config.phoneNumber,
 	// timeToLive: '10s',
 };
