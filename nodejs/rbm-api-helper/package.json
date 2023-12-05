@@ -14,11 +14,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:google-business-communications/nodejs-rcsbusinessmessaging.git"
+    "url": "https://github.com/rcs-business-messaging/rbm-api-examples.git",
+    "directory": "nodejs/rbm-api-helper"
   },
   "license": "Apache-2.0",
   "dependencies": {
-    "googleapis": "^128.0.0",
+    "googleapis": "^129.0.0",
     "googleapis-common": "^7.0.1",
     "uuid": "^9.0.1"
   },
