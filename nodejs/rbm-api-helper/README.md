@@ -40,6 +40,24 @@ async function sendMessage(phoneNumber) {
 sendMessage('valid-rcs-enabled-phone-number');
 ```
 
+## Partner-based RBM model
+
+This helper library now supports the partner-based RBM model where there
+is one Service Account for all agents that a developer creates. In this
+model, the agent id must be sent with each API call. If your developer
+account is set up for this model then you should add an additional call
+when initialising the library:
+
+```javascript
+const SERVICE_ACCOUNT_PUBLIC_KEY = 'REPLACE_ME';
+
+// Get the RCS Business Messaging client library helper
+const rbmApiHelper = require('rcsbusinessmessaging/rbm_api_helper');
+
+rbmApiHelper.initRbmApi(SERVICE_ACCOUNT_PUBLIC_KEY);
+rbmApiHelper.setAgentId('myrbmagent'); // my agent id was myrbmagent@rbm.goog
+```
+
 ## Sample usage
 
 Samples below assume a similar library initialization as shown in the [Using the client library](https://github.com/rcs-business-messaging/rbm-api-examples/tree/master/nodejs/rbm-api-helper#using-the-client-library) section.
