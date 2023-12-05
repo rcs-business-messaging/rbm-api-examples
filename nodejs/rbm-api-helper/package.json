@@ -14,7 +14,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/rcs-business-messaging/rbm-api-examples.git",
+    "url": "git@github.com:rcs-business-messaging/rbm-api-examples.git",
     "directory": "nodejs/rbm-api-helper"
   },
   "license": "Apache-2.0",
