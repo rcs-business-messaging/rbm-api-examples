@@ -15,7 +15,7 @@
 'use strict';
 
 const util = require('util');
-const rbmApiHelper = require('../../rbm-api-helper/src/rbm_api_helper');
+const rbmApiHelper = require('@google/rcsbusinessmessaging');
 const privateKey =
 	require('../resources/rbm-agent-service-account-credentials.json');
 

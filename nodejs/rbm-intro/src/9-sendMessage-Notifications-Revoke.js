@@ -15,7 +15,7 @@
 'use strict';
 
 const config = require('./config');
-const rbmApiHelper = require('../../rbm-api-helper/src/rbm_api_helper');
+const rbmApiHelper = require('@google/rcsbusinessmessaging');
 
 const {PubSub} = require('@google-cloud/pubsub');
 
@@ -99,7 +99,7 @@ function getMessageBody(userEvent) {
 
 function revokeMessage(phoneNumber, messageId) {
 	console.log('timeout - revoking message');
-	rbmApiHelper.revokeMessage(phoneNumber, messageId, function(err, response) {
+	rbmApiHelper.revokeMessage(phoneNumber, messageId, function(response, err) {
 		console.log(response);
 	});
 }
