@@ -1,5 +1,8 @@
 {
-    "rbmFileTransfer": {
-        "fileUrl": "https://storage.googleapis.com/kitchen-sink-sample-images/cute-dog.jpg"
+    "rbm": {
+        "type": "fileTransfer",
+        "params": {
+            "fileUrl": "https://storage.googleapis.com/kitchen-sink-sample-images/cute-dog.jpg"
+        }
     }
 }

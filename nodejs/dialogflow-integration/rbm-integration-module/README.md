@@ -149,10 +149,30 @@ You will now see this message on your device. Keep this conversation in your his
 enter here will now go to your Dialogflow agent and you will receive the response.
 
 
+### Testing locally
+
+This module can be run locally and will use the RBM pull subscription model. Make sure you have set your
+RBM integraton mode to **Pull** otherwise notifications will be sent to any hosted version currently
+listening on a webhook.
+
+Install dependencies and run locally with these commands:
+
+```
+npm install
+npm start
+```
+
+
 ## Dialogflow custom payload templates
 
 `dialogflow-templates/` contains templates that you can add to your Dialogflow project. These define the
 message formats currently supported by this integration model.
+
+
+## Dialogflow channel
+
+This integration model will set the channel in intent requests to "RBM" to allow you to send
+RBM-formatted content back.
 
 
 ## Further thoughts
@@ -187,6 +207,10 @@ The current implementation only forwards text RBM messages to the Dialogflow age
 to extend `processRbmEvent` in `server.js` - or contact us.
 
 ## Release notes
+
+**v2**
+
+- added Suggested Actions and Replies
 
 **v1**
 

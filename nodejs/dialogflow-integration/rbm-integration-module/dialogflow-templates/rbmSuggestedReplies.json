@@ -1,9 +1,8 @@
 {
     "rbm": {
-        "type": "richCard",
+        "type": "suggestedReplies",
         "params": {
             "messageText": "Hello, world!",
-            "messageDescription": "RBM is awesome!",
             "suggestions": [
                 {
                     "reply": {
@@ -17,9 +16,7 @@
                         "postbackData": "suggestion_2"
                     }
                 }
-            ],
-            "imageUrl": "https://storage.googleapis.com/kitchen-sink-sample-images/cute-dog.jpg",
-            "height": "MEDIUM"
+            ]
         }
     }
 }

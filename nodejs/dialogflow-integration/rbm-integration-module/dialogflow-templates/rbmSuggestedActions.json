@@ -1,0 +1,60 @@
+{
+    "rbm": {
+        "type": "suggestedActions",
+        "params": {
+            "messageText": "Hello, world!",
+            "suggestions": [
+                {
+                    "action": {
+                        "text": "Call",
+                        "postbackData": "postback_data_1234",
+                        "dialAction": {
+                            "phoneNumber": "+15556667777"
+                        }
+                    }
+                },
+                {
+                    "action": {
+                        "text": "View map",
+                        "postbackData": "postback_data_1234",
+                        "viewLocationAction": {
+                            "latLong": {
+                                "latitude": 37.4220188,
+                                "longitude": -122.0844786
+                            },
+                            "label": "Googleplex"
+                        }
+                    }
+                },
+                {
+                    "action": {
+                        "text": "Share your location",
+                        "postbackData": "postback_data_1234",
+                        "shareLocationAction": {}
+                    }
+                },
+                {
+                    "action": {
+                        "text": "Open Google",
+                        "postbackData": "postback_data_1234",
+                        "openUrlAction": {
+                            "url": "https://www.google.com"
+                        }
+                    }
+                },
+                {
+                    "action": {
+                        "text": "Save to calendar",
+                        "postbackData": "postback_data_1234",
+                        "createCalendarEventAction": {
+                            "startTime": "2020-06-30T19:00:00Z",
+                            "endTime": "2020-06-30T20:00:00Z",
+                            "title": "My calendar event",
+                            "description": "Description of the calendar event"
+                        }
+                    }
+                }
+            ]
+        }
+    }
+}

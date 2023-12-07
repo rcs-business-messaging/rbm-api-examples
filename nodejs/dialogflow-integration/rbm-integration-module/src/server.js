@@ -19,8 +19,10 @@ const crypto = require('crypto');
 const express = require('express');
 const {SessionsClient} = require('@google-cloud/dialogflow-cx');
 
-const rbmApiHelper = require('./libs/rbm_api_helper');
-const privateKeyFile = './resources/rbm-agent-service-account-credentials.json';
+const dialogflowHelper = require('./dialogflowHelper');
+const rbmApiHelper = require('@google/rcsbusinessmessaging');
+const privateKeyFile =
+	'../resources/rbm-agent-service-account-credentials.json';
 const privateKey = require(privateKeyFile);
 
 rbmApiHelper.initRbmApi(privateKey);
@@ -33,8 +35,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
 // load configuration file
-const config = require('./resources/config.json');
-
+const config = require('../resources/config.json');
 
 const listener = app.listen(process.env.PORT, function() {
 	console.log('Your RBM integration server is listening on port ' +
@@ -141,6 +142,9 @@ function invokeDialogflow(msisdn, input) {
 			},
 			languageCode: config.dialogflow.languageCode,
 		},
+		queryParams: {
+			channel: "RBM"
+		}
 	};
 
 	sessionsClient.detectIntent(request).then(([response]) => {
@@ -156,51 +160,35 @@ function invokeDialogflow(msisdn, input) {
 
 
 function handleDialogflowResponse(msisdn, response) {
-	const params = {
-		msisdn: msisdn,
-	};
-
 	for (const message of response.queryResult.responseMessages) {
+		const m = dialogflowHelper.parseStruct(message);
+
 		// Initially only supporting text reponses
-		if (message.message == 'text') {
-			params.messageText = message.text.text[0];
-			rbmApiHelper.sendMessage(params);
+		if (m.message == 'text') {
+			const p = {
+				msisdn: msisdn,
+				messageText: m.text.text[0],
+			};
+
+			rbmApiHelper.sendMessage(p);
 		}
 
-		if (message.message == 'payload') {
-			if (message.payload.fields.rbmFileTransfer) {
-				const fields =
-					message.payload.fields.rbmFileTransfer.structValue.fields;
+		if ((m.message == 'payload') && (m.payload.rbm)) {
+			const rbm = m.payload.rbm;
+			const p = rbm.params;
 
-				params.fileUrl = fields.fileUrl.stringValue;
-				rbmApiHelper.sendMessage(params);
+			console.log(p);
+			p.msisdn = msisdn;
+
+			if ((rbm.type == "fileTransfer") 
+				|| (rbm.type == "suggestedActions")
+				|| (rbm.type == "suggestedReplies"))
+			{
+				rbmApiHelper.sendMessage(p);
 			}
 
-			if (message.payload.fields.rbmRichCard) {
-				const fields = message.payload.fields.rbmRichCard.structValue.fields;
-
-				params.imageUrl = fields.imageUrl.stringValue;
-				params.messageText = fields.messageText.stringValue,
-				params.messageDescription = fields.messageDescription.stringValue,
-				params.imageUrl = fields.imageUrl.stringValue;
-				params.height = fields.height.stringValue;
-
-				if (fields.suggestions) {
-					params.suggestions = [];
-
-					for (const value of fields.suggestions.listValue.values) {
-						const f = value.structValue.fields.reply.structValue.fields;
-
-						params.suggestions.push( {
-							reply: {
-								text: f.text.stringValue,
-								postbackData: f.postbackData.stringValue,
-							},
-						});
-					}
-				}
-
-				rbmApiHelper.sendRichCard(params);
+			if (rbm.type == "richCard") {
+				rbmApiHelper.sendRichCard(p);
 			}
 		}
 	}
@@ -214,7 +202,7 @@ if (process.env.GOOGLE_CLOUD_PROJECT == undefined) {
 
 	const pubsub = new PubSub({
 		projectId: privateKey.project_id,
-		keyFilename: privateKeyFile,
+		keyFilename: './resources/rbm-agent-service-account-credentials.json',
 	});
 
 	// references an existing subscription
