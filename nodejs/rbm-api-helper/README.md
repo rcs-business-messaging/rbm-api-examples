@@ -22,7 +22,8 @@ The documentation for the RCS Business Messaging API can be found [here](https:/
 const SERVICE_ACCOUNT_PUBLIC_KEY = 'REPLACE_ME';
 
 // Get the RCS Business Messaging client library helper
-const rbmApiHelper = require('rcsbusinessmessaging/rbm_api_helper');
+const rbmApiHelper = require('@google/rcsbusinessmessaging');
+
 rbmApiHelper.initRbmApi(SERVICE_ACCOUNT_PUBLIC_KEY);
 
 /**
@@ -52,7 +53,7 @@ when initialising the library:
 const SERVICE_ACCOUNT_PUBLIC_KEY = 'REPLACE_ME';
 
 // Get the RCS Business Messaging client library helper
-const rbmApiHelper = require('rcsbusinessmessaging/rbm_api_helper');
+const rbmApiHelper = require('@google/rcsbusinessmessaging');
 
 rbmApiHelper.initRbmApi(SERVICE_ACCOUNT_PUBLIC_KEY);
 rbmApiHelper.setAgentId('myrbmagent'); // my agent id was myrbmagent@rbm.goog
