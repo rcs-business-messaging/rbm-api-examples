@@ -462,9 +462,6 @@ function sendRichCard_(params, authClient, callback) {
 		messageDescription = params.messageDescription;
 	}
 
-	// image for the card
-	const imageUrl = params.imageUrl;
-
 	// msisdn to send the message to
 	const msisdn = params.msisdn;
 
@@ -478,13 +475,6 @@ function sendRichCard_(params, authClient, callback) {
 				standaloneCard: {
 					cardOrientation: 'VERTICAL',
 					cardContent: {
-						media: {
-							height: 'TALL',
-							contentInfo: {
-								fileUrl: imageUrl,
-								forceRefresh: false,
-							},
-						},
 						title: messageText,
 						description: messageDescription,
 					},
@@ -492,6 +482,32 @@ function sendRichCard_(params, authClient, callback) {
 			},
 		},
 	};
+
+	if (params.cardOrientation != undefined) {
+		options.contentMessage.richCard.standaloneCard.cardOrientation =
+			params.cardOrientation;
+	}
+
+	if (params.imageUrl != undefined) {
+		let forceRefresh = false;
+		let height = 'TALL';
+
+		if (params.forceRefresh != undefined) {
+			forceRefresh = params.forceRefresh;
+		}
+
+		if (params.height != undefined) {
+			height = params.height;
+		}
+
+		options.contentMessage.richCard.standaloneCard.cardContent.media = {
+			height: height,
+			contentInfo: {
+				fileUrl: params.imageUrl,
+				forceRefresh: forceRefresh,
+			},
+		};
+	}
 
 	// add suggested replies if they exist
 	if (params.suggestions != undefined &&

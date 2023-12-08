@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>First RBM Agent</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <h1><%= title %></h1>
+
+    <p><%= message %></p>
+
+    <h2>Step 1: Invite Test Device</h2>
+    <form action="/inviteTester" method="post">
+    	<input type="text" name="phone_number" placeholder="+12223334444" />
+    	<input type="submit" value="Invite Tester" />
+    </form>
+
+    <h2>Step 2: Initiate the Chat</h2>
+    <form action="/sendMessage" method="post">
+    	<input type="text" name="phone_number" placeholder="+12223334444" />
+    	<input type="submit" value="Submit" />
+    </form>
+  </body>
+</html>

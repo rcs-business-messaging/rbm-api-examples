@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<!-- [START_EXCLUDE] -->
+<!--
+  ~ Copyright 2018 Google Inc.
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License"); you
+  ~ may not use this file except in compliance with the License. You may
+  ~ obtain a copy of the License at
+  ~
+  ~     http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
+  ~ implied. See the License for the specific language governing
+  ~ permissions and limitations under the License.
+  -->
+<!-- [END_EXCLUDE] -->
+
+<html>
+<head>
+    <%- include("header.ejs"); %>
+
+    <title>2FA SMS Entry</title>
+</head>
+<body>
+    <div class="container" style="padding-top: 20px;">
+        <div class="text-center center-block"><img src="/images/2fa-logo.svg" /></div>
+
+        <h1 class="text-center">2FA Demo</h1>
+
+        <div class="row">
+            <div class="col-xs-12 col-sm-8 offset-sm-2 col-md-6 offset-md-3">
+                <form method="get" action="/startConversation" id="login-form">
+                    <h4 class="text-center">Enter the verification code:</h4>
+                    <input class="form-control" id="login-code" required autofocus
+                            type="text" name="login_code"  value="" />
+
+                    <div class="invalid-feedback"></div>
+                    <a
+                        id="login-btn"
+                        class="btn btn-lg btn-primary btn-block" href="#">Verify</a>
+                </form>
+
+                <div class="alert alert-danger text-center" style="display: none;" id="fail-msg" role="alert">
+                    Sorry, but we could not locate your account. Make sure that you have
+                    <a href="#" class="register-link">registered</a> prior to initiating the login.
+                </div>
+
+                <div class="alert alert-success text-center" style="display: none;" id="success-msg" role="alert">
+                    Please confirm your login with your phone.
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

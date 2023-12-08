@@ -1,0 +1,24 @@
+{
+  "name": "ggs-furniture-emporium",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www",
+    "lint": "eslint --ext .js .",
+    "lint:fix": "eslint --fix --ext .js ."
+  },
+  "dependencies": {
+    "@google-cloud/datastore": "^8.2.2",
+    "@google-cloud/pubsub": "^4.0.7",
+    "@google/rcsbusinessmessaging": "^1.0.7",
+    "cookie-parser": "~1.4.6",
+    "ejs": "^3.1.9",
+    "express": "~4.18.2",
+    "http-errors": "~2.0.0",
+    "morgan": "~1.10.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.55.0",
+    "eslint-config-google": "^0.14.0"
+  }
+}
