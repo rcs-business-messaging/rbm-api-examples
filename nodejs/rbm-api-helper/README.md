@@ -186,6 +186,113 @@ rbmApiHelper.sendCarouselCard({
 });
 ```
 
+### Sending a message with a Time to Live
+Sending an RBM message which will be cancelled if the time to live is reached
+before it is delivered. Added in release 1.0.3.
+
+```javascript
+const params = {
+	messageText: 'This message will expire!',
+	msisdn: config.phoneNumber,
+	// allow 10 seconds for message delivery
+	timeToLive: '10s',
+};
+
+rbmApiHelper.sendMessage(params,
+	function(response, err) {
+		if (err !== undefined) {
+			console.log(
+				util.inspect(err, {showHidden: false, depth: null, colors: true}));
+		}
+		if (response !== undefined) {
+			console.log(
+				util.inspect(response, {showHidden: false, depth: null, colors: true}));
+		}
+	}
+);
+```
+
+### Sending a message with an expiry time
+Sending an RBM message which will be cancelled if the expiry time is reached
+before it is delivered. Added in release 1.0.3.
+
+```javascript
+// Calculate UTC time in zulu format 20 seconds from now
+const d = new Date();
+
+d.setSeconds(d.getSeconds()+20);
+
+const params = {
+	messageText: 'This message will expire!',
+	msisdn: config.phoneNumber,
+	expireTime: d.toISOString()
+};
+
+rbmApiHelper.sendMessage(params,
+	function(response, err) {
+		if (err !== undefined) {
+			console.log(
+				util.inspect(err, {showHidden: false, depth: null, colors: true}));
+		}
+		if (response !== undefined) {
+			console.log(
+				util.inspect(response, {showHidden: false, depth: null, colors: true}));
+		}
+	}
+);
+```
+
+### Uploading a file to the RBM Content Store
+Support for file uploading added in release 1.0.6.
+
+```javascript
+const params = {
+	fileUrl: 'https://storage.googleapis.com/kitchen-sink-sample-images/cute-dog.jpg',
+	thumbnailUrl: 'https://storage.googleapis.com/kitchen-sink-sample-images/elephant.jpg',
+	// contentDescription: string
+};
+
+rbmApiHelper.uploadFile(params,
+	function(response, err) {
+		if (err !== undefined) {
+			console.log(
+				util.inspect(err, {showHidden: false, depth: null, colors: true}));
+		}
+		if (response !== undefined) {
+			console.log(
+				util.inspect(response, {showHidden: false, depth: null, colors: true}));
+		}
+	}
+);
+```
+
+### Sending a previously uploaded file
+Support added in release 1.0.6.
+
+```javascript
+const params = {
+	// Uploaded file id. If this uplod also contains a thumbnail, it will be used
+	uploadedFileName: 'files/lpcg6f1tnYg1ryaQNho6hjka',
+	// Uploaded thumbnail id. If this upload contains a thumbnail then it will be
+	// used in preference to the one above.
+	// uploadedThumbnailName: "files/lpchblt9boYTjT8ck6UGQ8uK",
+	msisdn: config.phoneNumber,
+};
+
+rbmApiHelper.sendMessage(params,
+	function(response, err) {
+		if (err !== undefined) {
+			console.log(
+				util.inspect(err, {showHidden: false, depth: null, colors: true}));
+		}
+		if (response !== undefined) {
+			console.log(
+				util.inspect(response, {showHidden: false, depth: null, colors: true}));
+		}
+	}
+);
+```
+
 ## Versioning
 
 This library follows [Semantic Versioning](http://semver.org/).

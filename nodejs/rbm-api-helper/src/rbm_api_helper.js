@@ -16,7 +16,7 @@ const {google} = require('googleapis');
 const {v4: uuidv4} = require('uuid');
 
 const MISSING_INITIALIZATION =
-    'You must first initialize this library by calling initRbmApi.';
+	'You must first initialize this library by calling initRbmApi.';
 
 // RBM API library reference object
 let rbmApi = false;
@@ -30,21 +30,21 @@ let agentId = null;
 // wrapper object for interacting with the RBM API
 const rbmApiHelper = {
 	/**
-     * Set the Agend Id for API calls (needed when the agent was created
-     * with the RBM Mgmt API
-     * @param {string} aId Agent Id
-     */
+	 * Set the Agend Id for API calls (needed when the agent was created
+	 * with the RBM Mgmt API
+	 * @param {string} aId Agent Id
+	 */
 	setAgentId: function(aId) {
 		if (aId != null) agentId = aId;
 	},
 
 	/**
-     * Sends a synchronous capability check to the device.
-     * @param {string} msisdn The phone number in E.164 format.
-     * @param {function} callback Callback method for
-     * after the method is complete.
-     * @return {Promise} if callback is not provided.
-     */
+	 * Sends a synchronous capability check to the device.
+	 * @param {string} msisdn The phone number in E.164 format.
+	 * @param {function} callback Callback method for
+	 * after the method is complete.
+	 * @return {Promise} if callback is not provided.
+	 */
 	checkCapability: function(msisdn, callback) {
 		if (!authClient) {
 			throw MISSING_INITIALIZATION;
@@ -54,13 +54,13 @@ const rbmApiHelper = {
 	},
 
 	/**
-     * Checks the list of user devices for reachability of RBM.
-     * Maximum list size is 10,000.
-     * @param {array} msisdns List of phone numbers in E.164 format.
-     * @param {function} callback A callback function called at
-     * the completion of getUsers
-     * @return {Promise} if callback is not provided.
-     */
+	 * Checks the list of user devices for reachability of RBM.
+	 * Maximum list size is 10,000.
+	 * @param {array} msisdns List of phone numbers in E.164 format.
+	 * @param {function} callback A callback function called at
+	 * the completion of getUsers
+	 * @return {Promise} if callback is not provided.
+	 */
 	getUsers: function(msisdns, callback) {
 		if (!authClient) {
 			throw MISSING_INITIALIZATION;
@@ -70,11 +70,11 @@ const rbmApiHelper = {
 	},
 
 	/**
-     * Sends an invite to the msisdn to become a tester.
-     * @param {string} msisdn The phone number in E.164 format.
-     * @param {function} callback Callback method for
-     * after the method is complete.
-     */
+	 * Sends an invite to the msisdn to become a tester.
+	 * @param {string} msisdn The phone number in E.164 format.
+	 * @param {function} callback Callback method for
+	 * after the method is complete.
+	 */
 	sendTesterInvite: function(msisdn, callback) {
 		if (!authClient) {
 			throw MISSING_INITIALIZATION;
@@ -84,11 +84,11 @@ const rbmApiHelper = {
 	},
 
 	/**
-     * Sends an is typing event back to the msisdn.
-     * @param {string} msisdn The phone number in E.164 format.
-     * @param {function} callback Callback method for
-     * after the method is complete.
-     */
+	 * Sends an is typing event back to the msisdn.
+	 * @param {string} msisdn The phone number in E.164 format.
+	 * @param {function} callback Callback method for
+	 * after the method is complete.
+	 */
 	sendIsTypingMessage: function(msisdn, callback) {
 		if (!authClient) {
 			throw MISSING_INITIALIZATION;
@@ -98,12 +98,12 @@ const rbmApiHelper = {
 	},
 
 	/**
-     * Sends a read event back to the msisdn.
-     * @param {string} msisdn The phone number in E.164 format.
-     * @param {string} messageId The identifier for the message that was read.
-     * @param {function} callback Callback method for after
-     * the method is complete.
-     */
+	 * Sends a read event back to the msisdn.
+	 * @param {string} msisdn The phone number in E.164 format.
+	 * @param {string} messageId The identifier for the message that was read.
+	 * @param {function} callback Callback method for after
+	 * the method is complete.
+	 */
 	sendReadMessage: function(msisdn, messageId, callback) {
 		if (!authClient) {
 			throw MISSING_INITIALIZATION;
@@ -113,11 +113,11 @@ const rbmApiHelper = {
 	},
 
 	/**
-     * Revokes the given message from being sent to the user.
-     * @param {string} msisdn The phone number in E.164 format.
-     * @param {string} messageId The identifier for the message that was sent.
-     * @param {function} callback Function called once the message is revoked.
-     */
+	 * Revokes the given message from being sent to the user.
+	 * @param {string} msisdn The phone number in E.164 format.
+	 * @param {string} messageId The identifier for the message that was sent.
+	 * @param {function} callback Function called once the message is revoked.
+	 */
 	revokeMessage: function(msisdn, messageId, callback) {
 		if (!authClient) {
 			throw MISSING_INITIALIZATION;
@@ -127,25 +127,25 @@ const rbmApiHelper = {
 	},
 
 	/**
-     * Sends the device an RBM message.
-     * @param {object} params The params for the api call.
-     * @param {string} params.messageText The message to
-     * send the user.
-     * @param {string} params.msisdn The phone number
-     * in E.164 format.
-     * @param {array} params.suggestions The suggested chip
-     * list of replies.
-     * @param {string} params.timeToLive (optional) Time that
-     * an RBM message can live in seconds - if it is not delivered
-     * in this period then the developer will be notified.
-     * Format is Ns e.g. "5s".
-     * @param {string} params.expireTime (optional) Time that the
-     * message should expire if not delivered. Defined as a UTC timestamp
-     * i.e. "2014-10-02T15:01:23Z"
-     * @param {function} callback Callback method for after
-     * the method is complete.
-     * @return {Promise} if callback is not provided.
-     */
+	 * Sends the device an RBM message.
+	 * @param {object} params The params for the api call.
+	 * @param {string} params.messageText The message to
+	 * send the user.
+	 * @param {string} params.msisdn The phone number
+	 * in E.164 format.
+	 * @param {array} params.suggestions The suggested chip
+	 * list of replies.
+	 * @param {string} params.timeToLive (optional) Time that
+	 * an RBM message can live in seconds - if it is not delivered
+	 * in this period then the developer will be notified.
+	 * Format is Ns e.g. "5s".
+	 * @param {string} params.expireTime (optional) Time that the
+	 * message should expire if not delivered. Defined as a UTC timestamp
+	 * i.e. "2014-10-02T15:01:23Z"
+	 * @param {function} callback Callback method for after
+	 * the method is complete.
+	 * @return {Promise} if callback is not provided.
+	 */
 	sendMessage: function(params, callback) {
 		if (!authClient) {
 			throw MISSING_INITIALIZATION;
@@ -155,28 +155,28 @@ const rbmApiHelper = {
 	},
 
 	/**
-     * Sends the device a rich card over RCS.
-     * @param {object} params An object of parameters needed for a richcard.
-     * @param {string} params.messageText The message to
-     * send the user.
-     * @param {string} params.messageDescription The description
-     * text to use in the rich card.
-     * @param {string} params.msisdn The phone number
-     * in E.164 format.
-     * @param {string} params.imageUrl The public URL
-     * of the image for the rich card.
-     * @param {array} params.suggestions The suggested chip
-     * list of replies.
+	 * Sends the device a rich card over RCS.
+	 * @param {object} params An object of parameters needed for a richcard.
+	 * @param {string} params.messageText The message to
+	 * send the user.
+	 * @param {string} params.messageDescription The description
+	 * text to use in the rich card.
+	 * @param {string} params.msisdn The phone number
+	 * in E.164 format.
+	 * @param {string} params.imageUrl The public URL
+	 * of the image for the rich card.
+	 * @param {array} params.suggestions The suggested chip
+	 * list of replies.
 	 * @param {string} params.timeToLive (optional) Time that
-     * an RBM message can live in seconds - if it is not delivered
-     * in this period then the developer will be notified.
-     * Format is Ns e.g. "5s".
-     * @param {string} params.expireTime (optional) Time that the
-     * message should expire if not delivered. Defined as a UTC timestamp
-     * i.e. "2014-10-02T15:01:23Z"
-     * @param {function} callback Callback method for after
-     * the method is complete.
-     */
+	 * an RBM message can live in seconds - if it is not delivered
+	 * in this period then the developer will be notified.
+	 * Format is Ns e.g. "5s".
+	 * @param {string} params.expireTime (optional) Time that the
+	 * message should expire if not delivered. Defined as a UTC timestamp
+	 * i.e. "2014-10-02T15:01:23Z"
+	 * @param {function} callback Callback method for after
+	 * the method is complete.
+	 */
 	sendRichCard: function(params, callback) {
 		if (!authClient) {
 			throw MISSING_INITIALIZATION;
@@ -186,23 +186,23 @@ const rbmApiHelper = {
 	},
 
 	/**
-     * Sends the device a card carousel
-     * @param {object} params An object of parameters needed for a richcard.
-     * @param {string} params.cardWidth The width of a card.
-     * @param {string} params.cardContents An array of
-     * rich card objects.
-     * @param {string} params.msisdn The phone number
-     * in E.164 format.
-     * @param {string} params.timeToLive (optional) Time that
-     * an RBM message can live in seconds - if it is not delivered
-     * in this period then the developer will be notified.
-     * Format is Ns e.g. "5s".
-     * @param {string} params.expireTime (optional) Time that the
-     * message should expire if not delivered. Defined as a UTC timestamp
-     * i.e. "2014-10-02T15:01:23Z"
-     * @param {function} callback Callback method for after
-     * the method is complete.
-     */
+	 * Sends the device a card carousel
+	 * @param {object} params An object of parameters needed for a richcard.
+	 * @param {string} params.cardWidth The width of a card.
+	 * @param {string} params.cardContents An array of
+	 * rich card objects.
+	 * @param {string} params.msisdn The phone number
+	 * in E.164 format.
+	 * @param {string} params.timeToLive (optional) Time that
+	 * an RBM message can live in seconds - if it is not delivered
+	 * in this period then the developer will be notified.
+	 * Format is Ns e.g. "5s".
+	 * @param {string} params.expireTime (optional) Time that the
+	 * message should expire if not delivered. Defined as a UTC timestamp
+	 * i.e. "2014-10-02T15:01:23Z"
+	 * @param {function} callback Callback method for after
+	 * the method is complete.
+	 */
 	sendCarouselCard: function(params, callback) {
 		if (!authClient) {
 			throw MISSING_INITIALIZATION;
@@ -212,11 +212,29 @@ const rbmApiHelper = {
 	},
 
 	/**
-     * Initializes the RBM API and authentication credentials to
-     * communicate with the RBM platform.
-     * @param {object} serviceAccountJsonObject The JSON object
-     * for the service account key file.
-     */
+	 * Upload a file to the RBM Content Store.
+	 * @param {object} params The params for the api call.
+	 * @param {string} params.fileUrl URL to file to upload.
+	 * @param {string} params.thumbnailUrl (optional) Thumbnail URL.
+	 * @param {array} params.contentDescription (optional) Description.
+	 * @param {function} callback Callback method for after
+	 * the method is complete.
+	 * @return {Promise} if callback is not provided.
+	 */
+	uploadFile(params, callback) {
+		if (!authClient) {
+			throw MISSING_INITIALIZATION;
+		} else {
+			return uploadFile_(params, authClient, callback);
+		}
+	},
+
+	/**
+	 * Initializes the RBM API and authentication credentials to
+	 * communicate with the RBM platform.
+	 * @param {object} serviceAccountJsonObject The JSON object
+	 * for the service account key file.
+	 */
 	initRbmApi: function(serviceAccountJsonObject) {
 		// get the RCS business messaging API file
 		const rcsbusinessmessaging = require('./rcsbusinessmessaging/v1');
@@ -231,8 +249,8 @@ const rbmApiHelper = {
 
 		// initialize the RBM API
 		rbmApi =
-            new rcsbusinessmessaging.rcsbusinessmessaging_v1.
-            	Rcsbusinessmessaging({}, google);
+			new rcsbusinessmessaging.rcsbusinessmessaging_v1
+				.Rcsbusinessmessaging({}, google);
 	},
 };
 
@@ -477,10 +495,10 @@ function sendRichCard_(params, authClient, callback) {
 
 	// add suggested replies if they exist
 	if (params.suggestions != undefined &&
-        params.suggestions.length != null &&
-        params.suggestions.length > 0) {
+		params.suggestions.length != null &&
+		params.suggestions.length > 0) {
 		options.contentMessage.richCard.standaloneCard.cardContent.suggestions =
-            params.suggestions;
+			params.suggestions;
 	}
 
 	// setup the parameters for the API call
@@ -600,8 +618,8 @@ function sendMessage_(params, authClient, callback) {
 
 	// add suggested replies if they exist
 	if (params.suggestions != undefined &&
-        params.suggestions.length != null &&
-        params.suggestions.length > 0) {
+		params.suggestions.length != null &&
+		params.suggestions.length > 0) {
 		options.contentMessage.suggestions = params.suggestions;
 	}
 
@@ -610,6 +628,20 @@ function sendMessage_(params, authClient, callback) {
 		options.contentMessage.contentInfo = {
 			fileUrl: params.fileUrl,
 		};
+		if (params.thumbnailUrl != undefined) {
+			options.contentMessage.contentInfo.thumbnailUrl = params.thumbnailUrl;
+		}
+		if (params.forceRefresh != undefined) {
+			options.contentMessage.contentInfo.forceRefresh = params.forceRefresh;
+		}
+	} else if (params.uploadedFileName != undefined) {
+		options.contentMessage.uploadedRbmFile = {
+			fileName: params.uploadedFileName,
+		};
+		if (params.uploadedThumbnailName != undefined) {
+			options.contentMessage.uploadedRbmFile.thumbnailName =
+				params.uploadedThumbnailName;
+		}
 	}
 
 	// setup the parameters for the API call
@@ -641,6 +673,37 @@ function sendMessage_(params, authClient, callback) {
 		});
 	} else {
 		rbmApi.phones.agentMessages.create(apiParams, options,
+			function(err, response) {
+				if (callback != undefined) {
+					callback(response, err);
+				}
+			});
+	}
+}
+
+/**
+ * Upload a file to the RBM Content Store.
+ * @param {object} params An object of parameters needed for messaging.
+ * @param {google.auth.JWT} authClient The authenticated cloud client.
+ * @param {function} callback Callback method for after the method is complete.
+ * @return {Promise} if callback is not provided.
+ */
+function uploadFile_(params, authClient, callback) {
+	const apiParams = {
+		auth: authClient,
+		resource: params,
+	};
+
+	// send the client the message
+	if (callback == undefined) {
+		return new Promise((resolve, reject) => {
+			rbmApi.files.create(apiParams,
+				function(error, response) {
+					error ? reject(error) : resolve(response);
+				});
+		});
+	} else {
+		rbmApi.files.create(apiParams,
 			function(err, response) {
 				if (callback != undefined) {
 					callback(response, err);
