@@ -192,23 +192,23 @@ before it is delivered. Added in release 1.0.3.
 
 ```javascript
 const params = {
-	messageText: 'This message will expire!',
-	msisdn: config.phoneNumber,
-	// allow 10 seconds for message delivery
-	timeToLive: '10s',
+  messageText: 'This message will expire!',
+  msisdn: config.phoneNumber,
+  // allow 10 seconds for message delivery
+  timeToLive: '10s',
 };
 
 rbmApiHelper.sendMessage(params,
-	function(response, err) {
-		if (err !== undefined) {
-			console.log(
-				util.inspect(err, {showHidden: false, depth: null, colors: true}));
-		}
-		if (response !== undefined) {
-			console.log(
-				util.inspect(response, {showHidden: false, depth: null, colors: true}));
-		}
-	}
+  function(response, err) {
+    if (err !== undefined) {
+      console.log(
+        util.inspect(err, {showHidden: false, depth: null, colors: true}));
+    }
+    if (response !== undefined) {
+      console.log(
+        util.inspect(response, {showHidden: false, depth: null, colors: true}));
+    }
+  }
 );
 ```
 
@@ -223,22 +223,22 @@ const d = new Date();
 d.setSeconds(d.getSeconds()+20);
 
 const params = {
-	messageText: 'This message will expire!',
-	msisdn: config.phoneNumber,
-	expireTime: d.toISOString()
+  messageText: 'This message will expire!',
+  msisdn: config.phoneNumber,
+  expireTime: d.toISOString()
 };
 
 rbmApiHelper.sendMessage(params,
-	function(response, err) {
-		if (err !== undefined) {
-			console.log(
-				util.inspect(err, {showHidden: false, depth: null, colors: true}));
-		}
-		if (response !== undefined) {
-			console.log(
-				util.inspect(response, {showHidden: false, depth: null, colors: true}));
-		}
-	}
+  function(response, err) {
+    if (err !== undefined) {
+      console.log(
+        util.inspect(err, {showHidden: false, depth: null, colors: true}));
+    }
+    if (response !== undefined) {
+      console.log(
+        util.inspect(response, {showHidden: false, depth: null, colors: true}));
+    }
+  }
 );
 ```
 
@@ -247,22 +247,22 @@ Support for file uploading added in release 1.0.6.
 
 ```javascript
 const params = {
-	fileUrl: 'https://storage.googleapis.com/kitchen-sink-sample-images/cute-dog.jpg',
-	thumbnailUrl: 'https://storage.googleapis.com/kitchen-sink-sample-images/elephant.jpg',
-	// contentDescription: string
+  fileUrl: 'https://storage.googleapis.com/kitchen-sink-sample-images/cute-dog.jpg',
+  thumbnailUrl: 'https://storage.googleapis.com/kitchen-sink-sample-images/elephant.jpg',
+  // contentDescription: string
 };
 
 rbmApiHelper.uploadFile(params,
-	function(response, err) {
-		if (err !== undefined) {
-			console.log(
-				util.inspect(err, {showHidden: false, depth: null, colors: true}));
-		}
-		if (response !== undefined) {
-			console.log(
-				util.inspect(response, {showHidden: false, depth: null, colors: true}));
-		}
-	}
+  function(response, err) {
+    if (err !== undefined) {
+      console.log(
+        util.inspect(err, {showHidden: false, depth: null, colors: true}));
+    }
+    if (response !== undefined) {
+      console.log(
+        util.inspect(response, {showHidden: false, depth: null, colors: true}));
+    }
+  }
 );
 ```
 
@@ -271,25 +271,25 @@ Support added in release 1.0.6.
 
 ```javascript
 const params = {
-	// Uploaded file id. If this uplod also contains a thumbnail, it will be used
-	uploadedFileName: 'files/lpcg6f1tnYg1ryaQNho6hjka',
-	// Uploaded thumbnail id. If this upload contains a thumbnail then it will be
-	// used in preference to the one above.
-	// uploadedThumbnailName: "files/lpchblt9boYTjT8ck6UGQ8uK",
-	msisdn: config.phoneNumber,
+  // Uploaded file id. If this uplod also contains a thumbnail, it will be used
+  uploadedFileName: 'files/lpcg6f1tnYg1ryaQNho6hjka',
+  // Uploaded thumbnail id. If this upload contains a thumbnail then it will be
+  // used in preference to the one above.
+  // uploadedThumbnailName: "files/lpchblt9boYTjT8ck6UGQ8uK",
+  msisdn: config.phoneNumber,
 };
 
 rbmApiHelper.sendMessage(params,
-	function(response, err) {
-		if (err !== undefined) {
-			console.log(
-				util.inspect(err, {showHidden: false, depth: null, colors: true}));
-		}
-		if (response !== undefined) {
-			console.log(
-				util.inspect(response, {showHidden: false, depth: null, colors: true}));
-		}
-	}
+  function(response, err) {
+    if (err !== undefined) {
+      console.log(
+        util.inspect(err, {showHidden: false, depth: null, colors: true}));
+    }
+    if (response !== undefined) {
+      console.log(
+      util.inspect(response, {showHidden: false, depth: null, colors: true}));
+    }
+  }
 );
 ```
 
