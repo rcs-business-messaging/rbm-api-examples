@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@google-cloud/pubsub": "^4.0.7",
-    "@google/rcsbusinessmessaging": "^1.0.3"
+    "@google/rcsbusinessmessaging": "^1.0.6"
   },
   "devDependencies": {
     "eslint": "^8.54.0",

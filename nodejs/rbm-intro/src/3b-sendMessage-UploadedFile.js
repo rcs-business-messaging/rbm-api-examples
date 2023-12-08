@@ -16,7 +16,7 @@
 
 const util = require('util');
 const config = require('./config');
-const rbmApiHelper = require('../../rbm-api-helper/src/rbm_api_helper');
+const rbmApiHelper = require('@google/rcsbusinessmessaging');
 const privateKey =
 	require('../resources/rbm-agent-service-account-credentials.json');
 
