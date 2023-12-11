@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<!-- [START_EXCLUDE] -->
+<!--
+  ~ Copyright 2018 Google Inc.
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License"); you
+  ~ may not use this file except in compliance with the License. You may
+  ~ obtain a copy of the License at
+  ~
+  ~     http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
+  ~ implied. See the License for the specific language governing
+  ~ permissions and limitations under the License.
+  -->
+<!-- [END_EXCLUDE] -->
+
+<html>
+<head>
+    <%- include("header.ejs"); %>
+
+    <title>Acme Pizza Demo</title>
+
+    <script type="text/javascript">
+        // regex for testing phone number format
+        var regex = /^\+(?:[0-9] ?){6,14}[0-9]$/;
+
+        $(document).ready(function() {
+            $(document).on("click", ".register-link", function(e){
+                e.preventDefault();
+
+                showTestRegistration();
+            });
+
+            $("#submit-registration-btn").click(function(e) {
+                e.preventDefault();
+
+                submitRegistration();
+            });
+
+            $("#start-conversation-btn").click(function(e) {
+                e.preventDefault();
+
+                startConversation();
+            });
+
+            // start conversation form submission
+            $(document).on("submit", "#conversation-form", function(event){
+                event.preventDefault();
+
+                removeErrors();
+
+                var phoneNumber = $("#phone-number").val();
+
+                if($.trim(phoneNumber) == "") {
+                    event.stopPropagation();
+
+                    showInputError("#phone-number", "Sorry, but you must provide a " +
+                        "phone number to an RCS-enabled device.");
+                }
+                else if(!regex.test(phoneNumber)) {
+                    event.stopPropagation();
+
+                    showInputError("#phone-number", "Sorry, but you must enter your " +
+                        "phone number in the format of +12223334444.");
+                }
+                else {
+                    phoneNumber = encodeURIComponent(phoneNumber);
+                    showWaiting("Initiating Conversation...", "#start-conversation-btn");
+
+                    $.getJSON("/startConversation?phone_number="+phoneNumber, function(response) {
+                        console.dir(response);
+                        resetButton("#start-conversation-btn");
+
+                        if(response.result == "ok") {
+                           $("#success-msg").show();
+                           $("#fail-msg").hide();
+                        }
+                        else {
+                           if(response.message != undefined) {
+                               showErrorMessage(response.message,
+                                   "#fail-msg", "#success-msg");
+                           }
+                           else {
+                               showErrorMessage("<p>Sorry, but the conversation could not be initiated. " +
+                                  "Make sure that you have registered your phone as a test device " +
+                                  "prior to initiating the conversation.</p>" +
+                                  "<p class=\"text-center\"><a href=\"#\" " +
+                                  "class=\"btn btn-outline-secondary register-link\">Register Now</a></p>",
+                                  "#fail-msg", "#success-msg");
+                           }
+                        }
+                    });
+                }
+            });
+
+            // register the test device form submission
+            $(document).on("submit", "#register-form", function(event){
+                event.preventDefault();
+
+                removeErrors();
+
+                $("#success-register-msg").hide();
+                $("#fail-register-msg").hide();
+
+                var phoneNumber = $("#registration-number").val();
+
+                if($.trim(phoneNumber) == "") {
+                    showInputError("#registration-number", "Sorry, but you must provide a " +
+                            "phone number to an RCS-enabled device.");
+                }
+                else if(!regex.test(phoneNumber)) {
+                    showInputError("#registration-number", "Sorry, but you must enter your " +
+                        "phone number in the format of +12223334444.");
+                }
+                else {
+                    phoneNumber = encodeURIComponent(phoneNumber);
+
+                    showWaiting("Registering...", "#submit-registration-btn");
+
+                    $.getJSON("/register?phone_number="+phoneNumber, function(response) {
+                        resetButton("#submit-registration-btn");
+
+                        if(response.result == "ok") {
+                            $("#registration-form-container").hide();
+                            $("#success-register-msg").show();
+
+                            $("#phone-number").val("");
+                            $("#fail-msg").hide();
+
+                            $("#registration-number").val("")
+                        }
+                        else {
+                            showErrorMessage(response.message,
+                                "#fail-register-msg", "#success-register-msg");
+                        }
+                    });
+                }
+            });
+        });
+
+        function showWaiting(waitingText, button) {
+            var loadingText = '<i class="fa fa-circle-o-notch fa-spin"></i> ' + waitingText;
+            if ($(button).html() !== loadingText) {
+                $(button).data("original-text", $(button).html());
+                $(button).html(loadingText);
+            }
+        }
+
+        function resetButton(button) {
+            $(button).html($(button).data("original-text"));
+        }
+
+        function showTestRegistration() {
+            removeErrors();
+
+            $("#registration-number").val($("#phone-number").val());
+
+            $("#registration-form-container").show();
+            $("#success-register-msg").hide();
+            $("#fail-register-msg").hide();
+            $("#register-dialog").modal();
+        }
+
+        function startConversation() {
+            $("#success-msg").hide();
+            $("#fail-msg").hide();
+
+            $("#conversation-form").submit();
+        }
+
+        function submitRegistration() {
+            $("#success-register-msg").hide();
+            $("#fail-register-msg").hide();
+
+             console.log("here");
+
+            $("#register-form").submit();
+        }
+
+        function removeErrors() {
+            $("input").removeClass("is-invalid");
+        }
+
+        function showInputError(inputId, message) {
+            $(inputId).addClass("is-invalid");
+            $(inputId).parent().find(".invalid-feedback").html(message);
+        }
+
+        function showErrorMessage(message, failId, successId) {
+            $(failId).html(message);
+            $(failId).show();
+            $(successId).hide();
+        }
+    </script>
+</head>
+<body>
+    <div class="container" style="padding-top: 20px;">
+        <div class="text-center center-block"><img width="64" src="/images/ic_local_pizza_black_48dp.svg" /></div>
+
+        <h1 class="text-center">Acme Pizza</h1>
+
+        <div class="row">
+            <div class="col-xs-12 col-sm-8 offset-sm-2 col-md-6 offset-md-3">
+                <% if(message) { %>
+                  <div class="alert alert-danger text-center" role="alert">
+                      <%= message %>
+                  </div>
+                <% } %>
+
+                <form method="get" action="/startConversation" id="conversation-form">
+                    <h4 class="text-center">Enter your registered test device phone number:</h4>
+                    <input class="form-control" id="phone-number" required autofocus
+                            type="text" name="phone_number" placeholder="+12223334444" value="" />
+
+                    <div class="invalid-feedback"></div>
+                    <a
+                        id="start-conversation-btn"
+                        class="btn btn-lg btn-primary btn-block" href="#">Start Conversation</a>
+                </form>
+
+                <div class="alert alert-danger text-center" style="display: none;" id="fail-msg" role="alert">
+                    Sorry, but conversation could not be initiated. Make sure that you have
+                    <a href="#" class="register-link">registered your phone as a test device</a> prior to initiating the conversation.
+                </div>
+
+                <div class="alert alert-success text-center" style="display: none;" id="success-msg" role="alert">
+                    You should be hearing from Acme Pizza shortly.
+                </div>
+
+                <p class="text-center"><a href="#" class="register-link">Need access to the demo?</a></p>
+            </div>
+
+            <div class="col-xs-12 col-sm-10 offset-sm-1 col-md-8 offset-md-2 what-is-this">
+                <h2 class="text-center d-none d-sm-block">What is the Acme Pizza Demo?</h2>
+                <div class="row">
+                    <div class="col-sm-7 col-xs-12 d-flex align-items-center">
+                        <div class="">
+                                <h3>About this Demo</h3>
+
+                                <p>The Acme Pizza RCS Business Messaging agent demonstrates
+                                how to create an RCS-enhanced marketing campaign for a retail business.</p>
+
+                                <p>Registering your RCS-enabled device will
+                                give you a chance to experience the demo.</p>
+
+                                <p><a href="#" class="register-link">Click here to register now</a>.</p>
+
+                                <hr />
+
+                                <p>
+                                    You can learn more about
+                                    <a href="https://jibe.google.com/business-messaging/"
+                                    target="_blank">RCS business messaging here</a>.
+                                </p>
+                        </div>
+                    </div>
+                    <div class="col-sm-5 col-xs-12">
+                        <div class="business-phone-container">
+                            <img class="business-phone" src="/images/phone-shadow-right.png">
+                            <div class="phone-screen">
+                                <video id="business-video" loop autoplay muted playsinline>
+                                    <source src="/images/acme-pizza-video.mp4">
+                                </video>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="register-dialog" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div id="registration-form-container">
+                        <h3 class="text-center" style="margin-top: 20px; font-size: 18px;">Register your device</h3>
+
+                        <div class="row">
+                            <div class="col-sm-8 offset-sm-2">
+                                <form method="get" id="register-form" action="/register">
+                                    <p class="text-center">Enter your phone number:</p>
+                                    <input class="form-control" type="text" id="registration-number"
+                                        required autofocus name="phone_number" placeholder="+12223334444" value="" />
+
+                                    <div class="invalid-feedback"></div>
+                                    <button id="submit-registration-btn" class="btn btn-lg btn-primary btn-block" type="submit">Register</button>
+                                </form>
+                            </div>
+
+                            <div class="col-sm-12">
+                                <hr />
+
+                                <p class="text-center registration-explanation">
+                                    After registering, you will receive a text message asking if you
+                                    would like to become a tester.
+                                    Select "Make me a tester" and then click the "Start Conversation"
+                                    button to experience the Acme Pizza RBM demo.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="alert alert-danger text-center" id="fail-register-msg" role="alert">
+                        Sorry, but an error occurred while creating your account.
+                    </div>
+
+                    <div class="alert alert-success" id="success-register-msg" role="alert">
+                        Thank you, your phone should receive an invite to join as a tester shortly.
+                        Once you accept, use the main form to start a conversation with Acme Pizza.
+                    </div>
+
+                    <div class="center-block text-center close-link">
+                        <a href="#" data-dismiss="modal">[CLOSE]</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
