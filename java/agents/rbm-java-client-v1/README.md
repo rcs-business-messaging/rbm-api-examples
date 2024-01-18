@@ -55,13 +55,16 @@ For this sample, simply edit `src/main/java/com/google/rbm/samples/FirstAgent.ja
 - search for `PARTNERMODEL` and set this to `true`
 
 Pull subscriptions are also not supported in the partner-based model. You will see that Pub/Sub
-initiation is disabled.
+initiation is disabled and you will not see delivery and read notifications.
 
 ## Set up your test device
 
-1. In a terminal, navigate to this sample's root directory.
+1. Install the RBM helper library: navigate to `../../rbm-api-helper` and follow the
+   instructions in `README.md`.
 
-2. Run the following commands:
+2. In a terminal, navigate to this sample's root directory.
+
+3. Run the following commands:
 
 ```
    mvn compile
