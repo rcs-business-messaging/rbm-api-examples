@@ -15,14 +15,24 @@ The documentation for the RCS Business Messaging API can be found [here](https:/
 ## Getting Started
 
 
-### Install the API library
+### Usage
 
-Navigate to `./rcs-business-messaging` and follow the instructions to install the RBM API library into your local Maven repo. You can work with this library
-directly but using our helper library will simplify things.
+We recommend you use the latest version available
+in the Maven repositories. Add the following to you `pom.xml`:
+
+```
+<dependency>
+  <groupId>com.google.rbm</groupId>
+  <artifactId>rbm-api-helper</artifactId>
+  <version>1.0.0</version>
+cd ../rcs status</dependency>
+```
+
+(Update for the latest version).
 
 ### Install into your local repository
 
-Execute the following command to build and install the helper library into your local Maven repository: 
+You can build and install a local copy of this library with:
 
 ```
 mvn install

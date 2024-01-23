@@ -19,10 +19,41 @@ limitations under the License.
 
     <modelVersion>4.0.0</modelVersion>
 
+    <parent>
+		<groupId>org.sonatype.oss</groupId>
+		<artifactId>oss-parent</artifactId>
+		<version>7</version>
+	</parent>
+
     <groupId>com.google.rbm</groupId>
     <artifactId>rbm-api-helper</artifactId>
-    <version>1.0-SNAPSHOT</version>
-    <packaging>jar</packaging>  
+    <version>1.0.0</version>
+    <packaging>jar</packaging>
+    <name>RBM Helper Library</name>
+    <description>RBM helper library for java developers.</description>
+    <url>https://github.com/rcs-business-messaging/rbm-api-examples/tree/master/java/rbm-api-helper</url>
+
+    <licenses>
+        <license>
+            <name>The Apache Software License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+    <scm>
+        <url>https://github.com/rcs-business-messaging/rbm-api-examples/tree/master/java/rbm-api-helper</url>
+    </scm>
+
+    <developers>
+        <developer>
+            <name>RBM Developer Relations</name>
+            <email>rbm-devrel@google.com</email>
+            <roles>
+                <role>owner</role>
+            </roles>
+        </developer>
+    </developers>
 
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
@@ -31,27 +62,43 @@ limitations under the License.
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
+    <distributionManagement>
+        <snapshotRepository>
+            <id>ossrh</id>
+            <url>https://clear/content/repositorides/snapshots</url>
+        </snapshotRepository>
+        <repository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
+    </distributionManagement>
+
     <dependencies>
         <dependency>
             <groupId>com.google.rbm</groupId>
             <artifactId>rcsbusinessmessaging</artifactId>
-            <version>1.0</version>
+            <version>1.0.0</version>
         </dependency>
         <dependency>
-            <groupId>com.google.api-client</groupId>
-            <artifactId>google-api-client</artifactId>
-            <version>2.2.0</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>com.google.guava</groupId>
-                    <artifactId>guava-jdk5</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
+			<groupId>com.google.api-client</groupId>
+			<artifactId>google-api-client</artifactId>
+			<version>2.2.0</version>
+			<exclusions>
+				<exclusion>
+					<groupId>com.google.guava</groupId>
+					<artifactId>guava-jdk5</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
         <dependency>
             <groupId>com.google.auth</groupId>
             <artifactId>google-auth-library-oauth2-http</artifactId>
             <version>1.22.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.10.1</version>
         </dependency>
         <dependency>
             <groupId>com.google.http-client</groupId>
@@ -63,11 +110,6 @@ limitations under the License.
             <artifactId>google-http-client</artifactId>
             <version>1.43.3</version>
         </dependency>
-        <dependency>
-            <groupId>com.google.code.gson</groupId>
-            <artifactId>gson</artifactId>
-            <version>2.10.1</version>
-        </dependency>
     </dependencies>
 
     <build>
@@ -76,6 +118,57 @@ limitations under the License.
             <plugin>
                 <artifactId>maven-dependency-plugin</artifactId>
                 <version>3.5.0</version>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>3.3.0</version>
+                <executions>
+                    <execution>
+                    <id>attach-sources</id>
+                    <goals>
+                        <goal>jar-no-fork</goal>
+                    </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>3.6.3</version>
+                <executions>
+                    <execution>
+                    <id>attach-javadocs</id>
+                    <goals>
+                        <goal>jar</goal>
+                    </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-gpg-plugin</artifactId>
+                <version>3.1.0</version>
+                <executions>
+                    <execution>
+                        <id>sign-artifacts</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>sign</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.sonatype.plugins</groupId>
+                <artifactId>nexus-staging-maven-plugin</artifactId>
+                <version>1.6.13</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <serverId>ossrh</serverId>
+                    <nexusUrl>https://oss.sonatype.org/</nexusUrl>
+                    <autoReleaseAfterClose>false</autoReleaseAfterClose>
+                </configuration>
             </plugin>
         </plugins>
     </build>
