@@ -25,7 +25,7 @@ in the Maven repositories. Add the following to you `pom.xml`:
   <groupId>com.google.rbm</groupId>
   <artifactId>rbm-api-helper</artifactId>
   <version>1.0.0</version>
-cd ../rcs status</dependency>
+</dependency>
 ```
 
 (Update for the latest version).
