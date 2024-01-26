@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>RBM Push Notification Demo</title>
+    <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
+    <link href='//fonts.googleapis.com/css?family=Marmelad' rel='stylesheet' type='text/css'>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"/>
+    <script
+      src="https://code.jquery.com/jquery-3.3.1.min.js"
+      integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+      crossorigin="anonymous"></script>
+    <script>
+      // regex for testing phone number format
+      var regex = /^\+(?:[0-9] ?){6,14}[0-9]$/;
+			
+      $(document).ready(function() {
+      	$("#start-conversation-btn").click(function(e) {
+					e.preventDefault();
+					
+      		startConversation();
+      	});
+      });
+      
+      function startConversation() {
+        $("#conversation-form").submit();
+      }	
+			
+      function removeErrors() {
+          $("input").removeClass("is-invalid");
+					$("#fail-msg").hide();
+					$("#success-msg").hide();
+      }
+			
+      function showInputError(inputId, message) {
+				$(inputId).addClass("is-invalid");
+				$(inputId).parent().find(".invalid-feedback").html(message);
+      }
+			
+      function showWaiting(waitingText, button) {
+				var loadingText = '<i class="fa fa-circle-o-notch fa-spin"></i> ' + waitingText;
+				
+				if ($(button).html() !== loadingText) {
+					$(button).data("original-text", $(button).html());
+					$(button).html(loadingText);
+				}
+      }
+			
+      function showErrorMessage(message, failId, successId) {
+          $(failId).html(message);
+          $(failId).show();
+          $(successId).hide();
+      }
+			
+      function resetButton(button) {
+          $(button).html($(button).data("original-text"));
+      }
+			
+      $(document).on("submit", "#conversation-form", function(event){
+          event.preventDefault();
+
+          removeErrors();
+
+          var phoneNumber = $("#phone-number").val();
+
+          if($.trim(phoneNumber) == "") {
+              event.stopPropagation();
+
+              showInputError("#phone-number", "Sorry, but you must provide a " +
+                  "phone number to an RCS-enabled device.");
+          }
+          else if(!regex.test(phoneNumber)) {
+              event.stopPropagation();
+
+              showInputError("#phone-number", "Sorry, but you must enter your " +
+                  "phone number in the format of +12223334444.");
+          }
+          else {
+              phoneNumber = encodeURIComponent(phoneNumber);
+              showWaiting("Initiating Conversation...", "#start-conversation-btn");
+
+              $.getJSON("/startConversation?phone_number="+phoneNumber, function(response) {
+                  resetButton("#start-conversation-btn");
+
+                  if(response.response == "ok") {
+                     $("#success-msg").show();
+                     $("#fail-msg").hide();
+                  }
+                  else {
+                     if(response.message != undefined) {
+                         showErrorMessage(response.message,
+                             "#fail-msg", "#success-msg");
+                     }
+                     else {
+                         showErrorMessage("<p>Sorry, but the conversation could not be initiated. " +
+                            "Make sure that you have registered your phone as a test device " +
+                            "prior to initiating the conversation.</p>" +
+                            "<p class=\"text-center\"><a href=\"#\" " +
+                            "class=\"btn btn-outline-secondary register-link\">Register Now</a></p>",
+                            "#fail-msg", "#success-msg");
+                     }
+                  }
+              });
+          }
+      });
+    </script>
+  </head>
+  <body>
+    <div class="container" style="padding-top: 20px;">
+      <h1 class="text-center">RBM Push Notification Demo</h1>
+      <p></p>
+      <div class="row">
+        <div class="col-xs-12 col-sm-8 offset-sm-2 col-md-6 offset-md-3">
+					<h4 class="text-center">Enter your RBM-enabled device phone number:</h4>
+					<p></p>
+          <form method="get" action="/sendMessage" id="conversation-form">        
+            <input class="form-control" id="phone-number" required autofocus
+              type="text" name="phone_number" placeholder="+12223334444" value="" />
+            <div class="invalid-feedback"></div>
+						<p></p>
+            <a id="start-conversation-btn"
+              class="btn btn-lg btn-primary btn-block" href="#">Start Conversation</a>
+          </form>			
+					<p></p>
+          <div class="alert alert-danger text-center" style="display: none;" id="fail-msg" role="alert">
+            Sorry, but conversation could not be initiated. Make sure that you have
+            <a href="#" class="register-link">registered your phone as a test device</a> prior to initiating the conversation.
+          </div>
+          <div class="alert alert-success text-center" style="display: none;" id="success-msg" role="alert">
+            You should be hearing from us shortly.
+          </div>
+					<p></p>
+  				<h3>About this Demo</h3>
+  
+					<p>This demo shows how to use <a href="https://developers.google.com/business-communications/rcs-business-messaging/guides/integrate/pubsub#push">RBM push notifications.</a></p>
+  				<p>
+    				You can learn more about
+    				<a href="https://developers.google.com/business-communications/rcs-business-messaging"
+      			target="_blank">RCS Business Messaging here</a>.
+  				</p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
