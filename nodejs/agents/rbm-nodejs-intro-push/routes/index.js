@@ -29,6 +29,8 @@ const privatekey = require(privateKeyFile);
 
 rbmApiHelper.initRbmApi(privatekey);
 
+// Uncomment and edit if you are using our partner-based account model
+// rbmApiHelper.setAgentId('myrbmagent'); // my agent id was myrbmagent@rbm.goog
 
 /**
  * Sends the phone number a message asking what their favorite color is.

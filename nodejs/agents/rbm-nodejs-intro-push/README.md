@@ -64,3 +64,15 @@ In the [RBM Developer Console](https://business-communications.cloud.google.com/
 -   The app is hardcoded in `routes/index.js` to use a webhook verification code of `1234556` - you can either use this 
     in the developer console or change the value in the code and redeploy.
 -   Now you can verify your webhook.
+
+## Partner-based RBM model
+
+If your RBM developer account uses our partner-based model you will
+need to ensure that the RBM Helper API is configured with yourr
+agentId. 
+
+Edit `routes/index.js`  accordingly:
+
+```
+rbmApiHelper.setAgentId('myrbmagent'); // my agent id was myrbmagent@rbm.goog
+```
