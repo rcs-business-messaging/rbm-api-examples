@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>false</ImplicitUsings>
+    <Nullable>disable</Nullable>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <TargetName>Google.RBM.RCSBusinessMessaging</TargetName>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Google.Apis.Auth" Version="1.66.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Google.Apis.RCSBusinessMessaging.v1"/>
+  </ItemGroup>
+
+</Project>

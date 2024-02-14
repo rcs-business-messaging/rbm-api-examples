@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>disable</Nullable>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\rbm-api-helper\rbm-api-helper.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Google.Apis.RCSBusinessMessaging.v1">
+      <HintPath>..\..\rbm-api-helper\lib\Google.Apis.RCSBusinessMessaging.v1.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+</Project>
