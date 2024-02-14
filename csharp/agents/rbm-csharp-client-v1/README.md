@@ -25,7 +25,12 @@ with your RBM Platform Google account and create a new RBM agent.
 your agent. Note the location of the service account key file. You need this key to make RBM API
 calls as your agent.
 
-## Set up your test device
+## Partner-based or legacy RBM model
+
+You will need to edit `FirstAgent.cs` and set the RbmApiHelper constructor correctly
+by providing the agend id if you are using the Partner-based model.
+
+## Invite your test device
 
 1. In a terminal, navigate to this sample's root directory.
 
@@ -41,14 +46,8 @@ file you downloaded.
 
 The "invite" text at the end of this command sends `PHONE_NUMBER` an invite to
 become a tester for your agent.
-
-## Partner-based or legacy RBM model
-
-You will need to edit `FirstAgent.cs` and set the RbmApiHelper constructor correctly
-by providing the agend id if you are using the Partner-based model.
-
-
-## Run the sample
+  
+## Send a message
 
 1. In a terminal, navigate to this sample's root directory.
 
@@ -56,5 +55,5 @@ by providing the agend id if you are using the Partner-based model.
 
 ```
    dotnet build
-   donet run PATH_TO_SERVICE_ACCOUNT_KEY PROJECT_ID PHONE_NUMBER chat
+   donet run PATH_TO_SERVICE_ACCOUNT_KEY PHONE_NUMBER chat
 ```
