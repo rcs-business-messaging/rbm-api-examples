@@ -47,6 +47,14 @@ namespace rbm_csharp_client_v1
             Console.WriteLine("Sending greeting to " + msisdn);
 
             rbmApiHelper.SendTextMessage(messageText, msisdn);
+
+            // Send a message that timesout if not delivered in 10 seconds
+            // rbmApiHelper.SendTextMessage(messageText, msisdn, "10s");
+
+            // Send a message with an explicit expiry time 10 seconds from now.
+            // string expireTime = DateTime.Now.AddSeconds(10).ToUniversalTime()
+            //             .ToString("yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'fff'Z'");
+            // rbmApiHelper.SendTextMessage(messageText, msisdn, expireTime:expireTime);
         }
 
         /// <summary>

@@ -50,3 +50,28 @@ using Google.RBM;
 
 rbmApiHelper = new RbmApiHelper(credentialsFileLocation);
 ```
+
+## Sample usage
+
+Samples below assume a  library initialization as described above.
+
+### Sending a text message
+
+```csharp
+rbmApiHelper.SendTextMessage("Hello World!", msisdn);
+```
+
+### Sending a text message with time to live
+
+```csharp
+rbmApiHelper.SendTextMessage("Hello World!", msisdn, "10s");
+```
+
+### Sending a text message with expiry time
+
+```csharp
+string expireTime = DateTime.Now.AddSeconds(10).ToUniversalTime()
+  .ToString("yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'fff'Z'");
+
+rbmApiHelper.SendTextMessage("Hello World!", msisdn, expireTime:expireTime);
+```

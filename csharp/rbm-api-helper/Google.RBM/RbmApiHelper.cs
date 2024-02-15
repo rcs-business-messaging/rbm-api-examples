@@ -79,9 +79,16 @@ namespace Google.RBM
         /// </summary>
         /// <param name="messageText">The text to send the user.</param>
         /// <param name="msisdn">The phone number in E.164 format.</param>
-        public void SendTextMessage(string messageText, string msisdn)
+        /// <param name="ttl">Optional. How long the message will live for before it is automatically revoked.
+        /// A duration in seconds with up to nine fractional digits, ending with 's'. Example: "3.5s"..</param>
+        /// <param name="expireTime">Optional. Timestamp in UTC of when this resource is considered expired. 
+        /// This value is provided on output if it is set or if the TTL field is set.
+        /// A timestamp in RFC3339 UTC "Zulu" format, with nanosecond resolution and up to nine fractional digits. 
+        /// Examples: "2014-10-02T15:01:23Z" and "2014-10-02T15:01:23.045123456Z".</param>
+        public void SendTextMessage(string messageText, string msisdn,
+                                    string ttl=null, string expireTime=null)
         {
-            SendTextMessage(messageText, msisdn, null);
+            SendTextMessage(messageText, msisdn, null, ttl, expireTime);
         }
 
         /// <summary>
@@ -91,8 +98,15 @@ namespace Google.RBM
         /// <param name="messageText">The text to send the user.</param>
         /// <param name="msisdn">The phone number in E.164 format.</param>
         /// <param name="suggestions">The chip list suggestions.</param>
+        /// <param name="ttl">Optional. How long the message will live for before it is automatically revoked.
+        /// A duration in seconds with up to nine fractional digits, ending with 's'. Example: "3.5s"..</param>
+        /// <param name="expireTime">Optional. Timestamp in UTC of when this resource is considered expired. 
+        /// This value is provided on output if it is set or if the TTL field is set.
+        /// A timestamp in RFC3339 UTC "Zulu" format, with nanosecond resolution and up to nine fractional digits. 
+        /// Examples: "2014-10-02T15:01:23Z" and "2014-10-02T15:01:23.045123456Z".</param>
         public void SendTextMessage(string messageText, string msisdn,
-                                    List<Suggestion> suggestions)
+                                    List<Suggestion> suggestions,
+                                    string ttl=null, string expireTime=null)
         {
             AgentContentMessage contentMessage = new AgentContentMessage();
             contentMessage.Text = messageText;
@@ -106,7 +120,7 @@ namespace Google.RBM
             AgentMessage agentMessage = new AgentMessage();
             agentMessage.ContentMessage = contentMessage;
 
-            SendAgentMessage(agentMessage, msisdn);
+            SendAgentMessage(agentMessage, msisdn, ttl, expireTime);
         }
 
         /// <summary>
@@ -262,7 +276,13 @@ namespace Google.RBM
         /// </summary>
         /// <param name="standaloneCard">The card object to send.</param>
         /// <param name="msisdn">The phone number in E.164 format.</param>
-        public void SendStandaloneCard(StandaloneCard standaloneCard, string msisdn)
+        /// <param name="ttl">Optional. How long the message will live for before it is automatically revoked.
+        /// A duration in seconds with up to nine fractional digits, ending with 's'. Example: "3.5s"..</param>
+        /// <param name="expireTime">Optional. Timestamp in UTC of when this resource is considered expired. 
+        /// This value is provided on output if it is set or if the TTL field is set.
+        /// A timestamp in RFC3339 UTC "Zulu" format, with nanosecond resolution and up to nine fractional digits. 
+        /// Examples: "2014-10-02T15:01:23Z" and "2014-10-02T15:01:23.045123456Z".</param>
+        public void SendStandaloneCard(StandaloneCard standaloneCard, string msisdn, string ttl=null, string expireTime=null)
         {
             // attach the standalone card to a rich card
             RichCard richCard = new RichCard();
@@ -277,7 +297,7 @@ namespace Google.RBM
             agentMessage.ContentMessage = agentContentMessage;
 
             // send the message to the user
-            SendAgentMessage(agentMessage, msisdn);
+            SendAgentMessage(agentMessage, msisdn, ttl, expireTime);
         }
 
         /// <summary>
@@ -286,7 +306,13 @@ namespace Google.RBM
         /// <param name="cardContents">List of CardContent items to be attached to the CarourselCard.</param>
         /// <param name="cardWidth">Width of the cards for the carousel.</param>
         /// <param name="msisdn">The phone number in E.164 format.</param>
-        public void SendCarouselCards(List<CardContent> cardContents, CardWidth cardWidth, string msisdn)
+        /// <param name="ttl">Optional. How long the message will live for before it is automatically revoked.
+        /// A duration in seconds with up to nine fractional digits, ending with 's'. Example: "3.5s"..</param>
+        /// <param name="expireTime">Optional. Timestamp in UTC of when this resource is considered expired. 
+        /// This value is provided on output if it is set or if the TTL field is set.
+        /// A timestamp in RFC3339 UTC "Zulu" format, with nanosecond resolution and up to nine fractional digits. 
+        /// Examples: "2014-10-02T15:01:23Z" and "2014-10-02T15:01:23.045123456Z".</param>
+        public void SendCarouselCards(List<CardContent> cardContents, CardWidth cardWidth, string msisdn, string ttl=null, string expireTime=null)
         {
             // create a carousel card and attach the falist of card contents
             CarouselCard carouselCard = new CarouselCard();
@@ -306,7 +332,7 @@ namespace Google.RBM
             agentMessage.ContentMessage = agentContentMessage;
 
             // send the message to the user
-            SendAgentMessage(agentMessage, msisdn);
+            SendAgentMessage(agentMessage, msisdn, ttl, expireTime);
     }
 
     /// <summary>
@@ -381,9 +407,18 @@ namespace Google.RBM
         /// </summary>
         /// <param name="agentMessage">The message payload to send.</param>
         /// <param name="msisdn">The phone number in E.164 format.</param>
-        public void SendAgentMessage(AgentMessage agentMessage, string msisdn)
+        /// <param name="ttl">Optional. How long the message will live for before it is automatically revoked.
+        /// A duration in seconds with up to nine fractional digits, ending with 's'. Example: "3.5s"..</param>
+        /// <param name="expireTime">Optional. Timestamp in UTC of when this resource is considered expired. 
+        /// This value is provided on output if it is set or if the TTL field is set.
+        /// A timestamp in RFC3339 UTC "Zulu" format, with nanosecond resolution and up to nine fractional digits. 
+        /// Examples: "2014-10-02T15:01:23Z" and "2014-10-02T15:01:23.045123456Z".</param>
+        public void SendAgentMessage(AgentMessage agentMessage, string msisdn, string ttl=null, string expireTime=null)
         {
             string phoneNumber = ConvertToApiFormat(msisdn);
+
+            if (ttl != null) agentMessage.Ttl = ttl;
+            if (expireTime != null) agentMessage.ExpireTimeDateTimeOffset = DateTimeOffset.Parse(expireTime).UtcDateTime;
 
             PhonesResource.AgentMessagesResource.CreateRequest request
                           = rcsBusinessMessagingService.Phones.AgentMessages.Create(agentMessage, phoneNumber);
