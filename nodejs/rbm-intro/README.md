@@ -39,3 +39,10 @@ node src/0-capabilityCheck.js
 
 You should find that your test phone is reported as online. You can now
 proceed with the other samples.
+
+## RBM Webhook Client Support
+
+Some samples expect RBM notifications. These utilise the
+[RBM Webhook Client](https://github.com/rcs-business-messaging/rbm-api-examples/tree/master/nodejs/rbm-webhook-client)
+development tool so that code can be run locally rather than deployed to a public webserver. Refer to the
+documentation for configuration.
