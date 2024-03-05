@@ -16,8 +16,7 @@
 
 const config = require('./config');
 const rbmApiHelper = require('@google/rcsbusinessmessaging');
-
-const {PubSub} = require('@google-cloud/pubsub');
+const RbmWebhookClient = require('@google/rbmwebhookclient');
 
 // location of service account credentials file
 const privateKeyFile =
@@ -26,47 +25,16 @@ const privateKeyFile =
 // service account credentials for Pub/Sub
 const privatekey = require(privateKeyFile);
 
-// the name of the Pub/Sub pull subscription,
-// replace with your subscription name
-const subscriptionName = 'rbm-agent-subscription';
-
-
 let sentMessageId = '';
 let revokeTimer = null;
 
-function initPubsub() {
-	const pubsub = new PubSub({
-		projectId: privatekey.project_id,
-		keyFilename: './resources/rbm-agent-service-account-credentials.json',
-	});
-
-	// references an existing subscription
-	const subscription = pubsub.subscription(subscriptionName);
-
-	// create an event handler to handle messages
-	const messageHandler = (message) => {
-		const userEvent = JSON.parse(message.data);
-
-		console.log(`Notification Data: ${message.data}`);
-
-		if ((userEvent.messageId === sentMessageId) &&
-			(userEvent.eventType === 'DELIVERED')) {
-			console.log('Message delivered!');
-			clearTimeout(revokeTimer);
-		}
-
-		handleMessage(userEvent);
-
-		// "Ack" (acknowledge receipt of) the message
-		message.ack();
-	};
-
-	// Listen for new messages until timeout is hit
-	subscription.on('message', messageHandler);
-}
-
-
 function handleMessage(userEvent) {
+	if ((userEvent.messageId === sentMessageId) &&
+		(userEvent.eventType === 'DELIVERED')) {
+		console.log('Message delivered!');
+		clearTimeout(revokeTimer);
+	}
+
 	if (userEvent.senderPhoneNumber != undefined) {
 		// get the sender's phone number
 		const msisdn = userEvent.senderPhoneNumber;
@@ -105,15 +73,16 @@ function revokeMessage(phoneNumber, messageId) {
 }
 
 
-initPubsub();
+// Start listening for notifications.
+new RbmWebhookClient(handleMessage);
+
+rbmApiHelper.initRbmApi(privatekey);
+rbmApiHelper.setAgentId(config.agentId);
 
 const params = {
 	messageText: 'Hello, world!',
 	msisdn: config.phoneNumber,
 };
-
-rbmApiHelper.initRbmApi(privatekey);
-rbmApiHelper.setAgentId(config.agentId);
 
 rbmApiHelper.sendMessage(params,
 	function(response, err) {
@@ -128,4 +97,3 @@ rbmApiHelper.sendMessage(params,
 		}
 	}
 );
-

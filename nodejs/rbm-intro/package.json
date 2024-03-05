@@ -9,7 +9,7 @@
     "lint:fix": "eslint --fix --ext .js src/"
   },
   "dependencies": {
-    "@google-cloud/pubsub": "^4.0.7",
+    "@google/rbmwebhookclient": "^1.0.0",
     "@google/rcsbusinessmessaging": "^1.0.7"
   },
   "devDependencies": {

@@ -3,16 +3,25 @@ The node.js files here provide simple working examples of the
 main RBM API concepts. You can read more in our [online Developer Documentation](https://developers.google.com/business-communications/rcs-business-messaging/guides/get-started/how-it-works).
 
 ## Setting the samples up
-In the [RBM Developer Console](https://business-communications.cloud.google.com/console/partner-console):
 
-- Create your agent 
-- Upload the assets in `agent-assets/`
-- Create a service account key and download the JSON file
-- Invite your RBM-enabled test phone (and accept the invite on your device)
+1.  Open the RBM Developer Console (https://business-communications.cloud.google.com/console/partner-console/)
+    with your RBM Platform Google account and create a new RBM agent.
+
+2.  Upload the assets in `agent-assets/`
+
+2.  In the top bar, select the **Settings** icon.
+
+3.  In the left navigation, click **Service account**.
+
+4.  Click **Create key**. Your browser downloads a service account key for your agent.
+    You need this key to make RBM API calls as your agent.
 
 Now add the JSON into `resouces/rbm-agent-service-account-credentials.json`.
 
-Add your test phone number to `src/config.js`
+Edit `src/config.js`
+
+-   add your test phone number.
+-   add your agent id (the part before `@rbm.goog`).
 
 These examples make use of the `rbm-api-helper` code that is packaged as source in this
 repository and that is [published to NPM](https://www.npmjs.com/package/@google/rcsbusinessmessaging).

@@ -16,9 +16,8 @@ const config = {
 	// Your test RBM phone number
 	phoneNumber: '+CCNNNNNNNNNN',
 
-	// Set this when you are using credentials for an Agent created through the
-	// RBM Management API
-	// agentId: 'my_new_agent_zydvm5pf_agent',
+	// Your agent id
+	agentId: 'YOUR AGENT ID',
 };
 
 module.exports = config;

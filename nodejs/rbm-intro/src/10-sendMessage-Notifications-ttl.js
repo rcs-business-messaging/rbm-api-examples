@@ -17,8 +17,7 @@
 const util = require('util');
 const config = require('./config');
 const rbmApiHelper = require('@google/rcsbusinessmessaging');
-
-const {PubSub} = require('@google-cloud/pubsub');
+const RbmWebhookClient = require('@google/rbmwebhookclient');
 
 // location of service account credentials file
 const privateKeyFile =
@@ -27,43 +26,15 @@ const privateKeyFile =
 // service account credentials for Pub/Sub
 const privatekey = require(privateKeyFile);
 
-// the name of the Pub/Sub pull subscription,
-// replace with your subscription name
-const subscriptionName = 'rbm-agent-subscription';
-
-
-function initPubsub() {
-	const pubsub = new PubSub({
-		projectId: privatekey.project_id,
-		keyFilename: './resources/rbm-agent-service-account-credentials.json',
-	});
-
-	// references an existing subscription
-	const subscription = pubsub.subscription(subscriptionName);
-
-	// create an event handler to handle messages
-	const messageHandler = (message) => {
-		console.log(`Received message ${message.id}:`);
-		console.log(`\tData: ${message.data}`);
-
-		const userEvent = JSON.parse(message.data);
-
-		handleMessage(userEvent);
-
-		// "Ack" (acknowledge receipt of) the message
-		message.ack();
-	};
-
-	// Listen for new messages until timeout is hit
-	subscription.on('message', messageHandler);
-}
-
 
 function handleMessage(userEvent) {
+	console.log('Notification:');
+	console.log(
+		util.inspect(userEvent, {showHidden: false, depth: null, colors: true}));
+
 	if (userEvent.senderPhoneNumber != undefined) {
 		// get the sender's phone number
 		const msisdn = userEvent.senderPhoneNumber;
-
 
 		// parse the response text
 		const message = getMessageBody(userEvent);
@@ -91,7 +62,11 @@ function getMessageBody(userEvent) {
 }
 
 
-initPubsub();
+// Start listening for notifications.
+new RbmWebhookClient(handleMessage);
+
+rbmApiHelper.initRbmApi(privatekey);
+rbmApiHelper.setAgentId(config.agentId);
 
 // Calculate UTC time in zulu format 20 seconds from now
 const d = new Date();
@@ -99,7 +74,6 @@ const d = new Date();
 d.setSeconds(d.getSeconds()+20);
 
 const expireTime = d.toISOString();
-
 
 const params = {
 	messageText: 'This message will expire!',
@@ -109,9 +83,6 @@ const params = {
 	// alternatively we can set an expiry time
 	// expireTime: expireTime
 };
-
-rbmApiHelper.initRbmApi(privatekey);
-rbmApiHelper.setAgentId(config.agentId);
 
 rbmApiHelper.sendMessage(params,
 	function(response, err) {
