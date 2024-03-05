@@ -1,0 +1,29 @@
+{
+  "name": "@google/rbmwebhookclient",
+  "version": "1.0.0",
+  "author": "Google Inc.",
+  "engines": {
+    "node": ">=10"
+  },
+  "description": "Dev support for local testing without webhooks.",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "node src/test.js",
+    "lint": "eslint src",
+    "lint:fix": "eslint --fix --ext .js src"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:rcs-business-messaging/rbm-api-examples.git",
+    "directory": "nodejs/rbm-webhook-client"
+  },
+  "license": "Apache-2.0",
+  "dependencies": {
+    "socket.io-client": "4.7.4",
+    "uuid": "^9.0.1"
+  },
+  "devDependencies": {
+    "eslint": "^8.54.0",
+    "eslint-config-google": "^0.14.0"
+  }
+}
