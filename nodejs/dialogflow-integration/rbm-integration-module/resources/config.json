@@ -1,5 +1,6 @@
 {
     "rbm": {
+        "agentId": "<Add agentId here>",
         "webhookToken": "<Add token here>"
     },
     "dialogflow": {

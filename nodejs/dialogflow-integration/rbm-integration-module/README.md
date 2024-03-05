@@ -22,23 +22,25 @@ Prepare credentials:
 1.  Open the RBM Developer Console (https://business-communications.cloud.google.com/console/partner-console/)
     with your RBM Platform Google account and create a new RBM agent.
 
-2.  When the agent is available, click the agent's card.
+2.  In the top bar, select the **Settings** icon.
 
 3.  In the left navigation, click **Service account**.
 
-4.  Click **Create key**, then click **Create**. Your browser downloads a service account key for your agent.
+4.  Click **Create key**. Your browser downloads a service account key for your agent.
     You need this key to make RBM API calls as your agent.
 
 5. Edit `resources/rbm-agent-service-account-credentials.json` and paste the JSON key structure here.
 
 Set your configuration:
 
-1.  Edit `/resources/config.json`.
+1.  Edit `resources/config.json`.
 
 2.  Add the string you want to use for RBM webhook verification (this can be the value from the RBM console webhook
     screen or any complex string you want to use - as long as you remember the value and use it in the RBM console later).
 
-3.  Add your Dialogflow model information. You can find this information in the URL to your Dialogflow agent: 
+3.  Add your agentId (the part before the `@rbm.goog`).
+
+4.  Add your Dialogflow model information. You can find this information in the URL to your Dialogflow agent: 
     `https://dialogflow.cloud.google.com/cx/projects/PROJECTID/locations/LOCATION/agents/AGENTID/intents`
 
 
@@ -78,7 +80,7 @@ You may be prompted to enable additional APIs in your GCP project. Select `y` to
 
 Note the **Service URL** - you will need this later.
 
-As a sanity check, open the URL in your browser to confirm you do not receive a `400 FORBIDDEN` response - this would indicate
+As a sanity check, open this URL in your browser to confirm you do not receive a `400 FORBIDDEN` response - this would indicate
 you can not configure this service for [unauthenticated access](https://cloud.google.com/run/docs/authenticating/public)
 and you will need to deploy in AppEngine.
 
@@ -104,26 +106,24 @@ gcloud app deploy
 
 Having configured and deployed the integration model in the steps above:
 
-Complete RBM configuration by validating your webhook:
+Complete RBM configuration by validating your webhook - we are using the Agent-level webhook here:
 
 1. Open the RBM Developer Console (https://business-communications.cloud.google.com/console/partner-console/)
 with your RBM Platform Google account and create a new RBM agent.
 
 2. Select your RBM agent.
 
-3. In the left navigation, click **Interactions**.
+3. In the left navigation, click **Integrations**.
 
-4. Click either **Cloud Pub/Sub** or **Webhook**.
+4. Click **Webhook** and **Settings**.
 
-5. Click **Edit subscription**.
+5. Enter the URL you noted from the deployment step above.
 
-6. Select **Push** and **Edit**.
+6. Enter the token you used in your configuration file above (or copy the token displayed, add it to your config file and redeploy).
 
-7. Enter the URL you noted from the deployment step above.
+7. Select **Verify**.
 
-8. Enter the token you used in your configuration file above (or copy the token displayed, add it to your config file and redeploy).
-
-9. Select **Verify** and **Save** once this completes successfully.
+If all is well you will see the **Webhook updated** notification.
 
 Ensure Dialogflow can be called by the integration model.
 
@@ -147,20 +147,6 @@ one containing your Dialogflow agent:
 
 You will now see this message on your device. Keep this conversation in your history - any messages you
 enter here will now go to your Dialogflow agent and you will receive the response.
-
-
-### Testing locally
-
-This module can be run locally and will use the RBM pull subscription model. Make sure you have set your
-RBM integraton mode to **Pull** otherwise notifications will be sent to any hosted version currently
-listening on a webhook.
-
-Install dependencies and run locally with these commands:
-
-```
-npm install
-npm start
-```
 
 
 ## Dialogflow custom payload templates
@@ -207,6 +193,10 @@ The current implementation only forwards text RBM messages to the Dialogflow age
 to extend `processRbmEvent` in `server.js` - or contact us.
 
 ## Release notes
+
+**v3**
+
+- updated for the partner-based RBM model launched in Feb 2024.
 
 **v2**
 

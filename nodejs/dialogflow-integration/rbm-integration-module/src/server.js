@@ -21,12 +21,10 @@ const {SessionsClient} = require('@google-cloud/dialogflow-cx');
 
 const dialogflowHelper = require('./dialogflowHelper');
 const rbmApiHelper = require('@google/rcsbusinessmessaging');
+//const RbmWebhookClient = require('@google/rbmwebhookclient');
 const privateKeyFile =
 	'../resources/rbm-agent-service-account-credentials.json';
 const privateKey = require(privateKeyFile);
-
-rbmApiHelper.initRbmApi(privateKey);
-
 
 const app = express();
 const sessionsClient = new SessionsClient();
@@ -36,6 +34,11 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 // load configuration file
 const config = require('../resources/config.json');
+
+
+rbmApiHelper.initRbmApi(privateKey);
+rbmApiHelper.setAgentId(config.rbm.agentId);
+
 
 const listener = app.listen(process.env.PORT, function() {
 	console.log('Your RBM integration server is listening on port ' +
@@ -96,15 +99,18 @@ process.on('SIGTERM', () => {
 function processRbmEvent(rbmEvent) {
 	// We will ignore non user events. Actual user messages do not have
 	// an eventType
-	if ((rbmEvent.senderPhoneNumber != undefined) &&
-        (rbmEvent.eventType == undefined)) {
-		const messageId = rbmEvent.messageId;
-		const msisdn = rbmEvent.senderPhoneNumber;
+	console.log(rbmEvent);
+	if (rbmEvent.hasOwnProperty('senderPhoneNumber')) {
 
-		// send a read receipt
+		// We are not interested in events that are not user messages.
+		if (rbmEvent.hasOwnProperty('eventType')) return;
+
+		const msisdn = rbmEvent.senderPhoneNumber;
+		const messageId = rbmEvent.messageId;
+
 		rbmApiHelper.sendReadMessage(msisdn, messageId);
 
-		if (rbmEvent.text) {
+		if (rbmEvent.text) {			
 			rbmApiHelper.sendIsTypingMessage(msisdn);
 			invokeDialogflow(msisdn, rbmEvent.text);
 			return;
@@ -163,6 +169,8 @@ function handleDialogflowResponse(msisdn, response) {
 	for (const message of response.queryResult.responseMessages) {
 		const m = dialogflowHelper.parseStruct(message);
 
+		console.log(response);
+
 		// Initially only supporting text reponses
 		if (m.message == 'text') {
 			const p = {
@@ -192,30 +200,4 @@ function handleDialogflowResponse(msisdn, response) {
 			}
 		}
 	}
-}
-
-
-// Use PubSub rather than the webhook when not deployed in Google Cloud.
-// This is to allow local development and testing.
-if (process.env.GOOGLE_CLOUD_PROJECT == undefined) {
-	const {PubSub} = require('@google-cloud/pubsub');
-
-	const pubsub = new PubSub({
-		projectId: privateKey.project_id,
-		keyFilename: './resources/rbm-agent-service-account-credentials.json',
-	});
-
-	// references an existing subscription
-	const subscription = pubsub.subscription('rbm-agent-subscription');
-
-	// create an event handler to handle messages
-	const messageHandler = (message) => {
-		const userEvent = JSON.parse(message.data);
-		processRbmEvent(userEvent);
-
-		message.ack();
-	};
-
-	// Listen for new messages until timeout is hit
-	subscription.on('message', messageHandler);
 }
