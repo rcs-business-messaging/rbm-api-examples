@@ -16,38 +16,27 @@ The documentation for the RCS Business Messaging API can be found [here](https:/
 
 1.  [Register with RCS Business Messaging](https://developers.google.com/business-communications/rcs-business-messaging/guides/get-started/register-partner).
 
-### Using the client library
+### Adding a dependency
 
-```javascript
-const SERVICE_ACCOUNT_PUBLIC_KEY = 'REPLACE_ME';
+Add the following to the dependencies section in your `package.json `:
 
-// Get the RCS Business Messaging client library helper
-const rbmApiHelper = require('@google/rcsbusinessmessaging');
-
-rbmApiHelper.initRbmApi(SERVICE_ACCOUNT_PUBLIC_KEY);
-
-/**
- * Posts a message of "Hello, World!" to the RCS Business Messaging API.
- *
- * @param {string} phoneNumber An RCS-enabled device.
- */
-async function sendMessage(phoneNumber) {
-  rbmApiHelper.sendMessage({
-    messageText: 'Hello, World!',
-    msisdn: phoneNumber
-  });
-}
-
-sendMessage('valid-rcs-enabled-phone-number');
+```
+"dependencies": {
+  ...
+  "@google/rcsbusinessmessaging": "^1.0.7"
+  ...
+},
 ```
 
-## Partner-based RBM model
+We recommend you use the latest version available
+in the [npm repository](https://www.npmjs.com/package/@google/rcsbusinessmessaging).
 
-This helper library now supports the partner-based RBM model where there
-is one Service Account for all agents that a developer creates. In this
-model, the agent id must be sent with each API call. If your developer
-account is set up for this model then you should add an additional call
-when initialising the library:
+## Sample usage
+
+Samples below assume a similar library initialization as shown in the [Using the client library](https://github.com/rcs-business-messaging/rbm-api-examples/tree/master/nodejs/rbm-api-helper#using-the-client-library) section.
+
+### Initialisation
+You initialise the library by providing your service account key and agentId.
 
 ```javascript
 const SERVICE_ACCOUNT_PUBLIC_KEY = 'REPLACE_ME';
@@ -58,10 +47,6 @@ const rbmApiHelper = require('@google/rcsbusinessmessaging');
 rbmApiHelper.initRbmApi(SERVICE_ACCOUNT_PUBLIC_KEY);
 rbmApiHelper.setAgentId('myrbmagent'); // my agent id was myrbmagent@rbm.goog
 ```
-
-## Sample usage
-
-Samples below assume a similar library initialization as shown in the [Using the client library](https://github.com/rcs-business-messaging/rbm-api-examples/tree/master/nodejs/rbm-api-helper#using-the-client-library) section.
 
 ### Sending a text message
 
