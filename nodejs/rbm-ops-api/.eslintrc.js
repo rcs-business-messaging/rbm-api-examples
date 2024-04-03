@@ -12,13 +12,15 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-const config = {
-	brandDisplayName: 'MyBrand',
-
-	// Carrier to launch our new agent on. These are retrieved
-	// with src/regions/list.js
-	launchCarrier: '/v1/regions/dogfood-eu-prod',
-	launchCarrier2: '/v1/regions/carrier2'
+module.exports = {
+	'extends': 'google',
+	'env': {
+		'es6': true,
+		'node': true,
+	},
+	'rules': {
+		'indent': [2, 'tab'],
+		'no-tabs': 0,
+		'require-jsdoc': 0,
+	},
 };
-
-module.exports = config;

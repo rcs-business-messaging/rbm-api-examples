@@ -15,11 +15,19 @@
 'use strict';
 
 const businessCommunicationsApiHelper =
-    require('../../libs/businesscommunications_api_helper');
+    require('@google/rbm-businesscommunications');
+
+const privateKey =
+	require('../../resources/businesscommunications-service-account-credentials.json');
+
+businessCommunicationsApiHelper.initBusinessCommunucationsApi(privateKey);
 
 businessCommunicationsApiHelper.listRegions().then((response) => {
 	console.log('Current regions are:');
-	console.log(response.data);
+	for (let i=0; i<response.data.regions.length; i++) {
+		console.log(response.data.regions[i]);
+	}
+	// console.log(response.data);
 }).catch((err) => {
 	console.log(err);
 });

@@ -15,7 +15,12 @@
 'use strict';
 
 const businessCommunicationsApiHelper =
-    require('../../libs/businesscommunications_api_helper');
+    require('@google/rbm-businesscommunications');
+
+const privateKey =
+	require('../../resources/businesscommunications-service-account-credentials.json');
+
+businessCommunicationsApiHelper.initBusinessCommunucationsApi(privateKey);
 
 const datastore = require('../support/datastore');
 

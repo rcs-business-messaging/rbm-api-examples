@@ -12,24 +12,23 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+// Update an agents launch status.
+// See https://developers.google.com/business-communications/rcs-business-messaging/reference/business-communications/rest/v1/brands.agents/updateLaunch
+
 'use strict';
 
 const businessCommunicationsApiHelper =
     require('@google/rbm-businesscommunications');
 
 const privateKey =
-	require('../../resources/businesscommunications-service-account-credentials.json');
+	require('../resources/businesscommunications-service-account-credentials.json');
 
 businessCommunicationsApiHelper.initBusinessCommunucationsApi(privateKey);
 
-const datastore = require('../support/datastore');
+const agentId = '<agent Id>';
 
-// Load existing brand previous created create.js'
-const brand = datastore.loadJsonData('brand');
-
-businessCommunicationsApiHelper.deleteBrand(brand.name).then((response) => {
-	console.log('Current brands available are:');
-	console.log(response.data);
-}).catch((err) => {
-	console.log(err);
-});
+businessCommunicationsApiHelper
+	.updateAgentLaunchState(agentId, 'LAUNCH_STATE_LAUNCHED').then((response) => {
+		console.log('Updated launch details are:');
+		console.log(JSON.stringify(response.data, null, 2));
+	});

@@ -15,7 +15,12 @@
 'use strict';
 
 const businessCommunicationsApiHelper =
-	require('../../libs/businesscommunications_api_helper');
+    require('@google/rbm-businesscommunications');
+
+const privateKey =
+	require('../../resources/businesscommunications-service-account-credentials.json');
+
+businessCommunicationsApiHelper.initBusinessCommunucationsApi(privateKey);
 
 const config = require('../../config');
 const datastore = require('../support/datastore');
@@ -47,17 +52,17 @@ const agentLaunch = {
 
 	},
 
-	// This is an interconnect launch - where one carrier approves the agent 
+	// This is an interconnect launch - where one carrier approves the agent
 	// across multiple carriers in the same country.
 	// - in each country there are primary carriers who can approve agents
 	//   to deliver to other carriers in that country
 	// - you should only list one primary carrier per country
 	// - you may list multiple primary carriers as long as they are for separate countries
 	// - you will receive a 400 with error message if these rules are not met
-    interconnectLaunchDetails: {
+	interconnectLaunchDetails: {
 		'/v1/regions/primary-carrier-country1': {},
-		'/v1/regions/primary-carrier-country2': {}
-	}
+		'/v1/regions/primary-carrier-country2': {},
+	},
 };
 
 businessCommunicationsApiHelper.launchAgent(agent.name, agentLaunch)

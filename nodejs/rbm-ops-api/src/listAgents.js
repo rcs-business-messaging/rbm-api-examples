@@ -12,34 +12,25 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+// Retrieve the list of RBM agents submitted for launch to this carrier.
+// See https://developers.google.com/business-communications/rcs-business-messaging/reference/business-communications/rest/v1/brands.agents/list
+
 'use strict';
 
 const businessCommunicationsApiHelper =
     require('@google/rbm-businesscommunications');
 
 const privateKey =
-	require('../../resources/businesscommunications-service-account-credentials.json');
+	require('../resources/businesscommunications-service-account-credentials.json');
 
 businessCommunicationsApiHelper.initBusinessCommunucationsApi(privateKey);
 
-const datastore = require('../support/datastore');
+// Providing a '-' for the brand id returns a list of all agents that
+// have been sent to this carrier for approval and launch.
+businessCommunicationsApiHelper.listAgents('brands/-').then((response) => {
+	console.log('Current agents are:');
+	console.log(response.data);
+}).catch((err) => {
+	console.log(err);
+});
 
-// Load existing agent previously created by agents/create.js'
-const agent = datastore.loadJsonData('agent');
-
-const agentVerificationContact = {
-	partnerName: 'Alice',
-	partnerEmailAddress: 'alice@thepartner.com',
-	brandContactName: 'Bob',
-	brandContactEmailAddress: 'bob@thebrand.com',
-	brandWebsiteUrl: 'https://thebrand.com/',
-};
-
-businessCommunicationsApiHelper
-	.verifyAgent(agent.name, agentVerificationContact)
-	.then((response) => {
-		console.log('Verification details are:');
-		console.log(JSON.stringify(response.data, null, 2));
-	}).catch((err) => {
-		console.log(err);
-	});

@@ -13,15 +13,13 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// set the private key to the service account file
-const privatekey = require(__dirname +
-	'/../resources/businesscommunications-service-account-credentials.json');
-
 // Business Communications API library reference object
 let bizCommsApi = false;
 
 // JWT cloud authentication reference object
 let authClient = false;
+
+let privatekey = null;
 
 // wrapper object for interacting with the Business Communications API
 const businessCommunicationsApiHelper = {
@@ -118,6 +116,33 @@ const businessCommunicationsApiHelper = {
 		});
 	},
 
+		/**
+     * Update agent launch state (RBM Ops API).
+	 * @param {string} agentId The agent Id (before @rbm.goog)
+	 * @param {string} launchState New launch state
+     * @return {Promise} Resolves on request completion.
+	 * result.data contains the updated launch
+     */
+	updateAgentLaunchState: function(agentId, launchState) {
+		return new Promise((resolve, reject) => {
+			this.initBusinessCommunucationsApi().then((params) => {
+				params.name = 'brands/-/agents/' + agentId + '/launch';
+				params.resource = {
+					rcsBusinessMessaging: {
+						launchDetails: {
+							'': {
+						  		launchState: launchState
+							}
+					  	}
+					}
+				  };
+				bizCommsApi.brands.agents.updateLaunch(params, {}, function(err, response) {
+					err ? reject(err) : resolve(response);
+				});
+			});
+		});
+	},
+
 	/**
      * List all the regions available for launches.
      * @return {Promise} Resolves on request completion.
@@ -187,40 +212,24 @@ const businessCommunicationsApiHelper = {
 	},
 
 	/**
-     * Delete an agent.
-	 * @param {string} name The agent identifier
-     * @return {Promise} Resolves on request completion.
-	 * result contains full response
-     */
-	 deleteAgent: function(name) {
-		return new Promise((resolve, reject) => {
-			this.initBusinessCommunucationsApi().then((params) => {
-				params.name = name;
-				bizCommsApi.brands.agents.delete(params, {}, function(err, response) {
-					err ? reject(err) : resolve(response);
-				});
-			});
-		});
-	},
-
-	/**
      * Verify an agent.
 	 * @param {string} name The agent id
 	 * @param {object} verificationContact Verification contact information
      * @return {Promise} Resolves on request completion.
-	 * result.data contains the agent verification info with 
+	 * result.data contains the agent verification info with
 	 * verificationState = 'VERIFICATION_STATE_UNVERIFIED'.
      */
-	 verifyAgent: function(name, verificationContact) {
+	verifyAgent: function(name, verificationContact) {
 		return new Promise((resolve, reject) => {
 			this.initBusinessCommunucationsApi().then((params) => {
 				params.name = name;
 				params.resource = {
-					agentVerificationContact: verificationContact
+					agentVerificationContact: verificationContact,
 				};
-				bizCommsApi.brands.agents.requestVerification(params, {}, function(err, response) {
-					err ? reject(err) : resolve(response);
-				});
+				bizCommsApi.brands.agents.requestVerification(params, {},
+					function(err, response) {
+						err ? reject(err) : resolve(response);
+					});
 			});
 		});
 	},
@@ -229,16 +238,17 @@ const businessCommunicationsApiHelper = {
      * Retrieve agent verification status.
 	 * @param {string} name The agent id
      * @return {Promise} Resolves on request completion.
-	 * result.data contains the agent verification info with 
+	 * result.data contains the agent verification info with
 	 * verificationState = 'VERIFICATION_STATE_UNVERIFIED'.
      */
-	 getAgentVerification: function(name) {
+	getAgentVerification: function(name) {
 		return new Promise((resolve, reject) => {
 			this.initBusinessCommunucationsApi().then((params) => {
 				params.name = name + '/verification';
-				bizCommsApi.brands.agents.getVerification(params, {}, function(err, response) {
-					err ? reject(err) : resolve(response);
-				});
+				bizCommsApi.brands.agents.getVerification(params, {},
+					function(err, response) {
+						err ? reject(err) : resolve(response);
+					});
 			});
 		});
 	},
@@ -248,21 +258,22 @@ const businessCommunicationsApiHelper = {
 	 * @param {string} name The agent id
 	 * @param {object} agentLaunch Launch information
      * @return {Promise} Resolves on request completion.
-	 * result.data contains the agent verification info with 
+	 * result.data contains the agent verification info with
 	 * verificationState = 'VERIFICATION_STATE_UNVERIFIED'.
      */
-	 launchAgent: function(name, agentLaunch) {
+	launchAgent: function(name, agentLaunch) {
 		return new Promise((resolve, reject) => {
 			this.initBusinessCommunucationsApi().then((params) => {
 				params.name = name;
 				params.resource = {
 					agentLaunch: {
-						rcsBusinessMessaging: agentLaunch
-					}
+						rcsBusinessMessaging: agentLaunch,
+					},
 				};
-				bizCommsApi.brands.agents.requestLaunch(params, {}, function(err, response) {
-					err ? reject(err) : resolve(response);
-				});
+				bizCommsApi.brands.agents.requestLaunch(params, {},
+					function(err, response) {
+						err ? reject(err) : resolve(response);
+					});
 			});
 		});
 	},
@@ -270,12 +281,12 @@ const businessCommunicationsApiHelper = {
 	/**
      * Update an agent launch.
 	 * @param {string} name The agent id
-	 * @param {object} mask The update mask 
+	 * @param {object} updateMask The update mask
 	 * @param {object} updatedLaunch Updated launch information
      * @return {Promise} Resolves on request completion.
 	 * result.data contains the updated agent launch info.
      */
-	 updateLaunch: function(name, updateMask, updatedLaunch) {
+	updateLaunch: function(name, updateMask, updatedLaunch) {
 		return new Promise((resolve, reject) => {
 			this.initBusinessCommunucationsApi().then((params) => {
 				params.name = name + '/launch';
@@ -283,12 +294,13 @@ const businessCommunicationsApiHelper = {
 				params.resource = {
 				//	agent_launch: {
 				//	name:name,
-						rcsBusinessMessaging: updatedLaunch
+					rcsBusinessMessaging: updatedLaunch,
 				//	}
 				};
-				bizCommsApi.brands.agents.updateLaunch(params, {}, function(err, response) {
-					err ? reject(err) : resolve(response);
-				});
+				bizCommsApi.brands.agents.updateLaunch(params, {},
+					function(err, response) {
+						err ? reject(err) : resolve(response);
+					});
 			});
 		});
 	},
@@ -297,16 +309,17 @@ const businessCommunicationsApiHelper = {
      * Retrieve agent launch status.
 	 * @param {string} name The agent id
      * @return {Promise} Resolves on request completion.
-	 * result.data contains the agent verification info with 
+	 * result.data contains the agent verification info with
 	 * verificationState = 'VERIFICATION_STATE_UNVERIFIED'.
      */
 	getAgentLaunch: function(name) {
 		return new Promise((resolve, reject) => {
 			this.initBusinessCommunucationsApi().then((params) => {
 				params.name = name + '/launch';
-				bizCommsApi.brands.agents.getLaunch(params, {}, function(err, response) {
-					err ? reject(err) : resolve(response);
-				});
+				bizCommsApi.brands.agents.getLaunch(params, {},
+					function(err, response) {
+						err ? reject(err) : resolve(response);
+					});
 			});
 		});
 	},
@@ -317,21 +330,22 @@ const businessCommunicationsApiHelper = {
 	 * @param {string} url Webhook URL
 	 * @param {string} verificationToken Token passed to webhook to verify it
      * @return {Promise} Resolves on request completion.
-	 * result.data contains 
+	 * result.data contains
      */
-	 createWebhookIntegration: function(name, url, verificationToken) {
+	createWebhookIntegration: function(name, url, verificationToken) {
 		return new Promise((resolve, reject) => {
 			this.initBusinessCommunucationsApi().then((params) => {
 				params.parent = name;
 				params.resource = {
 					agentWebhookIntegration: {
 						webhookUri: url,
-						verification_token: verificationToken
-					}
+						verification_token: verificationToken,
+					},
 				};
-				bizCommsApi.brands.agents.integrations.create(params, {}, function(err, response) {
-					err ? reject(err) : resolve(response);
-				});
+				bizCommsApi.brands.agents.integrations.create(params, {},
+					function(err, response) {
+						err ? reject(err) : resolve(response);
+					});
 			});
 		});
 	},
@@ -342,13 +356,14 @@ const businessCommunicationsApiHelper = {
      * @return {Promise} Resolves on request completion.
 	 * result.data contains the array of current integrations
      */
-	 listAgentIntegrations: function(name) {
+	listAgentIntegrations: function(name) {
 		return new Promise((resolve, reject) => {
 			this.initBusinessCommunucationsApi().then((params) => {
 				params.parent = name;
-				bizCommsApi.brands.agents.integrations.list(params, {}, function(err, response) {
-					err ? reject(err) : resolve(response);
-				});
+				bizCommsApi.brands.agents.integrations.list(params, {},
+					function(err, response) {
+						err ? reject(err) : resolve(response);
+					});
 			});
 		});
 	},
@@ -359,13 +374,14 @@ const businessCommunicationsApiHelper = {
      * @return {Promise} Resolves on request completion.
 	 * result.data contains empty object
      */
-	 deleteAgentIntegration: function(name) {
+	deleteAgentIntegration: function(name) {
 		return new Promise((resolve, reject) => {
 			this.initBusinessCommunucationsApi().then((params) => {
 				params.name = name;
-				bizCommsApi.brands.agents.integrations.delete(params, {}, function(err, response) {
-					err ? reject(err) : resolve(response);
-				});
+				bizCommsApi.brands.agents.integrations.delete(params, {},
+					function(err, response) {
+						err ? reject(err) : resolve(response);
+					});
 			});
 		});
 	},
@@ -380,9 +396,10 @@ const businessCommunicationsApiHelper = {
 		return new Promise((resolve, reject) => {
 			this.initBusinessCommunucationsApi().then((params) => {
 				params.name = name;
-				bizCommsApi.brands.agents.integrations.get(params, {}, function(err, response) {
-					err ? reject(err) : resolve(response);
-				});
+				bizCommsApi.brands.agents.integrations.get(params, {},
+					function(err, response) {
+						err ? reject(err) : resolve(response);
+					});
 			});
 		});
 	},
@@ -390,11 +407,17 @@ const businessCommunicationsApiHelper = {
 	/**
      * Initializes the Business Communications API and authentication
      * credentials to communicate with the RBM platform.
-     * @param {function} callback Callback method for after
-     * the method is complete.
+     * @param {string} privateKey - path to private key file.
 	 * @return {Promise} Resolves on request completion.
      */
-	initBusinessCommunucationsApi: function() {
+	initBusinessCommunucationsApi: function(privateKey=null) {
+		if (privateKey != null) {
+			privatekey = privateKey;
+		}
+		if (privatekey == null) {
+			throw new Error('Library not initialised. Call initBusinessCommunucationsApi with api key filename first.');
+		}
+
 		return new Promise((resolve, reject) => {
 			if (authClient) {
 				resolve({auth: authClient});
@@ -411,7 +434,7 @@ const businessCommunicationsApiHelper = {
 
 			// get the Business Communications API file
 			const businesscommunucations =
-				require(__dirname + '/../businesscommunications/v1');
+				require(__dirname + '/businesscommunications/v1');
 
 			// configure a JWT auth client
 			authClient = new google.auth.JWT(

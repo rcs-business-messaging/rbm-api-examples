@@ -15,7 +15,12 @@
 'use strict';
 
 const businessCommunicationsApiHelper =
-	require('../../libs/businesscommunications_api_helper');
+    require('@google/rbm-businesscommunications');
+
+const privateKey =
+	require('../../resources/businesscommunications-service-account-credentials.json');
+
+businessCommunicationsApiHelper.initBusinessCommunucationsApi(privateKey);
 
 const config = require('../../config');
 const datastore = require('../support/datastore');
@@ -28,11 +33,11 @@ const agentLaunch = {
 		contacts: [
 			{
 				name: 'Ian',
-				title: 'The Boss',
-				email: 'someone@somewhere.com',
+				title: 'The blah',
+				email: 'updated@somewhere.com',
 			},
 		],
-		optinDescription: 'Users accepted our terms of service online.',
+		optinDescription: 'Updated.',
 		triggerDescription: 'We are reaching preregistered users',
 		interactionsDescription: 'This agent does not do much.',
 		optoutDescription: 'Reply stop and we stop.',
@@ -46,10 +51,14 @@ const agentLaunch = {
 		],
 
 	},
-	launchDetails: {},
-};
 
-agentLaunch.launchDetails[config.launchCarrier] = null;
+	// Define this for regular launches towards 1 or more carriers.
+	launchDetails: {
+		'/v1/regions/acarrier': {
+			launchState: 'LAUNCH_STATE_PENDING',
+		},
+	},
+};
 
 businessCommunicationsApiHelper.launchAgent(agent.name, agentLaunch)
 	.then((response) => {

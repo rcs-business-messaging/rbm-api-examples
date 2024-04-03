@@ -15,11 +15,17 @@
 'use strict';
 
 const businessCommunicationsApiHelper =
-	require('../../libs/businesscommunications_api_helper');
+    require('@google/rbm-businesscommunications');
+
+const privateKey =
+	require('../../resources/businesscommunications-service-account-credentials.json');
+
+businessCommunicationsApiHelper.initBusinessCommunucationsApi(privateKey);
 
 const config = require('../../config');
 const datastore = require('../support/datastore');
 
+console.time('createBrand');
 businessCommunicationsApiHelper.createBrand(config.brandDisplayName)
 	.then((response) => {
 		console.log('The new brand is:');
@@ -27,4 +33,6 @@ businessCommunicationsApiHelper.createBrand(config.brandDisplayName)
 		datastore.saveJsonData('brand', response.data);
 	}).catch((err) => {
 		console.log(err);
+	}).finally((response) => {
+		console.timeEnd('createBrand');
 	});

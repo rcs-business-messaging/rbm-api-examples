@@ -15,7 +15,12 @@
 'use strict';
 
 const businessCommunicationsApiHelper =
-    require('../../libs/businesscommunications_api_helper');
+    require('@google/rbm-businesscommunications');
+
+const privateKey =
+	require('../../resources/businesscommunications-service-account-credentials.json');
+
+businessCommunicationsApiHelper.initBusinessCommunucationsApi(privateKey);
 
 const datastore = require('../support/datastore');
 
@@ -27,7 +32,7 @@ const brandId = brand.name;
 
 // See https://developers.google.com/business-communications/rcs-business-messaging/early-access/reference/business-communications/rest/v1/brands.agents#rcsbusinessmessagingagent
 const newAgentDetails = {
-	displayName: 'My new agent',
+	displayName: 'Relaunch test',
 	name: brandId + '/agents/',
 	rcsBusinessMessagingAgent: {
 		description: 'This is the agent description that will be displayed in ' +

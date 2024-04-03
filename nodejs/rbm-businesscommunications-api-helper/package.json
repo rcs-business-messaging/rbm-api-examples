@@ -1,0 +1,29 @@
+{
+  "name": "@google/rbm-businesscommunications",
+  "version": "1.0",
+  "author": "Google Inc.",
+  "engines": {
+    "node": ">=10"
+  },
+  "description": "Node.js helper library for the Business Communications API for RBM",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint src",
+    "lint:fix": "eslint --fix --ext .js src"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:rcs-business-messaging/rbm-api-examples.git",
+    "directory": "nodejs/rbm-businesscommunications-api-helper"
+  },
+  "license": "Apache-2.0",
+  "dependencies": {
+    "googleapis": "^134.0.0",
+    "googleapis-common": "^7.0.1"
+  },
+  "devDependencies": {
+    "eslint": "^8.54.0",
+    "eslint-config-google": "^0.14.0"
+  }
+}

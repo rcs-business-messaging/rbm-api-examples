@@ -450,6 +450,7 @@ var businesscommunications_v1;
                 pathParams: ['name'],
                 context: this.context,
             };
+            console.log(parameters);
             if (callback) {
                 (0, googleapis_common_1.createAPIRequest)(parameters, callback);
             }
