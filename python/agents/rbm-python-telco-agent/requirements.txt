@@ -1,5 +1,5 @@
 Flask==2.3.3
-gunicorn==21.2.0
+gunicorn==22.0.0
 httplib2==0.22.0
 emoji
 oauth2client
