@@ -49,11 +49,8 @@ import java.util.logging.Logger;
  * Parses the user's response and echos it in a new message.
  */
 public class FirstAgent {
-    // Provide your agent id (the part before @rbm.goog) if you are using the new RBM
-    // partner-based model. You will need to set PARTNERMODEL to true.
-    private static final String AGENTID = "my_new_agent_vkkv5eld_agent";
-
-    private static final boolean PARTNERMODEL = true;
+    // Provide your agent id (the part before @rbm.goog).
+    private static final String AGENTID = "<AGENT ID HERE>";
 
     private static final Logger logger = Logger.getLogger(FirstAgent.class.getName());
 
@@ -78,18 +75,19 @@ public class FirstAgent {
 
         this.msisdn = msisdn;
 
-        // initialize pub/sub for pull monitoring
-        if (!PARTNERMODEL) initPubSub("rbm-agent-service-account-credentials.json");
-
-        // initialize the API helper
+        // Initialize the API helper - with option to specify regional endpoint
+        // if required.
         this.rbmApiHelper = new RbmApiHelper();
+        // this.rbmApiHelper = new RbmApiHelper(RbmApiHelper.REGION_APAC);
+        // this.rbmApiHelper = new RbmApiHelper(RbmApiHelper.REGION_US);
+        // this.rbmApiHelper = new RbmApiHelper(RbmApiHelper.REGION_EU);
 
-        if (PARTNERMODEL) this.rbmApiHelper.setAgentId(this.AGENTID);
+        this.rbmApiHelper.setAgentId(this.AGENTID);
     }
 
     /**
-     * Creates a MessageReceiver handler for pulling new messages from
-     * the pubsub subscription.
+     * PubSub pull is no longer supported - use webhooks. T
+     * This method is retained for reference.
      *
      * @return The MessageReceiver listener.
      */
@@ -237,10 +235,6 @@ public class FirstAgent {
         }
     }
 
-    public void endSubscription() {
-        if (!PARTNERMODEL) this.subscriber.stopAsync();
-    }
-
     /**
      * Sends a user an invite to test this agent.
      */
@@ -298,9 +292,6 @@ public class FirstAgent {
 
                 logger.info("Tester invite sent to " + msisdn);
             }
-
-            firstAgent.endSubscription();
-
         } catch (Exception e) {
             e.printStackTrace();
         }

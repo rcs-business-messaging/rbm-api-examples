@@ -47,12 +47,18 @@ import java.util.logging.Logger;
  * Helper class for using the RBM API.
  */
 public class RbmApiHelper {
+    public static final String REGION_US = "us-";
+
+    public static final String REGION_EU = "europe-";
+
+    public static final String REGION_APAC = "asia-";
+
     private static final Logger logger = Logger.getLogger(RbmApiHelper.class.getName());
 
     private static final String EXCEPTION_WAS_THROWN = "an exception was thrown";
 
     // the URL for the API endpoint
-    private static final String RBM_API_URL = "https://rcsbusinessmessaging.googleapis.com/";
+    private static final String RBM_API_URL = "https://%srcsbusinessmessaging.googleapis.com/";
 
     // credentials used for RBM agent API
     private GoogleCredentials credentials;
@@ -63,13 +69,21 @@ public class RbmApiHelper {
     // Partner based model agentId
     private String agentId = "";
 
+    protected String region = "";
+
     public RbmApiHelper() {
+        this("");
+    }
+
+
+    public RbmApiHelper(String region) {
         String credentialsFileLocation = "rbm-agent-service-account-credentials.json";
 
         // initialize all libraries for sending and receiving messages
         initCredentials(credentialsFileLocation);
-        initRbmApi();
+        initRbmApi(region);
     }
+
 
     /**
      * Set the agent id when using the partner-based RBM model where all agents share
@@ -104,7 +118,9 @@ public class RbmApiHelper {
     /**
      * Initializes the RBM api object.
      */
-    private void initRbmApi() {
+    private void initRbmApi(String region) {
+        String apiUrl = String.format(RBM_API_URL, region);
+
         try {
             HttpTransport httpTransport = GoogleNetHttpTransport.newTrustedTransport();
             GsonFactory gsonFactory = GsonFactory.getDefaultInstance();
@@ -116,7 +132,7 @@ public class RbmApiHelper {
 
             // set the API credentials and endpoint
             builder.setHttpRequestInitializer(new HttpCredentialsAdapter(credentials));
-            builder.setRootUrl(RBM_API_URL);
+            builder.setRootUrl(apiUrl);
         } catch(Exception e) {
             logger.log(Level.SEVERE, EXCEPTION_WAS_THROWN, e);
         }
@@ -186,6 +202,42 @@ public class RbmApiHelper {
             logger.log(Level.SEVERE, EXCEPTION_WAS_THROWN, e);
 
            return false;
+        }
+    }
+
+    /**
+     * Checks a list of phone numbers and returns which are reachable by RBM.
+     * @see https://developers.google.com/business-communications/rcs-business-messaging/reference/rest/v1/users/batchGet
+     * @param msisdns List of phone numbers in E.164 format.
+     * @return True if the device is RCS enabled.
+     */
+    public BatchGetUsersResponse batchGet(List<String> msisdns) throws Exception {
+        BatchGetUsersRequest request = new BatchGetUsersRequest();
+
+        request.setAgentId(this.agentId);
+        request.setUsers(msisdns);
+
+        // build the request
+        RCSBusinessMessaging.Users.BatchGet batchCapCheck
+                = builder
+                .build()
+                .users()
+                .batchGet(request);
+
+        try {
+            // execute synchronous batch user check and log the result
+            String jsonResponse = batchCapCheck.execute().toString();
+            logger.info(jsonResponse);
+
+            Gson gson = new Gson();
+            Type type =  new TypeToken<BatchGetUsersResponse>(){}.getType();
+            BatchGetUsersResponse resp = gson.fromJson(jsonResponse, type);
+
+            return resp;
+        } catch(GoogleJsonResponseException e) {
+            logger.log(Level.SEVERE, EXCEPTION_WAS_THROWN, e);
+
+           return null;
         }
     }
 

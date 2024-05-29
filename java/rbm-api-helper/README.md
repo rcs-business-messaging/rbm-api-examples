@@ -24,7 +24,7 @@ in the Maven repositories. Add the following to you `pom.xml`:
 <dependency>
   <groupId>com.google.rbm</groupId>
   <artifactId>rbm-api-helper</artifactId>
-  <version>1.0.0</version>
+  <version>1.0.1</version>
 </dependency>
 ```
 
@@ -51,11 +51,19 @@ Explore the Java samples in `../agents` to see how the helper library is used.
 Some examples of using the helper library:
 
 ### Initialisation
+Since release 1.0.1, can optionally initialise the library to use a specific regional endpoint.
+
+You also need to specify the agent id (without `@rbm.goog`) you are representing.
 
 ```java
 import com.google.rbm.RbmApiHelper;
 
 rbmApiHelper = new RbmApiHelper();
+// rbmApiHelper = new RbmApiHelper(RbmApiHelper.REGION_APAC);
+// rbmApiHelper = new RbmApiHelper(RbmApiHelper.REGION_US);
+// rbmApiHelper = new RbmApiHelper(RbmApiHelper.REGION_EU);
+
+rbmApiHelper.setAgentId("myagentid");
 ```
 
 ### Registering a tester
@@ -76,21 +84,6 @@ try {
 } catch (IOException e) {
   e.printStackTrace();
 }
-```
-
-## Partner-based RBM model
-
-This helper library now supports the partner-based RBM model where there
-is one Service Account for all agents that a developer creates. In this
-model, the agent id must be sent with each API call. If your developer
-account is set up for this model then you should add an additional call
-when initialising the library:
-
-```java
-import com.google.rbm.RbmApiHelper;
-
-rbmApiHelper = new RbmApiHelper();
-rbmApiHelper.setAgentId("myagentid");
 ```
 
 ## Versioning
