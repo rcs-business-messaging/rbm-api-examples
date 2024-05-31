@@ -24,6 +24,40 @@ in the Maven repositories. Add the following to you `pom.xml`:
 
 (Update for the latest version).
 
+
+## Overriding the service URL
+
+The default library behaviour is to use the global API entry point which is
+`https://rcsbusinessmessaging.googleapis.com/`. For optimal performance,
+our recommendation is to use the regional API entry point closest to where your
+code is located. These entry points are:
+
+- **Europe**: `https://europe-rcsbusinessmessaging.googleapis.com/`
+- **US**: `https://us-rcsbusinessmessaging.googleapis.com/`
+- **APAC**: `https://asia-rcsbusinessmessaging.googleapis.com/`
+
+The entry point can be set at library initialisation time like this:
+
+```
+String apiUrl = "https://asia-rcsbusinessmessaging.googleapis.com/";
+
+try {
+  HttpTransport httpTransport = GoogleNetHttpTransport.newTrustedTransport();
+  GsonFactory gsonFactory = GsonFactory.getDefaultInstance();
+
+  // create instance of the RBM API
+  builder = new RCSBusinessMessaging
+    .Builder(httpTransport, gsonFactory, null)
+    .setApplicationName(((ServiceAccountCredentials) credentials).getProjectId());
+
+  // set the API credentials and endpoint
+  builder.setHttpRequestInitializer(new HttpCredentialsAdapter(credentials));
+  builder.setRootUrl(apiUrl);
+} catch(Exception e) {
+  logger.log(Level.SEVERE, EXCEPTION_WAS_THROWN, e);
+}
+```
+
 ## Local usage
 
 You can build and install a local version with:
