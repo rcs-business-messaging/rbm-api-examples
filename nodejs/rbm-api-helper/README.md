@@ -23,7 +23,7 @@ Add the following to the dependencies section in your `package.json `:
 ```
 "dependencies": {
   ...
-  "@google/rcsbusinessmessaging": "^1.0.7"
+  "@google/rcsbusinessmessaging": "^1.0.8"
   ...
 },
 ```
@@ -48,14 +48,18 @@ rbmApiHelper.initRbmApi(SERVICE_ACCOUNT_PUBLIC_KEY);
 rbmApiHelper.setAgentId('myrbmagent'); // my agent id was myrbmagent@rbm.goog
 ```
 
-### Sending a text message
+Since release 1.0.8, you can optionally initialise the library to use a
+specific regional endpoint. This may provide improved performance depending
+on the geographic location of your code.
 
 ```javascript
-// Create the payload for sending a message of "Hello, World!"
-rbmApiHelper.sendMessage({
-  messageText: 'Hello, World!',
-  msisdn: phoneNumber
-});
+rbmApiHelper.initRbmApi(privateKey);
+
+// The RBM API can now be initialised to use a specific regional
+// entry point.
+// rbmApiHelper.initRbmApi(privateKey, rbmApiHelper.REGION_APAC);
+// rbmApiHelper.initRbmApi(privateKey, rbmApiHelper.REGION_EU);
+// rbmApiHelper.initRbmApi(privateKey, rbmApiHelper.REGION_US);
 ```
 
 ### Sending a text message with suggested replies and actions

@@ -21,6 +21,14 @@ const privateKey =
 	require('../resources/rbm-agent-service-account-credentials.json');
 
 rbmApiHelper.initRbmApi(privateKey);
+
+// The RBM API can now be initialised to use a specific regional
+// entry point.
+// rbmApiHelper.initRbmApi(privateKey, rbmApiHelper.REGION_APAC);
+// rbmApiHelper.initRbmApi(privateKey, rbmApiHelper.REGION_EU);
+// rbmApiHelper.initRbmApi(privateKey, rbmApiHelper.REGION_US);
+
+
 rbmApiHelper.setAgentId(config.agentId);
 
 const params = {

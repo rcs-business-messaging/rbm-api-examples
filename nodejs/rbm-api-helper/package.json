@@ -1,6 +1,6 @@
 {
   "name": "@google/rcsbusinessmessaging",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "author": "Google Inc.",
   "engines": {
     "node": ">=10"

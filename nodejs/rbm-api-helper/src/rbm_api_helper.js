@@ -29,6 +29,7 @@ let agentId = null;
 
 // wrapper object for interacting with the RBM API
 const rbmApiHelper = {
+
 	/**
 	 * Set the Agend Id for API calls (needed when the agent was created
 	 * with the RBM Mgmt API
@@ -234,8 +235,9 @@ const rbmApiHelper = {
 	 * communicate with the RBM platform.
 	 * @param {object} serviceAccountJsonObject The JSON object
 	 * for the service account key file.
+	 * @param {string} region The regional API prefix.
 	 */
-	initRbmApi: function(serviceAccountJsonObject) {
+	initRbmApi: function(serviceAccountJsonObject, region) {
 		// get the RCS business messaging API file
 		const rcsbusinessmessaging = require('./rcsbusinessmessaging/v1');
 
@@ -248,9 +250,15 @@ const rbmApiHelper = {
 		);
 
 		// initialize the RBM API
+		var options = {};
+
+		if (region) {
+			options.rootUrl = 'https://' + region + 'rcsbusinessmessaging.googleapis.com/';
+		}
+
 		rbmApi =
 			new rcsbusinessmessaging.rcsbusinessmessaging_v1
-				.Rcsbusinessmessaging({}, google);
+				.Rcsbusinessmessaging(options, google);
 	},
 };
 
@@ -377,8 +385,6 @@ function sendIsTypingMessage_(msisdn, authClient, callback) {
 
 	// send the client the message
 	rbmApi.phones.agentEvents.create(params, options, function(err, response) {
-		console.log(response);
-
 		if (callback != undefined) {
 			callback(response, err);
 		}
@@ -728,4 +734,10 @@ function uploadFile_(params, authClient, callback) {
 	}
 }
 
+rbmApiHelper.REGION_US = 'us-';
+rbmApiHelper.REGION_EU = 'europe-';
+rbmApiHelper.REGION_APAC = 'asia-';
+
 module.exports = rbmApiHelper;
+
+

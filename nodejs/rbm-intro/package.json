@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@google/rbmwebhookclient": "^1.0.0",
-    "@google/rcsbusinessmessaging": "^1.0.7"
+    "@google/rcsbusinessmessaging": "^1.0.8"
   },
   "devDependencies": {
     "eslint": "^8.54.0",
