@@ -74,16 +74,16 @@ public class RbmApiHelper {
     public RbmApiHelper() {
         this("");
     }
-
-
+    
     public RbmApiHelper(String region) {
-        String credentialsFileLocation = "rbm-agent-service-account-credentials.json";
+        this(region, "rbm-agent-service-account-credentials.json");
+    }
 
+    public RbmApiHelper(String region, String credentialsFileLocation) {
         // initialize all libraries for sending and receiving messages
         initCredentials(credentialsFileLocation);
         initRbmApi(region);
     }
-
 
     /**
      * Set the agent id when using the partner-based RBM model where all agents share
