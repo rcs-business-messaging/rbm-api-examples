@@ -494,6 +494,11 @@ function sendRichCard_(params, authClient, callback) {
 			params.cardOrientation;
 	}
 
+	if (params.thumbnailImageAlignment != undefined) {
+		options.contentMessage.richCard.standaloneCard.thumbnailImageAlignment =
+			params.thumbnailImageAlignment;
+	}
+
 	if (params.imageUrl != undefined) {
 		let forceRefresh = false;
 		let height = 'TALL';
@@ -513,6 +518,10 @@ function sendRichCard_(params, authClient, callback) {
 				forceRefresh: forceRefresh,
 			},
 		};
+
+		if (params.thumbnailUrl != undefined) {
+			options.contentMessage.richCard.standaloneCard.cardContent.media.contentInfo.thumbnailUrl = params.thumbnailUrl;
+		}
 	}
 
 	// add suggested replies if they exist
