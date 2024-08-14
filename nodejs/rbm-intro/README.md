@@ -40,9 +40,14 @@ node src/0-capabilityCheck.js
 You should find that your test phone is reported as online. You can now
 proceed with the other samples.
 
-## RBM Webhook Client Support
+## Known issues
 
-Some samples expect RBM notifications. These utilise the
-[RBM Webhook Client](https://github.com/rcs-business-messaging/rbm-api-examples/tree/master/nodejs/rbm-webhook-client)
-development tool so that code can be run locally rather than deployed to a public webserver. Refer to the
-documentation for configuration.
+On recent versions of node.js you may see this deprecation warning:
+
+```
+(node:23043) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+```
+
+This is due to a dependency in the underlying `googleapis` library. This will be resolved
+when the team responsible for this library ship an updated release.

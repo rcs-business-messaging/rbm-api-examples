@@ -15,11 +15,14 @@
 'use strict';
 
 const util = require('util');
+const config = require('./config');
 const rbmApiHelper = require('@google/rcsbusinessmessaging');
 const privateKey =
 	require('../resources/rbm-agent-service-account-credentials.json');
 
 rbmApiHelper.initRbmApi(privateKey);
+rbmApiHelper.setAgentId(config.agentId);
+
 
 // Upload the file to Google's RBM content store first
 const params = {
