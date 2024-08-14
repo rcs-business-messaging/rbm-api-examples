@@ -1,0 +1,3 @@
+runtime: nodejs20
+manual_scaling:
+  instances: 1

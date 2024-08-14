@@ -12,34 +12,24 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+const crypto = require('crypto');
 const express = require('express');
 const router = new express.Router();
-
-const {PubSub} = require('@google-cloud/pubsub');
 
 // location of service account credentials file
 const privateKeyFile =
   '../resources/rbm-agent-service-account-credentials.json';
 
-// service account credentials for Pub/Sub
 const privatekey = require(privateKeyFile);
 
-// the name of the Pub/Sub pull subscription,
-// replace with your subscription name
-const subscriptionName = 'rbm-agent-subscription';
+const config = require('../resources/config');
 
 // reference to RBM API helper
 const rbmApiHelper = require('@google/rcsbusinessmessaging');
 
 rbmApiHelper.initRbmApi(privatekey);
+rbmApiHelper.setAgentId(config.agentId);
 
-// Set the agent ID if you are using the RBM Partner model
-// i.e. (multiple agents per account)
-// rbmApiHelper.setAgentId(AGENTID);
-
-// initialize Pub/Sub for pull subscription listener
-// this is how this agent will receive messages from the client
-initPubsub();
 
 /**
  * Invites the posted phone number as a tester for this agent.
@@ -78,26 +68,43 @@ router.post('/sendMessage', function(req, res, next) {
 });
 
 /**
- * Callback for Pub/Sub webhook.
- * This is only needed for a push subscription.
- * Parses the message from Pub/Sub to get the user's
- * response and sends a follow-up response.
+ * Callback webhook.
  */
 router.post('/callback', function(req, res, next) {
-  console.log('callback method');
-
   const requestBody = req.body;
 
-  const encodedUserEvent = requestBody.message.data;
+  // RBM webhook validation as described at
+  // https://developers.google.com/business-communications/rcs-business-messaging/guides/integrate/webhooks#configure_an_agent_webhook
+  if ((requestBody.hasOwnProperty('clientToken')) &&
+        (requestBody.hasOwnProperty('secret'))) {
+    // This is an RBM webhook validation request.
+    // Check we received the token we were expecting
+    if (requestBody.clientToken == config.webhookToken) {
+      res.status(200).send(`secret: ${requestBody.secret}`);
+    } else {
+      res.sendStatus(403);
+    }
 
-  console.log('encodedUserEvent: ' + encodedUserEvent);
+    return;
+  }
 
-  const userEventString = Buffer.from(encodedUserEvent, 'base64');
-  const userEvent = JSON.parse(userEventString);
+  // Inbound RBM webhook message validation and processing. See
+  // https://developers.google.com/business-communications/rcs-business-messaging/guides/integrate/webhooks#verify_incoming_messages
+  if ((requestBody.hasOwnProperty('message')) &&
+  (requestBody.message.hasOwnProperty('data'))) {
+    // Validate the received hash to ensure the message came from Google RBM
+    const userEventString = Buffer.from(requestBody.message.data, 'base64');
+    const hmac = crypto.createHmac('sha512', config.webhookToken);
+    const data = hmac.update(userEventString);
+    const genHash = data.digest('base64');
+    const headerHash = req.header('X-Goog-Signature');
 
-  console.log('userEventString: ' + userEventString);
+    if (headerHash == genHash) {
+      const rbmEvent = JSON.parse(userEventString);
 
-  handleMessage(userEvent);
+      handleMessage(rbmEvent);
+    }
+  }
 
   res.sendStatus(200);
 });
@@ -175,37 +182,6 @@ function handleMessage(userEvent) {
       }
     }
   }
-}
-
-/**
- * Initializes a pull subscription message handler
- * to receive messages from Pub/Sub.
- */
-function initPubsub() {
-  const pubsub = new PubSub({
-    projectId: privatekey.project_id,
-    keyFilename: './resources/rbm-agent-service-account-credentials.json',
-  });
-
-  // references an existing subscription
-  const subscription = pubsub.subscription(subscriptionName);
-
-  // create an event handler to handle messages
-  const messageHandler = (message) => {
-    console.log(`Received message ${message.id}:`);
-    console.log(`\tData: ${message.data}`);
-    console.log(`\tAttributes: ${message.attributes}`);
-
-    const userEvent = JSON.parse(message.data);
-
-    handleMessage(userEvent);
-
-    // "Ack" (acknowledge receipt of) the message
-    message.ack();
-  };
-
-  // Listen for new messages until timeout is hit
-  subscription.on('message', messageHandler);
 }
 
 module.exports = router;
