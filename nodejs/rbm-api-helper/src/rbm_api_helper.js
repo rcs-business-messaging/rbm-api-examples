@@ -250,7 +250,7 @@ const rbmApiHelper = {
 		);
 
 		// initialize the RBM API
-		var options = {};
+		const options = {};
 
 		if (region) {
 			options.rootUrl = 'https://' + region + 'rcsbusinessmessaging.googleapis.com/';
@@ -520,7 +520,8 @@ function sendRichCard_(params, authClient, callback) {
 		};
 
 		if (params.thumbnailUrl != undefined) {
-			options.contentMessage.richCard.standaloneCard.cardContent.media.contentInfo.thumbnailUrl = params.thumbnailUrl;
+			options.contentMessage.richCard.standaloneCard.cardContent
+				.media.contentInfo.thumbnailUrl = params.thumbnailUrl;
 		}
 	}
 
@@ -724,6 +725,8 @@ function uploadFile_(params, authClient, callback) {
 		auth: authClient,
 		resource: params,
 	};
+
+	if (agentId != null) apiParams.agentId = agentId;
 
 	// send the client the message
 	if (callback == undefined) {

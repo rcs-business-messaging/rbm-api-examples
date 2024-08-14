@@ -5,15 +5,14 @@
   "author": "Google",
   "private": true,
   "scripts": {
-    "lint": "eslint src/",
-    "lint:fix": "eslint --fix --ext .js src/"
+    "lint": "eslint",
+    "lint:fix": "eslint --fix"
   },
   "dependencies": {
-    "@google/rbmwebhookclient": "^1.0.0",
-    "@google/rcsbusinessmessaging": "^1.0.8"
+    "@google/rcsbusinessmessaging": "^1.0.10"
   },
   "devDependencies": {
-    "eslint": "^8.54.0",
+    "eslint": "^9.9.0",
     "eslint-config-google": "^0.14.0"
   }
 }

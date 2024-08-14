@@ -23,7 +23,7 @@ Add the following to the dependencies section in your `package.json `:
 ```
 "dependencies": {
   ...
-  "@google/rcsbusinessmessaging": "^1.0.8"
+  "@google/rcsbusinessmessaging": "^1.0.10"
   ...
 },
 ```
@@ -301,3 +301,15 @@ Contributions welcome! See the [Contributing Guide](https://github.com/rcs-busin
 Apache Version 2.0
 
 See [LICENSE](https://github.com/rcs-business-messaging/rbm-api-examples/blob/master/LICENSE)
+
+## Known issues
+
+On recent versions of node.js you may see this deprecation warning:
+
+```
+(node:23043) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+```
+
+This is due to a dependency in the underlying `googleapis` library. This will be resolved
+when the team responsible for this library ship an updated release.

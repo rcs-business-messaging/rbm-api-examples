@@ -18,7 +18,7 @@ exports.rcsbusinessmessaging_v1 = void 0;
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-empty-interface */
 /* eslint-disable @typescript-eslint/no-namespace */
-/* eslint-disable no-irregular-whitespace */
+ 
 const googleapis_common_1 = require('googleapis-common');
 let rcsbusinessmessaging_v1;
 (function(rcsbusinessmessaging_v1) {
