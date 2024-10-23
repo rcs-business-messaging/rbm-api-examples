@@ -26,30 +26,11 @@ with your RBM Platform Google account and create a new RBM agent.
 
 5. Rename the service account key "rbm-agent-service-account-credentials.json" and move it into the ```/resources``` directory.
 
+Set your agent id:
 
-Update the project ID:
+1. Open `constants.py`.
 
-Your agent's project ID is embedded in the Pub/Sub subscription name following `project/`.
-
-1. Open the RBM Developer Console (https://business-communications.cloud.google.com/console/partner-console/), sign in with your RBM Platform Google account, and click your agent.
-
-2. In the left navigation, click **Integrations**.
-
-3. In Pub/Sub section, click **View subscription**.
-
-4. Find your agent's **Subscription name**.
-
-4. Identify the text segment between `project/` and the following `/`. This is
-your agent's project ID.
-
-For example, if the subscription name is
-`projects/rbm-growing-tree-bank-nbdjkl6t/subscriptions/rbm-agent-subscription`,
-your agent's project ID is `rbm-growing-tree-bank-nbdjkl6t`.
-
-5. In this sample's root directory, open "constants.py".
-
-6. Update the PROJECT_ID variable with the project ID you identified in step 4.
-
+2. Update the `AGENT_ID` parameter with your agent id (the part before `@rbm.goog`).
 
 Prepare the sample:
 

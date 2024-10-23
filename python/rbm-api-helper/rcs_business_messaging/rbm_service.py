@@ -33,8 +33,14 @@ scopes = ['https://www.googleapis.com/auth/rcsbusinessmessaging']
 credentials = ServiceAccountCredentials.from_json_keyfile_name(
     agent_config.PATH_TO_SERVICE_ACCOUNT, scopes=scopes)
 app.logger.info(credentials)
+agentId = ''
 
 http_auth = credentials.authorize(Http())
+
+def init(aId):
+  global agentId
+
+  agentId = aId
 
 def emojize(text):
   """
@@ -73,7 +79,7 @@ def send_message_with_body(msisdn, body, message_id, timeToLive=None, expireTime
                   'phones/' +
                   msisdn +
                   '/agentMessages?messageId=' +
-                  message_id)
+                  message_id + '&agentId=' + agentId)
   
   if timeToLive is not None:
     body['ttl'] = timeToLive
@@ -114,7 +120,7 @@ def send_event_with_body(msisdn, body, message_id):
                   'phones/' +
                   msisdn +
                   '/agentEvents?eventId=' +
-                  message_id)
+                  message_id + '&agentId=' + agentId)
 
   body_string = json.dumps(body)
 
@@ -168,7 +174,7 @@ def upload_file(file_url, thumbnail_url=None):
   Returns:
       A :str: The file resource identifier in the RBM platform.
   """
-  endpoint_url = agent_config.RBM_BASE_ENDPOINT + 'files'
+  endpoint_url = agent_config.RBM_BASE_ENDPOINT + 'files'  + '?agentId=' + agentId
 
   body = {
       'fileUrl': file_url
@@ -209,7 +215,8 @@ def make_cap_request(msisdn):
   endpoint_url = (agent_config.RBM_BASE_ENDPOINT +
                   'phones/' +
                   msisdn +
-                  '/capabilities?requestId=' + str(uuid.uuid4().int) + 'a')
+                  '/capabilities?requestId=' + str(uuid.uuid4().int) + 'a' + 
+                  '&agentId=' + agentId)
 
   resp, content = http_auth.request(endpoint_url,
                            method='GET',
@@ -237,7 +244,7 @@ def make_batch_cap_request(msisdns):
       A :obj: The JSON object containing the results of the bulk check.
   """
   endpoint_url = (agent_config.RBM_BASE_ENDPOINT +
-                  'users:batchGet')
+                  'users:batchGet'  + '?agentId=' + agentId)
 
   body = {
       'users': msisdns
@@ -272,7 +279,7 @@ def revoke(msisdn, message_id):
                   'phones/' +
                   msisdn +
                   '/agentMessages/' +
-                  message_id)
+                  message_id  + '?agentId=' + agentId)
 
   resp, content = http_auth.request(endpoint_url, method="DELETE")
 
@@ -297,7 +304,7 @@ def invite_tester(msisdn):
   endpoint_url = (agent_config.RBM_BASE_ENDPOINT +
                   'phones/' +
                   msisdn +
-                  '/testers')
+                  '/testers?agentId=' + agentId)
 
   resp, content = http_auth.request(endpoint_url, method='POST')
 

@@ -19,9 +19,6 @@ with the RBM REST API
 # [START app]
 from flask import Flask
 
-from google.cloud import pubsub
-from google.oauth2 import service_account
-
 import argparse
 import datetime
 import time
@@ -89,6 +86,8 @@ def main():
 
     args = parser.parse_args()
 
+    rbm_service.init(constants.AGENT_ID)
+
     if 'invite' in args.agent_mode:
         rbm_service.invite_tester(args.msisdn)
 
@@ -108,29 +107,6 @@ def main():
         # d = datetime.datetime.utcnow() + datetime.timedelta(0, 20)
         # timeToStop = d.strftime('%Y-%m-%dT%H:%M:%SZ')
         # messages.MessageCluster().append_message(message_text).send_to_msisdn(msisdn, expireTime=timeToStop)
-
-        # Create cloud credentials based on key file
-        cred = service_account.Credentials.from_service_account_file(agent_config.PATH_TO_SERVICE_ACCOUNT)
-
-        scoped_credentials = cred.with_scopes(
-            ['https://www.googleapis.com/auth/cloud-platform'])
-
-        # Setup a Pub/Sub client passing in our GCP credentials
-        subscriber = pubsub.SubscriberClient(credentials=scoped_credentials)
-
-        # Construct the subscription path based on the project id and subscription name
-        subscription_path = subscriber.subscription_path(constants.PROJECT_ID,
-            constants.PUB_SUB_SUBSCRIPTION_NAME)
-
-        # Setup a subscription to the RBM Pub/Sub subscription we created
-        # This is where RBM messages will get sent when users response
-        subscription = subscriber.subscribe(subscription_path, callback=callback);
-
-        # The subscriber is non-blocking, so we must keep the main thread from
-        # exiting to allow it to process messages in the background.
-        print('Listening for messages on {}'.format(subscription_path))
-        while True:
-            time.sleep(60)
 
 if __name__ == '__main__':
     main()

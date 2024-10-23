@@ -14,8 +14,5 @@
 
 """Constants used for the sample."""
 
-### ID of the RBM agent in GCP
-PROJECT_ID = 'PROJECT_ID'
-
-### Name of the Pub/Sub subscription that we will create
-PUB_SUB_SUBSCRIPTION_NAME = 'rbm-agent-subscription'
+### RBM agent id (the part before @rbm.goog)
+AGENT_ID = 'YOUR AGENT ID'
