@@ -55,11 +55,11 @@ limitations under the License.
     </plugins>
   </build>
 
-    <dependencies>
-      <dependency>
-          <groupId>com.google.rbm</groupId>
-          <artifactId>rbm-api-helper</artifactId>
-          <version>1.0.1</version>
-      </dependency>
+  <dependencies>
+    <dependency>
+        <groupId>com.google.rbm</groupId>
+        <artifactId>rbm-api-helper</artifactId>
+        <version>1.0.2</version>
+    </dependency>
   </dependencies>
 </project>

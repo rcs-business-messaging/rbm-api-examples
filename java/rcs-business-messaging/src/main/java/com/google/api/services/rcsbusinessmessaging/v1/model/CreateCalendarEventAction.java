@@ -32,7 +32,7 @@ package com.google.api.services.rcsbusinessmessaging.v1.model;
 public final class CreateCalendarEventAction extends com.google.api.client.json.GenericJson {
 
   /**
-   * Event description.
+   * Event description. Maximum 500 characters.
    * The value may be {@code null}.
    */
   @com.google.api.client.util.Key
@@ -53,14 +53,14 @@ public final class CreateCalendarEventAction extends com.google.api.client.json.
   private String startTime;
 
   /**
-   * Event title.
+   * Event title. Maximum 100 characters.
    * The value may be {@code null}.
    */
   @com.google.api.client.util.Key
   private java.lang.String title;
 
   /**
-   * Event description.
+   * Event description. Maximum 500 characters.
    * @return value or {@code null} for none
    */
   public java.lang.String getDescription() {
@@ -68,7 +68,7 @@ public final class CreateCalendarEventAction extends com.google.api.client.json.
   }
 
   /**
-   * Event description.
+   * Event description. Maximum 500 characters.
    * @param description description or {@code null} for none
    */
   public CreateCalendarEventAction setDescription(java.lang.String description) {
@@ -111,7 +111,7 @@ public final class CreateCalendarEventAction extends com.google.api.client.json.
   }
 
   /**
-   * Event title.
+   * Event title. Maximum 100 characters.
    * @return value or {@code null} for none
    */
   public java.lang.String getTitle() {
@@ -119,7 +119,7 @@ public final class CreateCalendarEventAction extends com.google.api.client.json.
   }
 
   /**
-   * Event title.
+   * Event title. Maximum 100 characters.
    * @param title title or {@code null} for none
    */
   public CreateCalendarEventAction setTitle(java.lang.String title) {

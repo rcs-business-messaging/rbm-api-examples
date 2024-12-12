@@ -27,7 +27,7 @@ limitations under the License.
 
     <groupId>com.google.rbm</groupId>
     <artifactId>rbm-api-helper</artifactId>
-    <version>1.0.1</version>
+    <version>1.0.2</version>
     <packaging>jar</packaging>
     <name>RBM Helper Library</name>
     <description>RBM helper library for java developers.</description>
@@ -77,7 +77,7 @@ limitations under the License.
         <dependency>
             <groupId>com.google.rbm</groupId>
             <artifactId>rcsbusinessmessaging</artifactId>
-            <version>1.0.0</version>
+            <version>1.0.1</version>
         </dependency>
         <dependency>
 			<groupId>com.google.api-client</groupId>
@@ -136,6 +136,9 @@ limitations under the License.
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <version>3.6.3</version>
+                <configuration>
+        			<doclint>all,-missing</doclint>
+    			</configuration>
                 <executions>
                     <execution>
                     <id>attach-javadocs</id>

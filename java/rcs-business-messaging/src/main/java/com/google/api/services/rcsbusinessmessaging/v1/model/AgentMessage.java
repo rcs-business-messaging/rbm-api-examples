@@ -63,8 +63,7 @@ public final class AgentMessage extends com.google.api.client.json.GenericJson {
   private String sendTime;
 
   /**
-   * Optional. Input only. Input only. How long the message will live for before it is automatically
-   * revoked.
+   * Optional. Input only. How long the message will live before it is automatically revoked.
    * The value may be {@code null}.
    */
   @com.google.api.client.util.Key
@@ -147,8 +146,7 @@ public final class AgentMessage extends com.google.api.client.json.GenericJson {
   }
 
   /**
-   * Optional. Input only. Input only. How long the message will live for before it is automatically
-   * revoked.
+   * Optional. Input only. How long the message will live before it is automatically revoked.
    * @return value or {@code null} for none
    */
   public String getTtl() {
@@ -156,8 +154,7 @@ public final class AgentMessage extends com.google.api.client.json.GenericJson {
   }
 
   /**
-   * Optional. Input only. Input only. How long the message will live for before it is automatically
-   * revoked.
+   * Optional. Input only. How long the message will live before it is automatically revoked.
    * @param ttl ttl or {@code null} for none
    */
   public AgentMessage setTtl(String ttl) {

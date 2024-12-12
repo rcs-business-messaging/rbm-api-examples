@@ -49,8 +49,8 @@ public final class ContentInfo extends com.google.api.client.json.GenericJson {
   private java.lang.Boolean forceRefresh;
 
   /**
-   * (Optional, for image and video files only) Publicly reachable URL of the thumbnail. Maximum
-   * size of 100 kB. If you don't provide a thumbnail URL, the RBM platform displays a blank
+   * (Optional, for image, audio and video files only) Publicly reachable URL of the thumbnail.
+   * Maximum size of 100 kB. If you don't provide a thumbnail URL, the RBM platform displays a blank
    * placeholder thumbnail until the user's device downloads the file. Depending on the user's
    * setting, the file may not download automatically and may require the user to tap a download
    * button.
@@ -102,8 +102,8 @@ public final class ContentInfo extends com.google.api.client.json.GenericJson {
   }
 
   /**
-   * (Optional, for image and video files only) Publicly reachable URL of the thumbnail. Maximum
-   * size of 100 kB. If you don't provide a thumbnail URL, the RBM platform displays a blank
+   * (Optional, for image, audio and video files only) Publicly reachable URL of the thumbnail.
+   * Maximum size of 100 kB. If you don't provide a thumbnail URL, the RBM platform displays a blank
    * placeholder thumbnail until the user's device downloads the file. Depending on the user's
    * setting, the file may not download automatically and may require the user to tap a download
    * button.
@@ -114,8 +114,8 @@ public final class ContentInfo extends com.google.api.client.json.GenericJson {
   }
 
   /**
-   * (Optional, for image and video files only) Publicly reachable URL of the thumbnail. Maximum
-   * size of 100 kB. If you don't provide a thumbnail URL, the RBM platform displays a blank
+   * (Optional, for image, audio and video files only) Publicly reachable URL of the thumbnail.
+   * Maximum size of 100 kB. If you don't provide a thumbnail URL, the RBM platform displays a blank
    * placeholder thumbnail until the user's device downloads the file. Depending on the user's
    * setting, the file may not download automatically and may require the user to tap a download
    * button.

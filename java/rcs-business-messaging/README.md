@@ -18,7 +18,7 @@ in the Maven repositories. Add the following to you `pom.xml`:
 <dependency>
   <groupId>com.google.rbm</groupId>
   <artifactId>rcsbusinessmessaging</artifactId>
-  <version>1.0.0</version>
+  <version>1.0.1</version>
 </dependency>
 ```
 
@@ -66,4 +66,13 @@ You can build and install a local version with:
 mvn install
 ```
 
+## Change log
 
+1.0.1
+
+- Added support for `ComposeAction`, `ComposeRecordingMessage` and `ComposeTextMessage`.
+- Added size limits and improved comments.
+
+1.0.0 
+
+- First release

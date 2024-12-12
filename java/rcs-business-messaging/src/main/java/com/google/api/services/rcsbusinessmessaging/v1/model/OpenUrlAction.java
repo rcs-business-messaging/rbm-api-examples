@@ -33,14 +33,78 @@ package com.google.api.services.rcsbusinessmessaging.v1.model;
 public final class OpenUrlAction extends com.google.api.client.json.GenericJson {
 
   /**
-   * URL
+   * URL open application, browser or webview. To check whether a user's device supports webview
+   * mode, run a capability check first. See the documentation for details:
+   * https://developers.google.com/business-communications/rcs-business-
+   * messaging/guides/build/capabilities.
+   * The value may be {@code null}.
+   */
+  @com.google.api.client.util.Key
+  private java.lang.String application;
+
+  /**
+   * Accessbility description for webview.
+   * The value may be {@code null}.
+   */
+  @com.google.api.client.util.Key
+  private java.lang.String description;
+
+  /**
+   * URL. Must be a valid URI as defined in RFC 3986. Maximum 2048 characters.
    * The value may be {@code null}.
    */
   @com.google.api.client.util.Key
   private java.lang.String url;
 
   /**
-   * URL
+   * View mode for webview
+   * The value may be {@code null}.
+   */
+  @com.google.api.client.util.Key
+  private java.lang.String webviewViewMode;
+
+  /**
+   * URL open application, browser or webview. To check whether a user's device supports webview
+   * mode, run a capability check first. See the documentation for details:
+   * https://developers.google.com/business-communications/rcs-business-
+   * messaging/guides/build/capabilities.
+   * @return value or {@code null} for none
+   */
+  public java.lang.String getApplication() {
+    return application;
+  }
+
+  /**
+   * URL open application, browser or webview. To check whether a user's device supports webview
+   * mode, run a capability check first. See the documentation for details:
+   * https://developers.google.com/business-communications/rcs-business-
+   * messaging/guides/build/capabilities.
+   * @param application application or {@code null} for none
+   */
+  public OpenUrlAction setApplication(java.lang.String application) {
+    this.application = application;
+    return this;
+  }
+
+  /**
+   * Accessbility description for webview.
+   * @return value or {@code null} for none
+   */
+  public java.lang.String getDescription() {
+    return description;
+  }
+
+  /**
+   * Accessbility description for webview.
+   * @param description description or {@code null} for none
+   */
+  public OpenUrlAction setDescription(java.lang.String description) {
+    this.description = description;
+    return this;
+  }
+
+  /**
+   * URL. Must be a valid URI as defined in RFC 3986. Maximum 2048 characters.
    * @return value or {@code null} for none
    */
   public java.lang.String getUrl() {
@@ -48,11 +112,28 @@ public final class OpenUrlAction extends com.google.api.client.json.GenericJson 
   }
 
   /**
-   * URL
+   * URL. Must be a valid URI as defined in RFC 3986. Maximum 2048 characters.
    * @param url url or {@code null} for none
    */
   public OpenUrlAction setUrl(java.lang.String url) {
     this.url = url;
+    return this;
+  }
+
+  /**
+   * View mode for webview
+   * @return value or {@code null} for none
+   */
+  public java.lang.String getWebviewViewMode() {
+    return webviewViewMode;
+  }
+
+  /**
+   * View mode for webview
+   * @param webviewViewMode webviewViewMode or {@code null} for none
+   */
+  public OpenUrlAction setWebviewViewMode(java.lang.String webviewViewMode) {
+    this.webviewViewMode = webviewViewMode;
     return this;
   }
 

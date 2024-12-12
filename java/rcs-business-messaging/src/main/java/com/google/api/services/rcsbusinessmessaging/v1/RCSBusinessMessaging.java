@@ -19,9 +19,6 @@ package com.google.api.services.rcsbusinessmessaging.v1;
 /**
  * Service definition for RCSBusinessMessaging (v1).
  *
- * <p>
- * 
- * </p>
  *
  * <p>
  * For more information about this service, see the
@@ -38,8 +35,6 @@ package com.google.api.services.rcsbusinessmessaging.v1;
  */
 @SuppressWarnings("javadoc")
 public class RCSBusinessMessaging extends com.google.api.client.googleapis.services.json.AbstractGoogleJsonClient {
-
-
 
   /**
    * The default encoded root URL of the service. This is determined when the library is generated
@@ -1229,9 +1224,7 @@ public class RCSBusinessMessaging extends com.google.api.client.googleapis.servi
          *
          * This request holds the parameters needed by the the rcsbusinessmessaging server.  After setting
          * any optional parameters, call the {@link RequestCapabilityCallback#execute()} method to invoke
-         * the remote operation. <p> {@link RequestCapabilityCallback#initialize(com.google.api.client.goo
-         * gleapis.services.AbstractGoogleClientRequest)} must be called to initialize this instance
-         * immediately after invoking the constructor. </p>
+         * the remote operation.
          *
          * @param name "phones/{E.164}/capability", where {E.164} is the user's phone number in E.164 format. For example,
        *        with the US phone number +1-222-333-4444, the resulting endpoint would be https://rcsbusin

@@ -45,7 +45,7 @@ public final class CardContent extends com.google.api.client.json.GenericJson {
   private Media media;
 
   /**
-   * (Optional) List of suggestions to include in the card. Maximum 4 suggestions.
+   * (Optional) List of suggestions to include in the card. Maximum 10 suggestions.
    * The value may be {@code null}.
    */
   @com.google.api.client.util.Key
@@ -93,7 +93,7 @@ public final class CardContent extends com.google.api.client.json.GenericJson {
   }
 
   /**
-   * (Optional) List of suggestions to include in the card. Maximum 4 suggestions.
+   * (Optional) List of suggestions to include in the card. Maximum 10 suggestions.
    * @return value or {@code null} for none
    */
   public java.util.List<Suggestion> getSuggestions() {
@@ -101,7 +101,7 @@ public final class CardContent extends com.google.api.client.json.GenericJson {
   }
 
   /**
-   * (Optional) List of suggestions to include in the card. Maximum 4 suggestions.
+   * (Optional) List of suggestions to include in the card. Maximum 10 suggestions.
    * @param suggestions suggestions or {@code null} for none
    */
   public CardContent setSuggestions(java.util.List<Suggestion> suggestions) {

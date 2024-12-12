@@ -59,14 +59,15 @@ public final class AgentContentMessage extends com.google.api.client.json.Generi
    * following the associated agent message. Maximum 11 suggestions. The chips only display when the
    * associated agent message is the most recent message within the conversation (including both
    * agent and user messages). The user can tap a suggested reply to send the text reply back to the
-   * agent or tap a suggested action to initiate a native action on the device.
+   * agent or tap a suggested action to initiate a native action on the device. Maximum 11
+   * suggestions.
    * The value may be {@code null}.
    */
   @com.google.api.client.util.Key
   private java.util.List<Suggestion> suggestions;
 
   /**
-   * Text encoded in UTF-8.
+   * Text encoded in UTF-8. Maximum 3072 characters.
    * The value may be {@code null}.
    */
   @com.google.api.client.util.Key
@@ -142,7 +143,8 @@ public final class AgentContentMessage extends com.google.api.client.json.Generi
    * following the associated agent message. Maximum 11 suggestions. The chips only display when the
    * associated agent message is the most recent message within the conversation (including both
    * agent and user messages). The user can tap a suggested reply to send the text reply back to the
-   * agent or tap a suggested action to initiate a native action on the device.
+   * agent or tap a suggested action to initiate a native action on the device. Maximum 11
+   * suggestions.
    * @return value or {@code null} for none
    */
   public java.util.List<Suggestion> getSuggestions() {
@@ -154,7 +156,8 @@ public final class AgentContentMessage extends com.google.api.client.json.Generi
    * following the associated agent message. Maximum 11 suggestions. The chips only display when the
    * associated agent message is the most recent message within the conversation (including both
    * agent and user messages). The user can tap a suggested reply to send the text reply back to the
-   * agent or tap a suggested action to initiate a native action on the device.
+   * agent or tap a suggested action to initiate a native action on the device. Maximum 11
+   * suggestions.
    * @param suggestions suggestions or {@code null} for none
    */
   public AgentContentMessage setSuggestions(java.util.List<Suggestion> suggestions) {
@@ -163,7 +166,7 @@ public final class AgentContentMessage extends com.google.api.client.json.Generi
   }
 
   /**
-   * Text encoded in UTF-8.
+   * Text encoded in UTF-8. Maximum 3072 characters.
    * @return value or {@code null} for none
    */
   public java.lang.String getText() {
@@ -171,7 +174,7 @@ public final class AgentContentMessage extends com.google.api.client.json.Generi
   }
 
   /**
-   * Text encoded in UTF-8.
+   * Text encoded in UTF-8. Maximum 3072 characters.
    * @param text text or {@code null} for none
    */
   public AgentContentMessage setText(java.lang.String text) {

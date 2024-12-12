@@ -24,7 +24,7 @@ in the Maven repositories. Add the following to you `pom.xml`:
 <dependency>
   <groupId>com.google.rbm</groupId>
   <artifactId>rbm-api-helper</artifactId>
-  <version>1.0.1</version>
+  <version>1.0.2</version>
 </dependency>
 ```
 

@@ -31,6 +31,13 @@ package com.google.api.services.rcsbusinessmessaging.v1.model;
 public final class SuggestedAction extends com.google.api.client.json.GenericJson {
 
   /**
+   * Compose and send a message to a predefined destination by chatbot.
+   * The value may be {@code null}.
+   */
+  @com.google.api.client.util.Key
+  private ComposeAction composeAction;
+
+  /**
    * Opens the user's default calendar app and starts the new calendar event flow with the agent-
    * specified event data pre-filled.
    * The value may be {@code null}.
@@ -47,7 +54,8 @@ public final class SuggestedAction extends com.google.api.client.json.GenericJso
 
   /**
    * (Optional) Fallback URL to use if a client doesn't support a suggested action. Fallback URLs
-   * open in new browser windows.
+   * open in new browser windows. Must be a valid URI as defined in RFC 3986. Maximum 2048
+   * characters.
    * The value may be {@code null}.
    */
   @com.google.api.client.util.Key
@@ -64,7 +72,7 @@ public final class SuggestedAction extends com.google.api.client.json.GenericJso
 
   /**
    * Payload (base64 encoded) that will be sent to the agent in the user event that results when the
-   * user taps the suggested action
+   * user taps the suggested action. Maximum 2048 characters.
    * The value may be {@code null}.
    */
   @com.google.api.client.util.Key
@@ -91,6 +99,23 @@ public final class SuggestedAction extends com.google.api.client.json.GenericJso
    */
   @com.google.api.client.util.Key
   private ViewLocationAction viewLocationAction;
+
+  /**
+   * Compose and send a message to a predefined destination by chatbot.
+   * @return value or {@code null} for none
+   */
+  public ComposeAction getComposeAction() {
+    return composeAction;
+  }
+
+  /**
+   * Compose and send a message to a predefined destination by chatbot.
+   * @param composeAction composeAction or {@code null} for none
+   */
+  public SuggestedAction setComposeAction(ComposeAction composeAction) {
+    this.composeAction = composeAction;
+    return this;
+  }
 
   /**
    * Opens the user's default calendar app and starts the new calendar event flow with the agent-
@@ -130,7 +155,8 @@ public final class SuggestedAction extends com.google.api.client.json.GenericJso
 
   /**
    * (Optional) Fallback URL to use if a client doesn't support a suggested action. Fallback URLs
-   * open in new browser windows.
+   * open in new browser windows. Must be a valid URI as defined in RFC 3986. Maximum 2048
+   * characters.
    * @return value or {@code null} for none
    */
   public java.lang.String getFallbackUrl() {
@@ -139,7 +165,8 @@ public final class SuggestedAction extends com.google.api.client.json.GenericJso
 
   /**
    * (Optional) Fallback URL to use if a client doesn't support a suggested action. Fallback URLs
-   * open in new browser windows.
+   * open in new browser windows. Must be a valid URI as defined in RFC 3986. Maximum 2048
+   * characters.
    * @param fallbackUrl fallbackUrl or {@code null} for none
    */
   public SuggestedAction setFallbackUrl(java.lang.String fallbackUrl) {
@@ -170,7 +197,7 @@ public final class SuggestedAction extends com.google.api.client.json.GenericJso
 
   /**
    * Payload (base64 encoded) that will be sent to the agent in the user event that results when the
-   * user taps the suggested action
+   * user taps the suggested action. Maximum 2048 characters.
    * @return value or {@code null} for none
    */
   public java.lang.String getPostbackData() {
@@ -179,7 +206,7 @@ public final class SuggestedAction extends com.google.api.client.json.GenericJso
 
   /**
    * Payload (base64 encoded) that will be sent to the agent in the user event that results when the
-   * user taps the suggested action
+   * user taps the suggested action. Maximum 2048 characters.
    * @param postbackData postbackData or {@code null} for none
    */
   public SuggestedAction setPostbackData(java.lang.String postbackData) {

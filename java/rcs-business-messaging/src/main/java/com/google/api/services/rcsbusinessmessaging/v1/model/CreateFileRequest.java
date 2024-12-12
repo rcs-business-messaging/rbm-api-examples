@@ -47,9 +47,12 @@ public final class CreateFileRequest extends com.google.api.client.json.GenericJ
 
   /**
    * Optional. Publicly available URL of the file. The RBM platform determines the MIME type of the
-   * file from the content-type field in the HTTP headers when fetching the file. Supported image
-   * content types: image/jpeg, image/jpg, image/gif, image/png. Supported video content types:
-   * video/h263, video/m4v, video/mp4, video/mpeg, video/mpeg4, video/webm.
+   * file from the content-type field in the HTTP headers when fetching the file. RBM supports
+   * image, audio, video, and pdf. Supported image content types: image/jpeg, image/jpg, image/gif,
+   * image/png. Supported audio content types: audio/aac, audio/mp3, audio/mpeg, audio/mpg,
+   * audio/mp4, audio/mp4-latm, audio/3gpp, application/ogg, audio/ogg. Supported video content
+   * types: video/h263, video/m4v, video/mp4, video/mpeg, video/mpeg4, video/webm. Supported pdf
+   * content types: application/pdf.
    * The value may be {@code null}.
    */
   @com.google.api.client.util.Key
@@ -104,9 +107,12 @@ public final class CreateFileRequest extends com.google.api.client.json.GenericJ
 
   /**
    * Optional. Publicly available URL of the file. The RBM platform determines the MIME type of the
-   * file from the content-type field in the HTTP headers when fetching the file. Supported image
-   * content types: image/jpeg, image/jpg, image/gif, image/png. Supported video content types:
-   * video/h263, video/m4v, video/mp4, video/mpeg, video/mpeg4, video/webm.
+   * file from the content-type field in the HTTP headers when fetching the file. RBM supports
+   * image, audio, video, and pdf. Supported image content types: image/jpeg, image/jpg, image/gif,
+   * image/png. Supported audio content types: audio/aac, audio/mp3, audio/mpeg, audio/mpg,
+   * audio/mp4, audio/mp4-latm, audio/3gpp, application/ogg, audio/ogg. Supported video content
+   * types: video/h263, video/m4v, video/mp4, video/mpeg, video/mpeg4, video/webm. Supported pdf
+   * content types: application/pdf.
    * @return value or {@code null} for none
    */
   public java.lang.String getFileUrl() {
@@ -115,9 +121,12 @@ public final class CreateFileRequest extends com.google.api.client.json.GenericJ
 
   /**
    * Optional. Publicly available URL of the file. The RBM platform determines the MIME type of the
-   * file from the content-type field in the HTTP headers when fetching the file. Supported image
-   * content types: image/jpeg, image/jpg, image/gif, image/png. Supported video content types:
-   * video/h263, video/m4v, video/mp4, video/mpeg, video/mpeg4, video/webm.
+   * file from the content-type field in the HTTP headers when fetching the file. RBM supports
+   * image, audio, video, and pdf. Supported image content types: image/jpeg, image/jpg, image/gif,
+   * image/png. Supported audio content types: audio/aac, audio/mp3, audio/mpeg, audio/mpg,
+   * audio/mp4, audio/mp4-latm, audio/3gpp, application/ogg, audio/ogg. Supported video content
+   * types: video/h263, video/m4v, video/mp4, video/mpeg, video/mpeg4, video/webm. Supported pdf
+   * content types: application/pdf.
    * @param fileUrl fileUrl or {@code null} for none
    */
   public CreateFileRequest setFileUrl(java.lang.String fileUrl) {

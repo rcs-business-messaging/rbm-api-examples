@@ -207,7 +207,6 @@ public class RbmApiHelper {
 
     /**
      * Checks a list of phone numbers and returns which are reachable by RBM.
-     * @see https://developers.google.com/business-communications/rcs-business-messaging/reference/rest/v1/users/batchGet
      * @param msisdns List of phone numbers in E.164 format.
      * @return True if the device is RCS enabled.
      */
