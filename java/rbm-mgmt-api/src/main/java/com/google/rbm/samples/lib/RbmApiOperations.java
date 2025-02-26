@@ -232,7 +232,7 @@ public final class RbmApiOperations {
    * @throws IOException In case of any IO problems.
    */
   public ListAgentsResponse listAllAgents(Brand brand) throws IOException {
-    return listAgents(brand, null, Integer.MAX_VALUE);
+    return listAgents(brand, null, 50);
   }
 
   /**

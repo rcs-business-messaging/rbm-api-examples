@@ -113,8 +113,15 @@ public class ManagementFlow {
     String brandId = flags.get("brand_id");
     // Read brand.
     if (isNotBlank(brandId)) {
-      Brand brand = api.getBrand(brandId);
-      logger.info("Brand: " + brand);
+      // When using this API for Ops API use (as a carrier)
+      // the brand id can be set to 'brands/-' 
+      if (!brandId.endsWith("/-")) {
+        Brand brand = api.getBrand(brandId);
+        logger.info("Brand: " + brand);
+      }   
+      else {
+        logger.info("Brand: " + brandId);
+      }
     }
 
     // Remove brand.
@@ -126,8 +133,19 @@ public class ManagementFlow {
 
     // List agents.
     if (getBooleanFlag("list_agents")) {
-      Brand brand = api.getBrand(brandId);
-      logger.info("Brand: " + brand);
+      Brand brand = null;
+
+      // When using this API for Ops API use (as a carrier)
+      // the brand id can be set to 'brands/-' 
+      if (!brandId.endsWith("/-")) {
+        brand = api.getBrand(brandId);
+        logger.info("Brand: " + brand);
+      }
+      else {
+        brand = new Brand();
+        brand.setName(brandId);
+      }
+
       ListAgentsResponse response = api.listAllAgents(brand);
       List<Agent> agents = response.getAgents().stream()
           .sorted(Comparator.comparing(Agent::getName)).collect(Collectors.toList());

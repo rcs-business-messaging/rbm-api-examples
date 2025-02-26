@@ -82,6 +82,12 @@ This requires a brand id from a previously created brand.
 mvn exec:java -Dexec.args="list_agents=true brand_id=brands/actual-brand-id"
 ```
 
+Unless you are using this API with an account configured for Operations API access (as a carrier).  In this case you can pass `-` to retrieve all agents:
+
+```
+mvn exec:java -Dexec.args="list_agents=true brand_id=brands/-"
+```
+
 ### Creating an agent
 This requires a brand id from a previously created brand.
 
