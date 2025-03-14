@@ -16,6 +16,7 @@ In the [RBM Developer Console](https://business-communications.cloud.google.com/
 - Create your agent 
 - Upload the assets in `agent-assets/`
 - Create a service account key and download the JSON file
+- Update the `AGENT_ID` parameter in `constants.py` (the part before @rbm.goog)
 - Invite your RBM-enabled test phone (and accept the invite on your device)
 
 Now add the JSON into `resouces/rbm-agent-service-account-credentials.json`.
