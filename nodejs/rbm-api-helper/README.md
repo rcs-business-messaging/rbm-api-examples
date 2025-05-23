@@ -1,5 +1,7 @@
 # [Google's RCS Business Messaging: Node.js Client](https://github.com/rcs-business-messaging/rbm-api-examples/tree/master/nodejs/rbm-api-helper)
 
+> **_NOTE:_** This client library is provided as a quick start to get you up and running with RBM. Once you get familiar with the basic functions in this library, we recommend that you unlock all the powerful capabilities of RBM via the RBM API directly.
+
 [RCS Business Messaging](https://developers.google.com/business-communications/rcs-business-messaging/guides/get-started/how-it-works) upgrades SMS with branding, rich media, interactivity, and analytics. With RCS, businesses can bring branded, interactive mobile experiences, right to the native Android messaging app.
 
 This document contains an [API reference](https://developers.google.com/business-communications/rcs-business-messaging/reference/rest), samples, and other resources useful to developing Node.js applications.
