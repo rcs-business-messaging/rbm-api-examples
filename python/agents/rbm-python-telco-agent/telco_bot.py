@@ -15,6 +15,7 @@
 
 import datetime
 import time
+import constants
 
 from flask import Flask
 
@@ -420,6 +421,7 @@ def send_plain_text(msisdn, text, suggestions=[]):
   
 
 def send_welcome(msisdn):
+  rbm_service.init(constants.AGENT_ID)
   resp = rbm_service.make_cap_request(msisdn)
   
   if resp.status == 200:
