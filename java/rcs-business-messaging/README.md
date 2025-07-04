@@ -18,7 +18,7 @@ in the Maven repositories. Add the following to you `pom.xml`:
 <dependency>
   <groupId>com.google.rbm</groupId>
   <artifactId>rcsbusinessmessaging</artifactId>
-  <version>1.0.1</version>
+  <version>1.0.2</version>
 </dependency>
 ```
 
@@ -67,6 +67,13 @@ mvn install
 ```
 
 ## Change log
+
+1.0.2
+
+- Regen to match current RBM product API (including message type)
+- IMPORT - note change is root class path to `com.google.rcsbusinessmessaging.v1`. You 
+  will need to edit `import` statements in your code to match (our [example](https://github.com/rcs-business-messaging/rbm-api-examples/tree/master/java/rbm-intro-lowlevel)
+  has been updated).
 
 1.0.1
 
