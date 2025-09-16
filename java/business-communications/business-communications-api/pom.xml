@@ -1,0 +1,153 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>com.google.rbm</groupId>
+  <artifactId>businesscommunications</artifactId>
+  <version>1.05</version>
+  <name>Business Communications API</name>
+
+	<developers>
+		<developer>
+			<name>RBM Developer Relations</name>
+			<email>rbm-devrel@google.com</email>
+			<roles>
+				<role>owner</role>
+			</roles>
+		</developer>
+	</developers>
+  <organization>
+    <name>Google</name>
+    <url>http://www.google.com/</url>
+  </organization>
+
+  <description>
+    This is the Java client library for the Business Commununications API. It is
+    a generated API built from the REST definition which is documented at
+		https://developers.google.com/business-communications/rcs-business-messaging/reference/business-communications/rest.
+  </description>
+
+  <licenses>
+    <license>
+      <name>The Apache Software License, Version 2.0</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+
+	<scm>
+    <url>https://github.com/rcs-business-messaging/business-communications-api-java</url>
+  </scm>
+
+  <url>https://developers.google.com/business-communications/rcs-business-messaging</url>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+
+  <build>
+    <plugins>
+    <!-- mvn dependency:analyze -->
+			<plugin>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<version>3.5.0</version>
+			</plugin>
+      <plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<version>3.3.0</version>
+				<executions>
+					<execution>
+						<id>attach-sources</id>
+						<goals>
+							<goal>jar-no-fork</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+      <plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.14.0</version>
+				<configuration>
+					<showDeprecation>true</showDeprecation>
+				</configuration>
+      </plugin>
+      <plugin>
+        <artifactId>maven-jar-plugin</artifactId>
+        <version>3.1.0</version>
+<executions>
+					<execution>
+						<id>default-jar</id>
+						<phase>package</phase>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+          </execution>
+          <execution>
+          	<id>javadoc-jar</id>
+            <phase>package</phase>
+            <goals>
+            	<goal>jar</goal>
+            </goals>
+            <configuration>
+              <classifier>javadoc</classifier>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <version>2.7</version>
+        <configuration>
+          <doctitle>Business Communications ${project.version}</doctitle>
+          <windowtitle>Business Communications ${project.version}</windowtitle>
+          <links>
+            <link>http://docs.oracle.com/javase/7/docs/api</link>
+
+            <link>http://javadoc.google-http-java-client.googlecode.com/hg/1.25.0-SNAPSHOT</link>
+
+            <link>http://javadoc.google-oauth-java-client.googlecode.com/hg/1.25.0-SNAPSHOT</link>
+
+            <link>http://javadoc.google-api-java-client.googlecode.com/hg/1.25.0-SNAPSHOT</link>
+          </links>
+        </configuration>
+      </plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-gpg-plugin</artifactId>
+				<version>3.1.0</version>
+				<executions>
+					<execution>
+						<id>sign-artifacts</id>
+						<phase>verify</phase>
+						<goals>
+							<goal>sign</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+        	<keyname>401B7C39ED1E4FC0606FAE4223801D69E72FBC80</keyname>
+    		</configuration>
+			</plugin>
+		  <plugin>
+        <groupId>org.sonatype.central</groupId>
+        <artifactId>central-publishing-maven-plugin</artifactId>
+        <version>0.8.0</version>
+        <extensions>true</extensions>
+        <configuration>
+          <publishingServerId>central</publishingServerId>
+        </configuration>
+      </plugin>
+    </plugins>
+    <sourceDirectory>.</sourceDirectory>
+  </build>
+
+  <dependencies>
+    <dependency>
+      <groupId>com.google.api-client</groupId>
+      <artifactId>google-api-client</artifactId>
+      <version>2.8.1</version>
+    </dependency>
+  </dependencies>
+
+</project>
