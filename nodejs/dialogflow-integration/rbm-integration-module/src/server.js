@@ -27,14 +27,22 @@ const privateKeyFile =
 const privateKey = require(privateKeyFile);
 
 const app = express();
-const sessionsClient = new SessionsClient();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
 // load configuration file
 const config = require('../resources/config.json');
+const e = require('express');
 
+var sessionsClient = null;
+
+if (config.dialogflow.location == 'global') {
+	sessionsClient = new SessionsClient();
+}
+else {
+	sessionsClient = new SessionsClient({apiEndpoint: `${config.dialogflow.location}-dialogflow.googleapis.com`})
+}
 
 rbmApiHelper.initRbmApi(privateKey);
 rbmApiHelper.setAgentId(config.rbm.agentId);
@@ -156,6 +164,7 @@ function invokeDialogflow(msisdn, input) {
 	sessionsClient.detectIntent(request).then(([response]) => {
 		handleDialogflowResponse(msisdn, response);
 	}).catch((err) => {
+		console.log(err);
 		rbmApiHelper.sendMessage({
 			msisdn: msisdn,
 			messageText: `This is an unexpected exception. Details ` +
