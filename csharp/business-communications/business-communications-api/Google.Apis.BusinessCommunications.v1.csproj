@@ -1,0 +1,17 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Library</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <Version>1.0.3</Version>
+    <Authors>rbm-devrel@google.com</Authors>
+    <Company>Google Inc.</Company>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Google.Apis" Version="1.70.0" />
+    <PackageReference Include="Google.Apis.Core" Version="1.70.0" />
+  </ItemGroup>
+
+</Project>
