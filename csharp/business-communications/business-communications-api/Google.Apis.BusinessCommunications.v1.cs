@@ -4066,6 +4066,45 @@ namespace Google.Apis.BusinessCommunications.v1
             this.service = service;
 
         }
+        
+        /// <summary>Creates a new tester by sending an invitation.</summary>
+        /// <param name="body">The body of the request.</param>
+        public virtual CreateRequest Create(Google.Apis.BusinessCommunications.v1.Data.Tester body)
+        {
+            return new CreateRequest(service, body);
+        }
+        
+        public class CreateRequest : BusinessCommunicationsBaseServiceRequest<Google.Apis.BusinessCommunications.v1.Data.Tester>
+        {
+            /// <summary>Constructs a new Create request.</summary>
+            public CreateRequest(Google.Apis.Services.IClientService service, Google.Apis.BusinessCommunications.v1.Data.Tester body)
+                : base(service)
+            {
+                Body = body;
+                InitParameters();
+            }
+
+            /// <summary>Gets or sets the body of this request.</summary>
+            Google.Apis.BusinessCommunications.v1.Data.Tester Body { get; set; }
+
+            /// <summary>Returns the body of the request.</summary>
+            protected override object GetBody() => Body;
+
+            /// <summary>Gets the method name.</summary>
+            public override string MethodName => "create";
+
+            /// <summary>Gets the HTTP method.</summary>
+            public override string HttpMethod => "POST";
+
+            /// <summary>Gets the REST path.</summary>
+            public override string RestPath => "v1/testers";
+
+            /// <summary>Initializes Create parameter list.</summary>
+            protected override void InitParameters()
+            {
+                base.InitParameters();
+            }
+        }
 
 
         /// <summary>Deletes a tester device.</summary>
