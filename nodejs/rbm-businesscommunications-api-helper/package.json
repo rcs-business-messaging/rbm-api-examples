@@ -23,7 +23,7 @@
     "googleapis-common": "^7.0.1"
   },
   "devDependencies": {
-    "eslint": "^8.54.0",
+    "eslint": "^9.39.2",
     "eslint-config-google": "^0.14.0"
   }
 }
