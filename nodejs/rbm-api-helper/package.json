@@ -19,9 +19,9 @@
   },
   "license": "Apache-2.0",
   "dependencies": {
-    "googleapis": "^140.0.1",
-    "googleapis-common": "^7.2.0",
-    "uuid": "^10.0.0"
+    "googleapis": "^171.4.0",
+    "googleapis-common": "^8.0.1",
+    "uuid": "^14.0.0"
   },
   "devDependencies": {
     "eslint": "^9.9.0",
