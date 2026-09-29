@@ -1,0 +1,8 @@
+Flask
+gunicorn
+httplib2
+emoji
+oauth2client
+google-cloud
+psutil
+cachetools
