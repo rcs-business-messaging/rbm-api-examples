@@ -14,14 +14,24 @@ You must have the following software installed on your development machine:
 ## Setting up the Agent
 
 1. Open the [RBM Developer Console][rbm-console] with your RBM Platform Google
-   account and create a new RBM agent.
-2. Under the agent settings, navigate to **Service account** and click
-   **Create key**.
-3. Download the JSON file, rename it to
-   `rbm-agent-service-account-credentials.json`, and place it in the
-   `resources/` folder (create the folder if it doesn't exist).
-4. Invite your RBM-enabled test phone to the agent and accept the invite on
-   your device.
+   account.
+2. Navigate to your partner account settings, find the **Service account**
+   section, and click **Create key**. (Keys are managed at the partner level,
+   not per-agent).  If a key already exists, then you'll need to find the
+   service account JSON key file that was created for your partner account
+   and use it.
+3. Create a new file at `resources/rbm-service-account.json` and paste the
+   contents of your downloaded service account key into it (create the
+   `resources/` folder if it doesn't already exist).
+4. Create a new RBM agent in the console.  Once created, copy the agent ID.
+5. Update the `constants.py` file with your agent ID you copied from the
+   console.
+6. Invite your RBM-enabled test phone to the agent by running the included
+   CLI tool:
+   ```bash
+   python register_tester.py +1234567890
+   ```
+7. Accept the invite on your device.
 
 ## Deploying to Google Cloud Platform (GCP)
 
