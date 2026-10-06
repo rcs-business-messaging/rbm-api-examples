@@ -46,6 +46,60 @@
 namespace Google.Apis.BusinessCommunications.v1.Data
 {    
 
+    /// <summary>An attachment resource with a unique name that an agent can use to identify the attachment.</summary>
+    public class GoogleCommunicationsBusinesscommunicationsV1Attachment : Google.Apis.Requests.IDirectResponseSchema
+    {
+        /// <summary>Output only. The unique identifier of the attachment.</summary>
+        [Newtonsoft.Json.JsonPropertyAttribute("name")]
+        public virtual string Name { get; set; }
+
+        /// <summary>Optional. Display name of the attachment.</summary>
+        [Newtonsoft.Json.JsonPropertyAttribute("displayName")]
+        public virtual string DisplayName { get; set; }
+
+        /// <summary>Optional. Text description of the attachment's content.</summary>
+        [Newtonsoft.Json.JsonPropertyAttribute("description")]
+        public virtual string Description { get; set; }
+
+        /// <summary>Output only. The time when the attachment was uploaded.</summary>
+        [Newtonsoft.Json.JsonPropertyAttribute("createTime")]
+        public virtual string CreateTime { get; set; }
+
+        /// <summary>Output only. The GCS URL of the attachment.</summary>
+        [Newtonsoft.Json.JsonPropertyAttribute("gcsUrl")]
+        public virtual string GcsUrl { get; set; }
+
+        /// <summary>Optional. The content type of the attachment.</summary>
+        [Newtonsoft.Json.JsonPropertyAttribute("contentType")]
+        public virtual string ContentType { get; set; }
+
+        /// <summary>Output only. Size in bytes of the attachment.</summary>
+        [Newtonsoft.Json.JsonPropertyAttribute("sizeBytes")]
+        public virtual System.Nullable<long> SizeBytes { get; set; }
+
+        /// <summary>Required. The source that triggered the attachment upload.</summary>
+        [Newtonsoft.Json.JsonPropertyAttribute("attachmentOperationSource")]
+        public virtual string AttachmentOperationSource { get; set; }
+
+        /// <summary>Output only. Error result, if any, that occurred during the attachment upload.</summary>
+        [Newtonsoft.Json.JsonPropertyAttribute("uploadError")]
+        public virtual Status UploadError { get; set; }
+
+        /// <summary>The ETag of the item.</summary>
+        public virtual string ETag { get; set; }
+    }
+
+    /// <summary>Request for creating an attachment.</summary>
+    public class GoogleCommunicationsBusinesscommunicationsV1CreateAttachmentRequest : Google.Apis.Requests.IDirectResponseSchema
+    {
+        /// <summary>Required. The source that triggered the attachment upload.</summary>
+        [Newtonsoft.Json.JsonPropertyAttribute("attachmentOperationSource")]
+        public virtual string AttachmentOperationSource { get; set; }
+
+        /// <summary>The ETag of the item.</summary>
+        public virtual string ETag { get; set; }
+    }
+
     /// <summary>A conversational entity that represents a brand.</summary>
     public class Agent : Google.Apis.Requests.IDirectResponseSchema
     {
@@ -1527,8 +1581,215 @@ namespace Google.Apis.BusinessCommunications.v1
             public AgentsResource(Google.Apis.Services.IClientService service)
             {
                 this.service = service;
+                attachments = new AttachmentsResource(service);
                 integrations = new IntegrationsResource(service);
 
+            }
+
+            private readonly AttachmentsResource attachments;
+
+            /// <summary>Gets the Attachments resource.</summary>
+            public virtual AttachmentsResource Attachments
+            {
+                get { return attachments; }
+            }
+
+            /// <summary>The "attachments" collection of methods.</summary>
+            public class AttachmentsResource
+            {
+                private const string Resource = "attachments";
+
+                /// <summary>The service which this resource belongs to.</summary>
+                private readonly Google.Apis.Services.IClientService service;
+
+                /// <summary>Constructs a new resource.</summary>
+                public AttachmentsResource(Google.Apis.Services.IClientService service)
+                {
+                    this.service = service;
+                }
+
+                /// <summary>Creates an attachment for an RCS for Business agent.</summary>
+                /// <param name="body">The body of the request.</param>
+                /// <param name="parent">Required. The unique identifier of the agent. If the brand identifier is "1234" and the agent
+                /// identifier is "5678", this parameter resolves to "brands/1234/agents/5678".</param>
+                public virtual CreateRequest Create(Google.Apis.BusinessCommunications.v1.Data.GoogleCommunicationsBusinesscommunicationsV1CreateAttachmentRequest body, string parent)
+                {
+                    return new CreateRequest(service, body, parent);
+                }
+
+                /// <summary>Creates an attachment for an RCS for Business agent. (Media upload)</summary>
+                /// <param name="body">The body of the request.</param>
+                /// <param name="parent">Required. The unique identifier of the agent. If the brand identifier is "1234" and the agent
+                /// identifier is "5678", this parameter resolves to "brands/1234/agents/5678".</param>
+                /// <param name="stream">The stream to upload.</param>
+                /// <param name="contentType">The content type of the stream to upload.</param>
+                public virtual CreateMediaUpload Create(Google.Apis.BusinessCommunications.v1.Data.GoogleCommunicationsBusinesscommunicationsV1CreateAttachmentRequest body, string parent, System.IO.Stream stream, string contentType)
+                {
+                    return new CreateMediaUpload(service, body, parent, stream, contentType);
+                }
+
+                /// <summary>Creates an attachment request.</summary>
+                public class CreateRequest : BusinessCommunicationsBaseServiceRequest<Google.Apis.BusinessCommunications.v1.Data.GoogleCommunicationsBusinesscommunicationsV1Attachment>
+                {
+                    /// <summary>Constructs a new Create request.</summary>
+                    public CreateRequest(Google.Apis.Services.IClientService service, Google.Apis.BusinessCommunications.v1.Data.GoogleCommunicationsBusinesscommunicationsV1CreateAttachmentRequest body, string parent)
+                        : base(service)
+                    {
+                        Parent = parent;
+                        Body = body;
+                        InitParameters();
+                    }
+
+                    /// <summary>Required. The unique identifier of the agent. If the brand identifier is "1234" and the agent
+                    /// identifier is "5678", this parameter resolves to "brands/1234/agents/5678".</summary>
+                    [Google.Apis.Util.RequestParameterAttribute("parent", Google.Apis.Util.RequestParameterType.Path)]
+                    public virtual string Parent { get; private set; }
+
+                    /// <summary>Required if `uploadType=media`. Specifies the reason for the upload.</summary>
+                    [Google.Apis.Util.RequestParameterAttribute("attachmentOperationSource", Google.Apis.Util.RequestParameterType.Query)]
+                    public virtual string AttachmentOperationSource { get; set; }
+
+                    /// <summary>Gets or sets the body of this request.</summary>
+                    Google.Apis.BusinessCommunications.v1.Data.GoogleCommunicationsBusinesscommunicationsV1CreateAttachmentRequest Body { get; set; }
+
+                    ///<summary>Returns the body of the request.</summary>
+                    protected override object GetBody() { return Body; }
+
+                    ///<summary>Gets the method name.</summary>
+                    public override string MethodName
+                    {
+                        get { return "create"; }
+                    }
+
+                    ///<summary>Gets the HTTP method.</summary>
+                    public override string HttpMethod
+                    {
+                        get { return "POST"; }
+                    }
+
+                    ///<summary>Gets the REST path.</summary>
+                    public override string RestPath
+                    {
+                        get { return "v1/{+parent}/attachments"; }
+                    }
+
+                    /// <summary>Initializes Create parameter list.</summary>
+                    protected override void InitParameters()
+                    {
+                        base.InitParameters();
+
+                        RequestParameters.Add(
+                            "parent", new Google.Apis.Discovery.Parameter
+                            {
+                                Name = "parent",
+                                IsRequired = true,
+                                ParameterType = "path",
+                                DefaultValue = null,
+                                Pattern = @"^brands/[^/]+/agents/[^/]+$",
+                            });
+                        RequestParameters.Add(
+                            "attachmentOperationSource", new Google.Apis.Discovery.Parameter
+                            {
+                                Name = "attachmentOperationSource",
+                                IsRequired = false,
+                                ParameterType = "query",
+                                DefaultValue = null,
+                                Pattern = null,
+                            });
+                    }
+                }
+
+                /// <summary>Create media upload which supports resumable upload.</summary>
+                public class CreateMediaUpload : Google.Apis.Upload.ResumableUpload<Google.Apis.BusinessCommunications.v1.Data.GoogleCommunicationsBusinesscommunicationsV1CreateAttachmentRequest, Google.Apis.BusinessCommunications.v1.Data.GoogleCommunicationsBusinesscommunicationsV1Attachment>
+                {
+                    /// <summary>V1 error format.</summary>
+                    [Google.Apis.Util.RequestParameterAttribute("$.xgafv", Google.Apis.Util.RequestParameterType.Query)]
+                    public virtual System.Nullable<XgafvEnum> Xgafv { get; set; }
+
+                    /// <summary>V1 error format.</summary>
+                    public enum XgafvEnum
+                    {
+                        /// <summary>v1 error format</summary>
+                        [Google.Apis.Util.StringValueAttribute("1")]
+                        Value1,
+                        /// <summary>v2 error format</summary>
+                        [Google.Apis.Util.StringValueAttribute("2")]
+                        Value2,
+                    }
+
+                    /// <summary>OAuth access token.</summary>
+                    [Google.Apis.Util.RequestParameterAttribute("access_token", Google.Apis.Util.RequestParameterType.Query)]
+                    public virtual string AccessToken { get; set; }
+
+                    /// <summary>Data format for response.</summary>
+                    [Google.Apis.Util.RequestParameterAttribute("alt", Google.Apis.Util.RequestParameterType.Query)]
+                    public virtual System.Nullable<AltEnum> Alt { get; set; }
+
+                    /// <summary>Data format for response.</summary>
+                    public enum AltEnum
+                    {
+                        /// <summary>Responses with Content-Type of application/json</summary>
+                        [Google.Apis.Util.StringValueAttribute("json")]
+                        Json,
+                        /// <summary>Media download with context-dependent Content-Type</summary>
+                        [Google.Apis.Util.StringValueAttribute("media")]
+                        Media,
+                        /// <summary>Responses with Content-Type of application/x-protobuf</summary>
+                        [Google.Apis.Util.StringValueAttribute("proto")]
+                        Proto,
+                    }
+
+                    /// <summary>JSONP</summary>
+                    [Google.Apis.Util.RequestParameterAttribute("callback", Google.Apis.Util.RequestParameterType.Query)]
+                    public virtual string Callback { get; set; }
+
+                    /// <summary>Selector specifying which fields to include in a partial response.</summary>
+                    [Google.Apis.Util.RequestParameterAttribute("fields", Google.Apis.Util.RequestParameterType.Query)]
+                    public virtual string Fields { get; set; }
+
+                    /// <summary>API key. Your API key identifies your project and provides you with API access, quota, and
+                    /// reports. Required unless you provide an OAuth 2.0 token.</summary>
+                    [Google.Apis.Util.RequestParameterAttribute("key", Google.Apis.Util.RequestParameterType.Query)]
+                    public virtual string Key { get; set; }
+
+                    /// <summary>OAuth 2.0 token for the current user.</summary>
+                    [Google.Apis.Util.RequestParameterAttribute("oauth_token", Google.Apis.Util.RequestParameterType.Query)]
+                    public virtual string OauthToken { get; set; }
+
+                    /// <summary>Returns response with indentations and line breaks.</summary>
+                    [Google.Apis.Util.RequestParameterAttribute("prettyPrint", Google.Apis.Util.RequestParameterType.Query)]
+                    public virtual System.Nullable<bool> PrettyPrint { get; set; }
+
+                    /// <summary>Available to use for quota purposes for server-side applications. Can be any arbitrary string
+                    /// assigned to a user, but should not exceed 40 characters.</summary>
+                    [Google.Apis.Util.RequestParameterAttribute("quotaUser", Google.Apis.Util.RequestParameterType.Query)]
+                    public virtual string QuotaUser { get; set; }
+
+                    /// <summary>Legacy upload protocol for media (e.g. "media", "multipart").</summary>
+                    [Google.Apis.Util.RequestParameterAttribute("uploadType", Google.Apis.Util.RequestParameterType.Query)]
+                    public virtual string UploadType { get; set; }
+
+                    /// <summary>Upload protocol for media (e.g. "raw", "multipart").</summary>
+                    [Google.Apis.Util.RequestParameterAttribute("upload_protocol", Google.Apis.Util.RequestParameterType.Query)]
+                    public virtual string UploadProtocol { get; set; }
+
+                    /// <summary>Required. The unique identifier of the agent. If the brand identifier is "1234" and the agent
+                    /// identifier is "5678", this parameter resolves to "brands/1234/agents/5678".</summary>
+                    [Google.Apis.Util.RequestParameterAttribute("parent", Google.Apis.Util.RequestParameterType.Path)]
+                    public virtual string Parent { get; private set; }
+
+                    /// <summary>Required if `uploadType=media`. Specifies the reason for the upload.</summary>
+                    [Google.Apis.Util.RequestParameterAttribute("attachmentOperationSource", Google.Apis.Util.RequestParameterType.Query)]
+                    public virtual string AttachmentOperationSource { get; set; }
+
+                    /// <summary>Constructs a new Create media upload instance.</summary>
+                    public CreateMediaUpload(Google.Apis.Services.IClientService service, Google.Apis.BusinessCommunications.v1.Data.GoogleCommunicationsBusinesscommunicationsV1CreateAttachmentRequest body, string parent, System.IO.Stream stream, string contentType)
+                        : base(service, string.Format("/{0}/{1}v1/{2}/attachments", "upload", service.BasePath, parent), "POST", stream, contentType)
+                    {
+                        Parent = parent;
+                        Body = body;
+                    }
+                }
             }
 
             private readonly IntegrationsResource integrations;
@@ -2674,6 +2935,10 @@ namespace Google.Apis.BusinessCommunications.v1
                 [Google.Apis.Util.RequestParameterAttribute("updateMask", Google.Apis.Util.RequestParameterType.Query)]
                 public virtual object UpdateMask { get; set; }
 
+                /// <summary>Optional. The party acting on behalf of the carrier.</summary>
+                [Google.Apis.Util.RequestParameterAttribute("acting_party", Google.Apis.Util.RequestParameterType.Query)]
+                public virtual string ActingParty { get; set; }
+
 
                 /// <summary>Gets or sets the body of this request.</summary>
                 Google.Apis.BusinessCommunications.v1.Data.AgentLaunch Body { get; set; }
@@ -2717,6 +2982,15 @@ namespace Google.Apis.BusinessCommunications.v1
                         "updateMask", new Google.Apis.Discovery.Parameter
                         {
                             Name = "updateMask",
+                            IsRequired = false,
+                            ParameterType = "query",
+                            DefaultValue = null,
+                            Pattern = null,
+                        });
+                    RequestParameters.Add(
+                        "acting_party", new Google.Apis.Discovery.Parameter
+                        {
+                            Name = "acting_party",
                             IsRequired = false,
                             ParameterType = "query",
                             DefaultValue = null,

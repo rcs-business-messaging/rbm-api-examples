@@ -206,6 +206,7 @@ var businesscommunications_v1;
     class Resource$Brands$Agents {
         constructor(context) {
             this.context = context;
+            this.attachments = new Resource$Brands$Agents$Attachments(this.context);
             this.greetings = new Resource$Brands$Agents$Greetings(this.context);
             this.integrations = new Resource$Brands$Agents$Integrations(this.context);
         }
@@ -844,6 +845,44 @@ var businesscommunications_v1;
         }
     }
     businesscommunications_v1.Resource$Brands$Agents$Integrations = Resource$Brands$Agents$Integrations;
+    class Resource$Brands$Agents$Attachments {
+        constructor(context) {
+            this.context = context;
+        }
+        create(paramsOrCallback, optionsOrCallback, callback) {
+            let params = (paramsOrCallback ||
+                {});
+            let options = (optionsOrCallback || {});
+            if (typeof paramsOrCallback === 'function') {
+                callback = paramsOrCallback;
+                params = {};
+                options = {};
+            }
+            if (typeof optionsOrCallback === 'function') {
+                callback = optionsOrCallback;
+                options = {};
+            }
+            const rootUrl = options.rootUrl || 'https://businesscommunications.googleapis.com/';
+            const parameters = {
+                options: Object.assign({
+                    url: (rootUrl + '/v1/{+parent}/attachments').replace(/([^:]\/)\/+/g, '$1'),
+                    method: 'POST',
+                }, options),
+                params,
+                mediaUrl: (rootUrl + '/upload/v1/{+parent}/attachments').replace(/([^:]\/)\/+/g, '$1'),
+                requiredParams: ['parent'],
+                pathParams: ['parent'],
+                context: this.context,
+            };
+            if (callback) {
+                (0, googleapis_common_1.createAPIRequest)(parameters, callback);
+            }
+            else {
+                return (0, googleapis_common_1.createAPIRequest)(parameters);
+            }
+        }
+    }
+    businesscommunications_v1.Resource$Brands$Agents$Attachments = Resource$Brands$Agents$Attachments;
     class Resource$Brands$Locations {
         constructor(context) {
             this.context = context;

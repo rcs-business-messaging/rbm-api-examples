@@ -116,29 +116,38 @@ const businessCommunicationsApiHelper = {
 		});
 	},
 
-		/**
-     * Update agent launch state (RBM Ops API).
+	/**
+	 * Update agent launch state (RBM Ops API).
 	 * @param {string} agentId The agent Id (before @rbm.goog)
 	 * @param {string} launchState New launch state
-     * @return {Promise} Resolves on request completion.
+	 * @param {string} [actingParty] Optional acting party
+	 * @return {Promise} Resolves on request completion.
 	 * result.data contains the updated launch
-     */
-	updateAgentLaunchState: function(agentId, launchState) {
+	 */
+	updateAgentLaunchState: function(agentId, launchState, actingParty) {
 		return new Promise((resolve, reject) => {
 			this.initBusinessCommunucationsApi().then((params) => {
-				params.name = 'brands/-/agents/' + agentId + '/launch';
+				if (agentId.startsWith('brands/')) {
+					params.name = agentId + '/launch';
+				} else {
+					params.name = 'brands/-/agents/' + agentId + '/launch';
+				}
+				if (actingParty) {
+					params.acting_party = actingParty;
+				}
 				params.resource = {
 					rcsBusinessMessaging: {
 						launchDetails: {
 							'': {
-						  		launchState: launchState
-							}
-					  	}
-					}
-				  };
-				bizCommsApi.brands.agents.updateLaunch(params, {}, function(err, response) {
-					err ? reject(err) : resolve(response);
-				});
+								launchState: launchState,
+							},
+						},
+					},
+				};
+				bizCommsApi.brands.agents.updateLaunch(
+					params, {}, function(err, response) {
+						err ? reject(err) : resolve(response);
+					});
 			});
 		});
 	},
@@ -405,6 +414,29 @@ const businessCommunicationsApiHelper = {
 	},
 
 	/**
+     * Upload verification document (PDF) to Business Communications API.
+     * @param {string} name The agent id (brands/{brandId}/agents/{agentId})
+     * @param {Buffer} fileBuffer The binary content of the PDF file
+     * @param {string} [source] Optional reason source for the upload (default: VERIFICATION_PAGE)
+     * @return {Promise} Resolves on request completion.
+     */
+	uploadVerificationDocument: function(name, fileBuffer, source = 'VERIFICATION_PAGE') {
+		return new Promise((resolve, reject) => {
+			this.initBusinessCommunucationsApi().then((params) => {
+				params.parent = name;
+				params.attachmentOperationSource = source;
+				params.media = {
+					mimeType: 'application/pdf',
+					body: fileBuffer,
+				};
+				bizCommsApi.brands.agents.attachments.create(params, {}, function(err, response) {
+					err ? reject(err) : resolve(response);
+				});
+			});
+		});
+	},
+
+	/**
      * Initializes the Business Communications API and authentication
      * credentials to communicate with the RBM platform.
      * @param {string} privateKey - path to private key file.
@@ -415,7 +447,10 @@ const businessCommunicationsApiHelper = {
 			privatekey = privateKey;
 		}
 		if (privatekey == null) {
-			throw new Error('Library not initialised. Call initBusinessCommunucationsApi with api key filename first.');
+			throw new Error(
+				'Library not initialised. Call ' +
+				'initBusinessCommunucationsApi with api key filename first.'
+			);
 		}
 
 		return new Promise((resolve, reject) => {

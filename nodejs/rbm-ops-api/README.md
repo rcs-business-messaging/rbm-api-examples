@@ -34,3 +34,20 @@ You can now execute the node samples e.g.
 ```
 node src/listAgents.js
 ```
+
+## Uploading a verification document
+
+`src/uploadVerificationDocument.js` requires version 1.0.7 or later of the
+`@google/rbm-businesscommunications` helper library. Until that version is
+available on npm, link the helper library from this repository instead:
+
+```
+cd ../rbm-businesscommunications-api-helper && npm install && npm link
+cd ../rbm-ops-api && npm install && npm link @google/rbm-businesscommunications
+```
+
+Then set `agentName` and `pdfPath` in the script and run
+
+```
+node src/uploadVerificationDocument.js
+```

@@ -127,17 +127,10 @@ namespace Google.RBM
         /// Registers the device as a tester for this agent.
         /// </summary>
         /// <param name="msisdn">The phone number in E.164 format.</param>
+        [System.Obsolete("This RBM tester registration API is deprecated. Please use the Business Communications API instead.")]
         public void RegsisterTester(string msisdn)
         {
-            string phoneNumber = ConvertToApiFormat(msisdn);
-
-            Tester tester = new Tester();
-
-            PhonesResource.TestersResource.CreateRequest request
-                          = rcsBusinessMessagingService.Phones.Testers.Create(tester, phoneNumber);
-
-            if (this.agentId != null) request.AgentId = this.agentId;
-            request.Execute();
+            System.Console.WriteLine("Warning: RegsisterTester is no longer supported via RBM API. Use Business Communications API instead.");
         }
 
         /// <summary>
@@ -418,7 +411,7 @@ namespace Google.RBM
             string phoneNumber = ConvertToApiFormat(msisdn);
 
             if (ttl != null) agentMessage.Ttl = ttl;
-            if (expireTime != null) agentMessage.ExpireTimeDateTimeOffset = DateTimeOffset.Parse(expireTime).UtcDateTime;
+            if (expireTime != null) agentMessage.ExpireTime = expireTime;
 
             PhonesResource.AgentMessagesResource.CreateRequest request
                           = rcsBusinessMessagingService.Phones.AgentMessages.Create(agentMessage, phoneNumber);
