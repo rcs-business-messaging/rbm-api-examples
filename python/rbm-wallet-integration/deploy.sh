@@ -11,6 +11,7 @@ fi
 export GCP_PROJECT_ID=$1
 
 echo "Deploying RBM Wallet Integration to project: $GCP_PROJECT_ID"
+
 if gcloud app deploy app.yaml --project=$GCP_PROJECT_ID --quiet; then
   echo "Deployment successful."
 else

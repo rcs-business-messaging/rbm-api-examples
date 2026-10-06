@@ -117,7 +117,7 @@ If you wish to test locally before deploying:
     ```
 2.  Run the application:
     ```bash
-    python main.py
+    python src/main.py
     ```
     *(Note: To test the webhook locally, you will need a tool like
     [ngrok][ngrok] to expose your local port to the internet, and then update

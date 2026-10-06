@@ -28,8 +28,11 @@ class RbmMessageService:
     scopes = [
         'https://www.googleapis.com/auth/rcsbusinessmessaging'
     ]
+    import os
+    base_dir = os.path.dirname(os.path.dirname(__file__))
+    sa_file = os.path.join(base_dir, 'resources', 'rbm-service-account.json')
     self.credentials = service_account.Credentials.from_service_account_file(
-        'resources/rbm-service-account.json', scopes=scopes
+        sa_file, scopes=scopes
     )
     self.session = AuthorizedSession(self.credentials)
 

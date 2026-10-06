@@ -26,8 +26,9 @@ from rbmservice.message import RbmMessageService
 app = Flask(__name__)
 
 # Constants
-SA_FILE = 'resources/rbm-service-account.json'
-PKPASS_FILE = 'resources/event_entrance.pkpass'
+BASE_DIR = os.path.dirname(__file__)
+SA_FILE = os.path.join(BASE_DIR, 'resources', 'rbm-service-account.json')
+PKPASS_FILE = os.path.join(BASE_DIR, 'resources', 'event_entrance.pkpass')
 
 
 @app.route('/', methods=['GET'])

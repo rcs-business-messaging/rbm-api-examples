@@ -16,7 +16,8 @@ import os
 from dotenv import load_dotenv
 
 # Load environment variables from .env file for local development
-load_dotenv()
+dotenv_path = os.path.join(os.path.dirname(__file__), '.env')
+load_dotenv(dotenv_path)
 
 # The Agent ID for your RBM agent.
 AGENT_ID = os.environ.get('AGENT_ID')
