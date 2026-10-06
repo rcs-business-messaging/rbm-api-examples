@@ -4,8 +4,6 @@
 #
 #    pip-compile requirements.in
 #
---index-url http://airlock-proxy.uplink.goog:999/python/artifact-foundry-prod/python-3p-limited-internal-use/simple/
---trusted-host airlock-proxy.uplink.goog
 
 blinker==1.9.0
     # via flask
@@ -86,6 +84,8 @@ pycparser==3.0
     # via cffi
 pyparsing==3.3.3
     # via httplib2
+python-dotenv==1.2.3
+    # via -r requirements.in
 requests==2.34.2
     # via google-api-core
 rsa==4.9.1

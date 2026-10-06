@@ -1,0 +1,15 @@
+.gcloudignore
+.git
+.gitignore
+__pycache__/
+
+# Include resources folder for App Engine deployment
+!resources/
+
+# Ignore virtual environment
+.venv/
+venv/
+
+# Ignore scratch files
+scratch/
+scratch_*.py

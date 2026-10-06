@@ -60,7 +60,6 @@ venv.bak/
 
 # Local environment variables files
 .env
-.env.*
 
 # Editors / IDEs
 .idea/
@@ -69,4 +68,5 @@ venv.bak/
 *.swo
 
 # Local resources
-rbm-service-account.json
+rbm-service-account.json.env
+app.yaml
