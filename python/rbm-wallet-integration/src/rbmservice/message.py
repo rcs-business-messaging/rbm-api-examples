@@ -56,14 +56,21 @@ class RbmMessageService:
         'contentMessage': {
             'richCard': {
                 'standaloneCard': {
-                    'cardOrientation': 'VERTICAL',
+                    'cardOrientation': 'HORIZONTAL',
+                    'thumbnailImageAlignment': 'LEFT',
                     'cardContent': {
+                        'media': {
+                            'height': 'TALL',
+                            'contentInfo': {
+                                'fileUrl': f"{base_url}/static/pass_preview.png",
+                                'forceRefresh': False
+                            }
+                        },
                         'title': 'Awesome Event: VIP Entrance',
-                        'description': 'Your VIP - Tier 1 access pass.',
-                        'suggestions': [
+                        'description': 'Your VIP - Tier 1 access pass.',                        'suggestions': [
                             {
                                 'action': {
-                                    'text': 'Save to Wallet',
+                                    'text': 'Add to Google Wallet',
                                     'postbackData': 'save_to_wallet',
                                     'openUrlAction': {
                                         'url': wallet_url
