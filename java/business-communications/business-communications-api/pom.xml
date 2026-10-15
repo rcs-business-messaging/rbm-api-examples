@@ -4,7 +4,7 @@
 
   <groupId>com.google.rbm</groupId>
   <artifactId>businesscommunications</artifactId>
-  <version>1.06</version>
+  <version>1.07</version>
   <name>Business Communications API</name>
 
 	<developers>

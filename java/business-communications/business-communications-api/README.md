@@ -23,7 +23,7 @@ the following to you `pom.xml`:
 <dependency>
   <groupId>com.google.rbm</groupId>
   <artifactId>businesscommunications</artifactId>
-  <version>1.06</version>
+  <version>1.07</version>
 </dependency>
 ```
 
@@ -39,6 +39,13 @@ mvn install
 ```
 
 ## Change log
+
+1.07
+
+-   Regenerated stubs to include attachments.create endpoint for verification document upload.
+-   Added acting_party query parameter to updateLaunch.
+-   Added SuggestionDisplay parameter in RCS C# stubs and samples.
+-   Updated Java/C# management flow samples to support document upload.
 
 1.0.6
 

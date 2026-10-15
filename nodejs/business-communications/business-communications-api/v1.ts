@@ -569,6 +569,57 @@ export namespace businesscommunications_v1 {
     technicalContact?: Schema$GoogleCommunicationsBusinesscommunicationsV1PartnerContact;
   }
   /**
+   * An attachment resource with a unique name that an agent can use to identify the attachment.
+   */
+  export interface Schema$GoogleCommunicationsBusinesscommunicationsV1Attachment {
+    /**
+     * Output only. The unique identifier of the attachment.
+     */
+    name?: string | null;
+    /**
+     * Optional. Display name of the attachment.
+     */
+    displayName?: string | null;
+    /**
+     * Optional. Text description of the attachment's content.
+     */
+    description?: string | null;
+    /**
+     * Output only. The time when the attachment was uploaded.
+     */
+    createTime?: string | null;
+    /**
+     * Output only. The GCS URL of the attachment.
+     */
+    gcsUrl?: string | null;
+    /**
+     * Optional. The content type of the attachment.
+     */
+    contentType?: string | null;
+    /**
+     * Output only. Size in bytes of the attachment.
+     */
+    sizeBytes?: string | null;
+    /**
+     * Required. The source that triggered the attachment upload.
+     */
+    attachmentOperationSource?: string | null;
+    /**
+     * Output only. Error result, if any, that occurred during the attachment upload.
+     */
+    uploadError?: Schema$GoogleRpcStatus;
+  }
+  /**
+   * Request for creating an attachment.
+   */
+  export interface Schema$GoogleCommunicationsBusinesscommunicationsV1CreateAttachmentRequest {
+    /**
+     * Required. The source that triggered the attachment upload.
+     */
+    attachmentOperationSource?: string | null;
+  }
+
+  /**
    * Contact details
    */
   export interface Schema$GoogleCommunicationsBusinesscommunicationsV1PartnerContact {
@@ -1959,9 +2010,11 @@ export namespace businesscommunications_v1 {
 
   export class Resource$Brands$Agents {
     context: APIRequestContext;
+    attachments: Resource$Brands$Agents$Attachments;
     integrations: Resource$Brands$Agents$Integrations;
     constructor(context: APIRequestContext) {
       this.context = context;
+      this.attachments = new Resource$Brands$Agents$Attachments(this.context);
       this.integrations = new Resource$Brands$Agents$Integrations(this.context);
     }
 
@@ -3757,6 +3810,10 @@ export namespace businesscommunications_v1 {
   export interface Params$Resource$Brands$Agents$Updatelaunch
     extends StandardParameters {
     /**
+     * Optional. The party acting on behalf of the carrier.
+     */
+    acting_party?: string;
+    /**
      * Required. The identifier for launch.
      */
     name?: string;
@@ -4556,6 +4613,118 @@ export namespace businesscommunications_v1 {
     }
   }
 
+  export class Resource$Brands$Agents$Attachments {
+    context: APIRequestContext;
+    constructor(context: APIRequestContext) {
+      this.context = context;
+    }
+
+    /**
+     * Creates an attachment for an RCS for Business agent.
+     *
+     * @param params - Parameters for request
+     * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+     * @param callback - Optional callback that handles the response.
+     * @returns A promise if used with async/await, or void if used with a callback.
+     */
+    create(
+      params: Params$Resource$Brands$Agents$Attachments$Create,
+      options: StreamMethodOptions
+    ): Promise<GaxiosResponseWithHTTP2<Readable>>;
+    create(
+      params?: Params$Resource$Brands$Agents$Attachments$Create,
+      options?: MethodOptions
+    ): Promise<
+      GaxiosResponseWithHTTP2<Schema$GoogleCommunicationsBusinesscommunicationsV1Attachment>
+    >;
+    create(
+      params: Params$Resource$Brands$Agents$Attachments$Create,
+      options: StreamMethodOptions | BodyResponseCallback<Readable>,
+      callback: BodyResponseCallback<Readable>
+    ): void;
+    create(
+      params: Params$Resource$Brands$Agents$Attachments$Create,
+      options:
+        | MethodOptions
+        | BodyResponseCallback<Schema$GoogleCommunicationsBusinesscommunicationsV1Attachment>,
+      callback: BodyResponseCallback<Schema$GoogleCommunicationsBusinesscommunicationsV1Attachment>
+    ): void;
+    create(
+      params: Params$Resource$Brands$Agents$Attachments$Create,
+      callback: BodyResponseCallback<Schema$GoogleCommunicationsBusinesscommunicationsV1Attachment>
+    ): void;
+    create(
+      callback: BodyResponseCallback<Schema$GoogleCommunicationsBusinesscommunicationsV1Attachment>
+    ): void;
+    create(
+      paramsOrCallback?:
+        | Params$Resource$Brands$Agents$Attachments$Create
+        | BodyResponseCallback<Schema$GoogleCommunicationsBusinesscommunicationsV1Attachment>
+        | BodyResponseCallback<Readable>,
+      optionsOrCallback?:
+        | MethodOptions
+        | StreamMethodOptions
+        | BodyResponseCallback<Schema$GoogleCommunicationsBusinesscommunicationsV1Attachment>
+        | BodyResponseCallback<Readable>,
+      callback?:
+        | BodyResponseCallback<Schema$GoogleCommunicationsBusinesscommunicationsV1Attachment>
+        | BodyResponseCallback<Readable>
+    ):
+      | void
+      | Promise<
+          GaxiosResponseWithHTTP2<Schema$GoogleCommunicationsBusinesscommunicationsV1Attachment>
+        >
+      | Promise<GaxiosResponseWithHTTP2<Readable>> {
+      let params = (paramsOrCallback ||
+        {}) as Params$Resource$Brands$Agents$Attachments$Create;
+      let options = (optionsOrCallback || {}) as MethodOptions;
+
+      if (typeof paramsOrCallback === 'function') {
+        callback = paramsOrCallback;
+        params = {} as Params$Resource$Brands$Agents$Attachments$Create;
+        options = {};
+      }
+
+      if (typeof optionsOrCallback === 'function') {
+        callback = optionsOrCallback;
+        options = {};
+      }
+
+      const rootUrl =
+        options.rootUrl || 'https://businesscommunications.googleapis.com/';
+      const parameters = {
+        options: Object.assign(
+          {
+            url: (rootUrl + '/v1/{+parent}/attachments').replace(
+              /([^:]\/)\/+/g,
+              '$1'
+            ),
+            method: 'POST',
+          },
+          options
+        ),
+        params,
+        mediaUrl: (rootUrl + '/upload/v1/{+parent}/attachments').replace(
+          /([^:]\/)\/+/g,
+          '$1'
+        ),
+        requiredParams: ['parent'],
+        pathParams: ['parent'],
+        context: this.context,
+      };
+      if (callback) {
+        createAPIRequest<Schema$GoogleCommunicationsBusinesscommunicationsV1Attachment>(
+          parameters,
+          callback as BodyResponseCallback<unknown>
+        );
+      } else {
+        return createAPIRequest<Schema$GoogleCommunicationsBusinesscommunicationsV1Attachment>(
+          parameters
+        );
+      }
+    }
+  }
+
   export interface Params$Resource$Brands$Agents$Integrations$Create
     extends StandardParameters {
     /**
@@ -4612,6 +4781,37 @@ export namespace businesscommunications_v1 {
      * Request body metadata
      */
     requestBody?: Schema$GoogleCommunicationsBusinesscommunicationsV1Integration;
+  }
+
+  export interface Params$Resource$Brands$Agents$Attachments$Create
+    extends StandardParameters {
+    /**
+     * Required. The unique identifier of the agent. If the brand identifier is "1234" and the agent identifier is "5678", this parameter resolves to "brands/1234/agents/5678".
+     */
+    parent?: string;
+    /**
+     * Required if `uploadType=media`. Specifies the reason for the upload.
+     */
+    attachmentOperationSource?: string;
+
+    /**
+     * Request body metadata
+     */
+    requestBody?: Schema$GoogleCommunicationsBusinesscommunicationsV1CreateAttachmentRequest;
+
+    /**
+     * Media body contents
+     */
+    media?: {
+      /**
+       * Media mime-type
+       */
+      mimeType?: string;
+      /**
+       * Media body contents
+       */
+      body?: any;
+    };
   }
 
   export class Resource$Criticalagents {

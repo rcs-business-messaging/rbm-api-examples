@@ -8,11 +8,12 @@
 
 BRAND_ID=""
 AGENT_ID=""
+ACTING_PARTY=""
 
 # Alternatively, you can retrieve the agent verification information with just the agent id
 # by setting BRAND_ID = '-'
 
-curl -v -X PATCH "https://businesscommunications.googleapis.com/v1/brands/$BRAND_ID/agents/$AGENT_ID/launch" \
+curl -v -X PATCH "https://businesscommunications.googleapis.com/v1/brands/$BRAND_ID/agents/$AGENT_ID/launch${ACTING_PARTY:+?acting_party=$ACTING_PARTY}" \
 -H "Content-Type: application/json" \
 -H "User-Agent: curl/business-messaging" \
 -H "`oauth2l header --json serviceAccount.json businesscommunications`" \

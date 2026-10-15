@@ -2817,6 +2817,22 @@ public class BusinessCommunications extends com.google.api.client.googleapis.ser
           return this;
         }
 
+        /** Optional. The party acting on behalf of the carrier. */
+        @com.google.api.client.util.Key("acting_party")
+        private java.lang.String actingParty;
+
+        /** Optional. The party acting on behalf of the carrier. */
+        public java.lang.String getActingParty() {
+          return actingParty;
+        }
+
+        /** Optional. The party acting on behalf of the carrier. */
+        @com.google.errorprone.annotations.CanIgnoreReturnValue
+        public UpdateLaunch setActingParty(java.lang.String actingParty) {
+          this.actingParty = actingParty;
+          return this;
+        }
+
         @com.google.errorprone.annotations.CanIgnoreReturnValue
         @Override
         public UpdateLaunch set(String parameterName, Object value) {
@@ -2995,6 +3011,255 @@ public class BusinessCommunications extends com.google.api.client.googleapis.ser
         @Override
         public UpdateVerification set(String parameterName, Object value) {
           return (UpdateVerification) super.set(parameterName, value);
+        }
+      }
+
+      /**
+       * An accessor for creating requests from the Attachments collection.
+       *
+       * <p>The typical use is:</p>
+       * <pre>
+       *   {@code BusinessCommunications businesscommunications = new BusinessCommunications(...);}
+       *   {@code BusinessCommunications.Attachments.Create request = businesscommunications.brands().agents().attachments().create(parent, content, mediaContent);}
+       * </pre>
+       *
+       * @return the resource collection
+       */
+      public Attachments attachments() {
+        return new Attachments();
+      }
+
+      /**
+       * The "attachments" collection of methods.
+       */
+      public class Attachments {
+
+        /**
+         * Creates an attachment for an RCS for Business agent. This method supports direct media uploads.
+         * The agent developer provides the binary of the file to be uploaded.
+         *
+         * Create a request for the method "attachments.create".
+         *
+         * This request holds the parameters needed by the businesscommunications server.  After setting any
+         * optional parameters, call the {@link Create#execute()} method to invoke the remote operation.
+         *
+         * @param parent Required. The unique identifier of the agent. If the brand identifier is "1234" and the agent
+         *        identifier is "5678", this parameter resolves to "brands/1234/agents/5678".
+         * @param content the {@link com.google.api.services.businesscommunications.v1.model.GoogleCommunicationsBusinesscommunicationsV1CreateAttachmentRequest}
+         * @return the request
+         */
+        public Create create(java.lang.String parent, com.google.api.services.businesscommunications.v1.model.GoogleCommunicationsBusinesscommunicationsV1CreateAttachmentRequest content) throws java.io.IOException {
+          Create result = new Create(parent, content);
+          initialize(result);
+          return result;
+        }
+
+        /**
+         * Creates an attachment for an RCS for Business agent. This method supports direct media uploads.
+         * The agent developer provides the binary of the file to be uploaded.
+         *
+         * Create a request for the method "attachments.create".
+         *
+         * This request holds the parameters needed by the businesscommunications server.  After setting any
+         * optional parameters, call the {@link Create#execute()} method to invoke the remote operation.
+         *
+         * <p>
+         * This constructor should be used for uploading media content.
+         * </p>
+         *
+         * @param parent Required. The unique identifier of the agent. If the brand identifier is "1234" and the agent
+         *        identifier is "5678", this parameter resolves to "brands/1234/agents/5678".
+         * @param content the {@link com.google.api.services.businesscommunications.v1.model.GoogleCommunicationsBusinesscommunicationsV1CreateAttachmentRequest} media metadata or {@code null} if none
+         * @param mediaContent The media HTTP content or {@code null} if none.
+         * @return the request
+         */
+        public Create create(java.lang.String parent, com.google.api.services.businesscommunications.v1.model.GoogleCommunicationsBusinesscommunicationsV1CreateAttachmentRequest content, com.google.api.client.http.AbstractInputStreamContent mediaContent) throws java.io.IOException {
+          Create result = new Create(parent, content, mediaContent);
+          initialize(result);
+          return result;
+        }
+
+        public class Create extends BusinessCommunicationsRequest<com.google.api.services.businesscommunications.v1.model.GoogleCommunicationsBusinesscommunicationsV1Attachment> {
+
+          private static final String REST_PATH = "v1/{+parent}/attachments";
+
+          private final java.util.regex.Pattern PARENT_PATTERN =
+              java.util.regex.Pattern.compile("^brands/[^/]+/agents/[^/]+$");
+
+          /**
+           * Creates an attachment for an RCS for Business agent.
+           *
+           * Create a request for the method "attachments.create".
+           *
+           * This request holds the parameters needed by the the businesscommunications server.  After
+           * setting any optional parameters, call the {@link Create#execute()} method to invoke the remote
+           * operation. <p> {@link
+           * Create#initialize(com.google.api.client.googleapis.services.AbstractGoogleClientRequest)} must
+           * be called to initialize this instance immediately after invoking the constructor. </p>
+           *
+           * @param parent Required. The unique identifier of the agent. If the brand identifier is "1234" and the agent
+           *        identifier is "5678", this parameter resolves to "brands/1234/agents/5678".
+           * @param content the {@link com.google.api.services.businesscommunications.v1.model.GoogleCommunicationsBusinesscommunicationsV1CreateAttachmentRequest}
+           * @since 1.13
+           */
+          protected Create(java.lang.String parent, com.google.api.services.businesscommunications.v1.model.GoogleCommunicationsBusinesscommunicationsV1CreateAttachmentRequest content) {
+            super(BusinessCommunications.this, "POST", REST_PATH, content, com.google.api.services.businesscommunications.v1.model.GoogleCommunicationsBusinesscommunicationsV1Attachment.class);
+            this.parent = com.google.api.client.util.Preconditions.checkNotNull(parent, "Required parameter parent must be specified.");
+            if (!getSuppressPatternChecks()) {
+              com.google.api.client.util.Preconditions.checkArgument(PARENT_PATTERN.matcher(parent).matches(),
+                  "Parameter parent must conform to the pattern " +
+                  "^brands/[^/]+/agents/[^/]+$");
+            }
+          }
+
+          /**
+           * Creates an attachment for an RCS for Business agent.
+           *
+           * Create a request for the method "attachments.create".
+           *
+           * This request holds the parameters needed by the the businesscommunications server.  After
+           * setting any optional parameters, call the {@link Create#execute()} method to invoke the remote
+           * operation. <p> {@link
+           * Create#initialize(com.google.api.client.googleapis.services.AbstractGoogleClientRequest)} must
+           * be called to initialize this instance immediately after invoking the constructor. </p>
+           *
+           * <p>
+           * This constructor should be used for uploading media content.
+           * </p>
+           *
+           * @param parent Required. The unique identifier of the agent. If the brand identifier is "1234" and the agent
+           *        identifier is "5678", this parameter resolves to "brands/1234/agents/5678".
+           * @param content the {@link com.google.api.services.businesscommunications.v1.model.GoogleCommunicationsBusinesscommunicationsV1CreateAttachmentRequest} media metadata or {@code null} if none
+           * @param mediaContent The media HTTP content or {@code null} if none.
+           * @since 1.13
+           */
+          protected Create(java.lang.String parent, com.google.api.services.businesscommunications.v1.model.GoogleCommunicationsBusinesscommunicationsV1CreateAttachmentRequest content, com.google.api.client.http.AbstractInputStreamContent mediaContent) {
+            super(BusinessCommunications.this, "POST", "/upload/v1/" + parent + "/attachments", content, com.google.api.services.businesscommunications.v1.model.GoogleCommunicationsBusinesscommunicationsV1Attachment.class);
+            this.parent = com.google.api.client.util.Preconditions.checkNotNull(parent, "Required parameter parent must be specified.");
+            if (!getSuppressPatternChecks()) {
+              com.google.api.client.util.Preconditions.checkArgument(PARENT_PATTERN.matcher(parent).matches(),
+                  "Parameter parent must conform to the pattern " +
+                  "^brands/[^/]+/agents/[^/]+$");
+            }
+            initializeMediaUpload(mediaContent);
+          }
+
+          @com.google.errorprone.annotations.CanIgnoreReturnValue
+          @Override
+          public Create set$Xgafv(java.lang.String $Xgafv) {
+            return (Create) super.set$Xgafv($Xgafv);
+          }
+
+          @com.google.errorprone.annotations.CanIgnoreReturnValue
+          @Override
+          public Create setAccessToken(java.lang.String accessToken) {
+            return (Create) super.setAccessToken(accessToken);
+          }
+
+          @com.google.errorprone.annotations.CanIgnoreReturnValue
+          @Override
+          public Create setAlt(java.lang.String alt) {
+            return (Create) super.setAlt(alt);
+          }
+
+          @com.google.errorprone.annotations.CanIgnoreReturnValue
+          @Override
+          public Create setCallback(java.lang.String callback) {
+            return (Create) super.setCallback(callback);
+          }
+
+          @com.google.errorprone.annotations.CanIgnoreReturnValue
+          @Override
+          public Create setFields(java.lang.String fields) {
+            return (Create) super.setFields(fields);
+          }
+
+          @com.google.errorprone.annotations.CanIgnoreReturnValue
+          @Override
+          public Create setKey(java.lang.String key) {
+            return (Create) super.setKey(key);
+          }
+
+          @com.google.errorprone.annotations.CanIgnoreReturnValue
+          @Override
+          public Create setOauthToken(java.lang.String oauthToken) {
+            return (Create) super.setOauthToken(oauthToken);
+          }
+
+          @com.google.errorprone.annotations.CanIgnoreReturnValue
+          @Override
+          public Create setPrettyPrint(java.lang.Boolean prettyPrint) {
+            return (Create) super.setPrettyPrint(prettyPrint);
+          }
+
+          @com.google.errorprone.annotations.CanIgnoreReturnValue
+          @Override
+          public Create setQuotaUser(java.lang.String quotaUser) {
+            return (Create) super.setQuotaUser(quotaUser);
+          }
+
+          @com.google.errorprone.annotations.CanIgnoreReturnValue
+          @Override
+          public Create setUploadType(java.lang.String uploadType) {
+            return (Create) super.setUploadType(uploadType);
+          }
+
+          @com.google.errorprone.annotations.CanIgnoreReturnValue
+          @Override
+          public Create setUploadProtocol(java.lang.String uploadProtocol) {
+            return (Create) super.setUploadProtocol(uploadProtocol);
+          }
+
+          /**
+           * Required. The unique identifier of the agent. If the brand identifier is "1234" and the
+           * agent identifier is "5678", this parameter resolves to "brands/1234/agents/5678".
+           */
+          @com.google.api.client.util.Key
+          private java.lang.String parent;
+
+          /** Required. The unique identifier of the agent. If the brand identifier is "1234" and the agent
+         identifier is "5678", this parameter resolves to "brands/1234/agents/5678".
+           */
+          public java.lang.String getParent() {
+            return parent;
+          }
+
+          /**
+           * Required. The unique identifier of the agent. If the brand identifier is "1234" and the
+           * agent identifier is "5678", this parameter resolves to "brands/1234/agents/5678".
+           */
+          @com.google.errorprone.annotations.CanIgnoreReturnValue
+          public Create setParent(java.lang.String parent) {
+            if (!getSuppressPatternChecks()) {
+              com.google.api.client.util.Preconditions.checkArgument(PARENT_PATTERN.matcher(parent).matches(),
+                  "Parameter parent must conform to the pattern " +
+                  "^brands/[^/]+/agents/[^/]+$");
+            }
+            this.parent = parent;
+            return this;
+          }
+
+          /** Required if `uploadType=media`. Specifies the reason for the upload. */
+          @com.google.api.client.util.Key("attachmentOperationSource")
+          private java.lang.String attachmentOperationSource;
+
+          /** Required if `uploadType=media`. Specifies the reason for the upload. */
+          public java.lang.String getAttachmentOperationSource() {
+            return attachmentOperationSource;
+          }
+
+          /** Required if `uploadType=media`. Specifies the reason for the upload. */
+          @com.google.errorprone.annotations.CanIgnoreReturnValue
+          public Create setAttachmentOperationSource(java.lang.String attachmentOperationSource) {
+            this.attachmentOperationSource = attachmentOperationSource;
+            return this;
+          }
+
+          @com.google.errorprone.annotations.CanIgnoreReturnValue
+          @Override
+          public Create set(String parameterName, Object value) {
+            return (Create) super.set(parameterName, value);
+          }
         }
       }
 

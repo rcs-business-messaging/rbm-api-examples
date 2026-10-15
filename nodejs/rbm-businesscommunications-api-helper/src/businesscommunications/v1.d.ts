@@ -188,6 +188,47 @@ export declare namespace businesscommunications_v1 {
         webhookUri?: string | null;
     }
     /**
+     * An attachment resource with a unique name that an agent can use to identify the attachment.
+     */
+    export interface Schema$GoogleCommunicationsBusinesscommunicationsV1Attachment {
+        /**
+         * Output only. The unique identifier of the attachment.
+         */
+        name?: string | null;
+        /**
+         * Optional. Display name of the attachment.
+         */
+        displayName?: string | null;
+        /**
+         * Optional. Text description of the attachment's content.
+         */
+        description?: string | null;
+        /**
+         * Output only. The time when the attachment was uploaded.
+         */
+        createTime?: string | null;
+        /**
+         * Output only. The GCS URL of the attachment.
+         */
+        gcsUrl?: string | null;
+        /**
+         * Optional. The content type of the attachment.
+         */
+        contentType?: string | null;
+        /**
+         * Output only. Size in bytes of the attachment.
+         */
+        sizeBytes?: string | null;
+        /**
+         * Required. The source that triggered the attachment upload.
+         */
+        attachmentOperationSource?: string | null;
+        /**
+         * Output only. Error result, if any, that occurred during the attachment upload.
+         */
+        uploadError?: Schema$GoogleRpcStatus;
+    }
+    /**
      * Details for bot representative.
      */
     export interface Schema$GoogleCommunicationsBusinesscommunicationsV1BotRepresentative {
@@ -381,6 +422,15 @@ export declare namespace businesscommunications_v1 {
          * Required. Details about the welcome message for an agent.
          */
         welcomeMessage?: Schema$GoogleCommunicationsBusinesscommunicationsV1WelcomeMessage;
+    }
+    /**
+     * Request for creating an attachment.
+     */
+    export interface Schema$GoogleCommunicationsBusinesscommunicationsV1CreateAttachmentRequest {
+        /**
+         * Required. The source that triggered the attachment upload.
+         */
+        attachmentOperationSource?: string | null;
     }
     /**
      * Suggested replies shown to users when they enter a conversation with the agent for the first time.
@@ -1912,6 +1962,7 @@ export declare namespace businesscommunications_v1 {
     }
     export class Resource$Brands$Agents {
         context: APIRequestContext;
+        attachments: Resource$Brands$Agents$Attachments;
         greetings: Resource$Brands$Agents$Greetings;
         integrations: Resource$Brands$Agents$Integrations;
         constructor(context: APIRequestContext);
@@ -2709,6 +2760,10 @@ export declare namespace businesscommunications_v1 {
     }
     export interface Params$Resource$Brands$Agents$Updatelaunch extends StandardParameters {
         /**
+         * Optional. The party acting on behalf of the carrier.
+         */
+        acting_party?: string;
+        /**
          * Required. The identifier for launch.
          */
         name?: string;
@@ -3429,6 +3484,51 @@ export declare namespace businesscommunications_v1 {
          * Request body metadata
          */
         requestBody?: Schema$GoogleCommunicationsBusinesscommunicationsV1Integration;
+    }
+    export class Resource$Brands$Agents$Attachments {
+        context: APIRequestContext;
+        constructor(context: APIRequestContext);
+        /**
+         * Creates an attachment for an RCS for Business agent.
+         *
+         * @param params - Parameters for request
+         * @param options - Optionally override request options, such as `url`, `method`, and `encoding`.
+         * @param callback - Optional callback that handles the response.
+         * @returns A promise if used with async/await, or void if used with a callback.
+         */
+        create(params: Params$Resource$Brands$Agents$Attachments$Create, options: StreamMethodOptions): GaxiosPromise<Readable>;
+        create(params?: Params$Resource$Brands$Agents$Attachments$Create, options?: MethodOptions): GaxiosPromise<Schema$GoogleCommunicationsBusinesscommunicationsV1Attachment>;
+        create(params: Params$Resource$Brands$Agents$Attachments$Create, options: StreamMethodOptions | BodyResponseCallback<Readable>, callback: BodyResponseCallback<Readable>): void;
+        create(params: Params$Resource$Brands$Agents$Attachments$Create, options: MethodOptions | BodyResponseCallback<Schema$GoogleCommunicationsBusinesscommunicationsV1Attachment>, callback: BodyResponseCallback<Schema$GoogleCommunicationsBusinesscommunicationsV1Attachment>): void;
+        create(params: Params$Resource$Brands$Agents$Attachments$Create, callback: BodyResponseCallback<Schema$GoogleCommunicationsBusinesscommunicationsV1Attachment>): void;
+        create(callback: BodyResponseCallback<Schema$GoogleCommunicationsBusinesscommunicationsV1Attachment>): void;
+    }
+    export interface Params$Resource$Brands$Agents$Attachments$Create extends StandardParameters {
+        /**
+         * Required. The unique identifier of the agent. If the brand identifier is "1234" and the agent identifier is "5678", this parameter resolves to "brands/1234/agents/5678".
+         */
+        parent?: string;
+        /**
+         * Required if `uploadType=media`. Specifies the reason for the upload.
+         */
+        attachmentOperationSource?: string;
+        /**
+         * Request body metadata
+         */
+        requestBody?: Schema$GoogleCommunicationsBusinesscommunicationsV1CreateAttachmentRequest;
+        /**
+         * Media body contents
+         */
+        media?: {
+            /**
+             * Media mime-type
+             */
+            mimeType?: string;
+            /**
+             * Media body contents
+             */
+            body?: any;
+        };
     }
     export class Resource$Brands$Locations {
         context: APIRequestContext;
