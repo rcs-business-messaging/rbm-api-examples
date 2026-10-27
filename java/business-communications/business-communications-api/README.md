@@ -23,7 +23,7 @@ the following to you `pom.xml`:
 <dependency>
   <groupId>com.google.rbm</groupId>
   <artifactId>businesscommunications</artifactId>
-  <version>1.0.9</version>
+  <version>1.0.10</version>
 </dependency>
 ```
 
@@ -39,6 +39,10 @@ mvn install
 ```
 
 ## Change log
+
+1.0.10
+
+-   Refreshed the bundled library in Java management samples.
 
 1.0.9
 
