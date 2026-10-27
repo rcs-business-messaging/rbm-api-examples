@@ -413,6 +413,29 @@ const businessCommunicationsApiHelper = {
 	},
 
 	/**
+     * Upload verification document (PDF) to Business Communications API.
+     * @param {string} name The agent id (brands/{brandId}/agents/{agentId})
+     * @param {Buffer} fileBuffer The binary content of the PDF file
+     * @param {string} [source] Optional reason source for the upload (default: VERIFICATION_PAGE)
+     * @return {Promise} Resolves on request completion.
+     */
+	uploadVerificationDocument: function(name, fileBuffer, source = 'VERIFICATION_PAGE') {
+		return new Promise((resolve, reject) => {
+			this.initBusinessCommunucationsApi().then((params) => {
+				params.parent = name;
+				params.attachmentOperationSource = source;
+				params.media = {
+					mimeType: 'application/pdf',
+					body: fileBuffer,
+				};
+				bizCommsApi.brands.agents.attachments.create(params, {}, function(err, response) {
+					err ? reject(err) : resolve(response);
+				});
+			});
+		});
+	},
+
+	/**
      * Initializes the Business Communications API and authentication
      * credentials to communicate with the RBM platform.
      * @param {string} privateKey - path to private key file.
