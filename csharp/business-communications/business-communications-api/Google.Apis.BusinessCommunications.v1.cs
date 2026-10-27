@@ -2674,6 +2674,10 @@ namespace Google.Apis.BusinessCommunications.v1
                 [Google.Apis.Util.RequestParameterAttribute("updateMask", Google.Apis.Util.RequestParameterType.Query)]
                 public virtual object UpdateMask { get; set; }
 
+                /// <summary>Optional. The party acting on behalf of the carrier.</summary>
+                [Google.Apis.Util.RequestParameterAttribute("acting_party", Google.Apis.Util.RequestParameterType.Query)]
+                public virtual string ActingParty { get; set; }
+
 
                 /// <summary>Gets or sets the body of this request.</summary>
                 Google.Apis.BusinessCommunications.v1.Data.AgentLaunch Body { get; set; }
@@ -2717,6 +2721,15 @@ namespace Google.Apis.BusinessCommunications.v1
                         "updateMask", new Google.Apis.Discovery.Parameter
                         {
                             Name = "updateMask",
+                            IsRequired = false,
+                            ParameterType = "query",
+                            DefaultValue = null,
+                            Pattern = null,
+                        });
+                    RequestParameters.Add(
+                        "acting_party", new Google.Apis.Discovery.Parameter
+                        {
+                            Name = "acting_party",
                             IsRequired = false,
                             ParameterType = "query",
                             DefaultValue = null,

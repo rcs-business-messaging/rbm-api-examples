@@ -3757,6 +3757,10 @@ export namespace businesscommunications_v1 {
   export interface Params$Resource$Brands$Agents$Updatelaunch
     extends StandardParameters {
     /**
+     * Optional. The party acting on behalf of the carrier.
+     */
+    acting_party?: string;
+    /**
      * Required. The identifier for launch.
      */
     name?: string;
