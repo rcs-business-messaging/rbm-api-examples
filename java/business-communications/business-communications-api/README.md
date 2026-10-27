@@ -23,7 +23,7 @@ the following to you `pom.xml`:
 <dependency>
   <groupId>com.google.rbm</groupId>
   <artifactId>businesscommunications</artifactId>
-  <version>1.0.7</version>
+  <version>1.0.8</version>
 </dependency>
 ```
 
@@ -39,6 +39,10 @@ mvn install
 ```
 
 ## Change log
+
+1.0.8
+
+-   Regenerated stubs to include attachments.create endpoint for verification document upload.
 
 1.0.7
 
