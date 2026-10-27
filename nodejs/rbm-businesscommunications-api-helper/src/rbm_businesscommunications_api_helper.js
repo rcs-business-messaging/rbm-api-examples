@@ -120,13 +120,21 @@ const businessCommunicationsApiHelper = {
      * Update agent launch state (RBM Ops API).
 	 * @param {string} agentId The agent Id (before @rbm.goog)
 	 * @param {string} launchState New launch state
+	 * @param {string} [actingParty] Optional acting party
      * @return {Promise} Resolves on request completion.
 	 * result.data contains the updated launch
      */
-	updateAgentLaunchState: function(agentId, launchState) {
+	updateAgentLaunchState: function(agentId, launchState, actingParty) {
 		return new Promise((resolve, reject) => {
 			this.initBusinessCommunucationsApi().then((params) => {
-				params.name = 'brands/-/agents/' + agentId + '/launch';
+				if (agentId.startsWith('brands/')) {
+					params.name = agentId + '/launch';
+				} else {
+					params.name = 'brands/-/agents/' + agentId + '/launch';
+				}
+				if (actingParty) {
+					params.acting_party = actingParty;
+				}
 				params.resource = {
 					rcsBusinessMessaging: {
 						launchDetails: {

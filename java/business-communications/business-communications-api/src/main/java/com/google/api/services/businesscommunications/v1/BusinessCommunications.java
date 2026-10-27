@@ -2817,6 +2817,22 @@ public class BusinessCommunications extends com.google.api.client.googleapis.ser
           return this;
         }
 
+        /** Optional. The party acting on behalf of the carrier. */
+        @com.google.api.client.util.Key("acting_party")
+        private java.lang.String actingParty;
+
+        /** Optional. The party acting on behalf of the carrier. */
+        public java.lang.String getActingParty() {
+          return actingParty;
+        }
+
+        /** Optional. The party acting on behalf of the carrier. */
+        @com.google.errorprone.annotations.CanIgnoreReturnValue
+        public UpdateLaunch setActingParty(java.lang.String actingParty) {
+          this.actingParty = actingParty;
+          return this;
+        }
+
         @com.google.errorprone.annotations.CanIgnoreReturnValue
         @Override
         public UpdateLaunch set(String parameterName, Object value) {

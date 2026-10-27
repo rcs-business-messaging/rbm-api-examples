@@ -23,7 +23,7 @@ the following to you `pom.xml`:
 <dependency>
   <groupId>com.google.rbm</groupId>
   <artifactId>businesscommunications</artifactId>
-  <version>1.06</version>
+  <version>1.0.7</version>
 </dependency>
 ```
 
@@ -39,6 +39,10 @@ mvn install
 ```
 
 ## Change log
+
+1.0.7
+
+-   Added acting_party query parameter to updateLaunch.
 
 1.0.6
 
