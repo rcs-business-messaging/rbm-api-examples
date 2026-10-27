@@ -2,14 +2,14 @@ package com.google.rbm.samples.lib;
 
 import com.google.api.services.businesscommunications.v1.model.Agent;
 import com.google.api.services.businesscommunications.v1.model.AgentVerificationContact;
-import com.google.api.services.businesscommunications.v1.model.RcsBusinessMessagingLaunchQuestionnaireContact;
-import com.google.api.services.businesscommunications.v1.model.RcsBusinessMessagingAgentEmailEntry;
+import com.google.api.services.businesscommunications.v1.model.Contact;
+import com.google.api.services.businesscommunications.v1.model.EmailEntry;
 import com.google.api.services.businesscommunications.v1.model.Phone;
 import com.google.api.services.businesscommunications.v1.model.RcsBusinessMessagingAgentBillingConfig;
-import com.google.api.services.businesscommunications.v1.model.RcsBusinessMessagingAgentPhoneEntry;
-import com.google.api.services.businesscommunications.v1.model.RcsBusinessMessagingLaunchQuestionnaire;
+import com.google.api.services.businesscommunications.v1.model.PhoneEntry;
+import com.google.api.services.businesscommunications.v1.model.Questionnaire;
 import com.google.api.services.businesscommunications.v1.model.RcsBusinessMessagingAgent;
-import com.google.api.services.businesscommunications.v1.model.RcsBusinessMessagingAgentWebEntry;
+import com.google.api.services.businesscommunications.v1.model.WebEntry;
 import java.time.Instant;
 import java.util.Collections;
 
@@ -35,15 +35,15 @@ public final class AgentFactory {
     agent.setLogoUri(logo);
     agent.setHeroUri(hero);
     agent.setTermsConditions(
-        new RcsBusinessMessagingAgentWebEntry().setLabel("TOS").setUri("https://rbm.google.com/tos-00" + suffix));
+        new WebEntry().setLabel("TOS").setUri("https://rbm.google.com/tos-00" + suffix));
     agent.setPrivacy(
-        new RcsBusinessMessagingAgentWebEntry().setLabel("Privacy").setUri("https://rbm.google.com/privacy-00" + suffix));
+        new WebEntry().setLabel("Privacy").setUri("https://rbm.google.com/privacy-00" + suffix));
     agent.setEmails(Collections.singletonList(
-        new RcsBusinessMessagingAgentEmailEntry().setLabel("me").setAddress("user@domain.com" + suffix)));
+        new EmailEntry().setLabel("me").setAddress("user@domain.com" + suffix)));
     agent.setWebsites(Collections.singletonList(
-        new RcsBusinessMessagingAgentWebEntry().setLabel("me").setUri("https://rbm.google.com/web-00" + suffix)));
+        new WebEntry().setLabel("me").setUri("https://rbm.google.com/web-00" + suffix)));
     agent.setPhoneNumbers(Collections.singletonList(
-        new RcsBusinessMessagingAgentPhoneEntry().setLabel("MSISDN")
+        new PhoneEntry().setLabel("MSISDN")
             .setPhoneNumber(new Phone().setNumber("+1650996943" + suffix.hashCode() % 10))));
     agent.setBillingConfig(
         new RcsBusinessMessagingAgentBillingConfig().setBillingCategory("BASIC_MESSAGE"));
@@ -52,11 +52,11 @@ public final class AgentFactory {
     return agent;
   }
 
-  public static RcsBusinessMessagingLaunchQuestionnaire createRbmQuestionnaire() {
+  public static Questionnaire createRbmQuestionnaire() {
     String suffix = Instant.now().toString();
-    return new RcsBusinessMessagingLaunchQuestionnaire()
+    return new Questionnaire()
         .setContacts(
-            Collections.singletonList(new RcsBusinessMessagingLaunchQuestionnaireContact()
+            Collections.singletonList(new Contact()
                 .setTitle("Contact manager " + suffix)
                 .setName("Contact person " + suffix)
                 .setEmail("user@domain.com")))
