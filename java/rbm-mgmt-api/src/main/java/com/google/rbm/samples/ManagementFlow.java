@@ -25,7 +25,7 @@ import com.google.api.services.businesscommunications.v1.model.AgentVerification
 import com.google.api.services.businesscommunications.v1.model.Brand;
 
 import com.google.api.services.businesscommunications.v1.model.ListAgentsResponse;
-import com.google.api.services.businesscommunications.v1.model.RcsBusinessMessagingLaunchQuestionnaire;
+import com.google.api.services.businesscommunications.v1.model.Questionnaire;
 import com.google.api.services.businesscommunications.v1.model.RcsBusinessMessagingAgent;
 import com.google.api.services.businesscommunications.v1.model.RcsBusinessMessagingRegion;
 import com.google.api.services.rcsbusinessmessaging.v1.model.AgentMessage;
@@ -196,7 +196,7 @@ public class ManagementFlow {
     List<String> regionIds = Collections.singletonList(
         flags.getOrDefault("region", TEST_LAUNCH_REGION_ID));
     if (getBooleanFlag("launch_agent")) {
-      Optional<RcsBusinessMessagingLaunchQuestionnaire> q = Optional.of(AgentFactory.createRbmQuestionnaire());
+      Optional<Questionnaire> q = Optional.of(AgentFactory.createRbmQuestionnaire());
       AgentLaunch launch = api.requestRbmAgentLaunch(agent.getName(), regionIds, q);
       logger.info("RBM agent updated launch: " + launch);
     } else if (getBooleanFlag("unlaunch_agent")) {
