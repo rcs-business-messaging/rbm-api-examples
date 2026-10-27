@@ -8,7 +8,7 @@
     <TargetName>Google.RBM.RCSBusinessMessaging</TargetName>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Google.Apis.Auth" Version="1.66.0" />
+    <PackageReference Include="Google.Apis.Auth" Version="1.70.0" />
   </ItemGroup>
 
   <ItemGroup>

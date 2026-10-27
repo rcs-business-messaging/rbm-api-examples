@@ -576,8 +576,8 @@ namespace KitchenSink
             {
                 Title = "RBM Agent Explorer",
                 Description = "Calendar event created by the RBM Kitchen Sink",
-                StartTimeDateTimeOffset = startDate,
-                EndTimeDateTimeOffset = startDate
+                StartTime = startDate.ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ssZ"),
+                EndTime = endDate.ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ssZ")
             };
 
             // attach the calendar action to a suggested action
