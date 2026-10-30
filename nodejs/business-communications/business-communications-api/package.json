@@ -1,6 +1,6 @@
 {
   "name": "@googleapis/businesscommunications",
-  "version": "1.0.8",
+  "version": "1.0.10",
   "description": "businesscommunications",
   "main": "build/index.js",
   "types": "build/index.d.ts",

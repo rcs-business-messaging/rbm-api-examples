@@ -27,20 +27,20 @@ import com.google.api.services.businesscommunications.v1.model.AgentLaunch;
 import com.google.api.services.businesscommunications.v1.model.AgentVerification;
 import com.google.api.services.businesscommunications.v1.model.AgentVerificationContact;
 import com.google.api.services.businesscommunications.v1.model.Brand;
-import com.google.api.services.businesscommunications.v1.model.RcsBusinessMessagingAgentEmailEntry;
+import com.google.api.services.businesscommunications.v1.model.EmailEntry;
 import com.google.api.services.businesscommunications.v1.model.ListAgentsResponse;
 import com.google.api.services.businesscommunications.v1.model.ListBrandsResponse;
 import com.google.api.services.businesscommunications.v1.model.ListRegionsResponse;
 import com.google.api.services.businesscommunications.v1.model.Phone;
-import com.google.api.services.businesscommunications.v1.model.RcsBusinessMessagingAgentPhoneEntry;
-import com.google.api.services.businesscommunications.v1.model.RcsBusinessMessagingLaunchQuestionnaire;
+import com.google.api.services.businesscommunications.v1.model.PhoneEntry;
+import com.google.api.services.businesscommunications.v1.model.Questionnaire;
 import com.google.api.services.businesscommunications.v1.model.RcsBusinessMessagingAgent;
 import com.google.api.services.businesscommunications.v1.model.RcsBusinessMessagingLaunch;
 import com.google.api.services.businesscommunications.v1.model.RcsBusinessMessagingRegion;
 import com.google.api.services.businesscommunications.v1.model.RcsBusinessMessagingRegionLaunch;
 import com.google.api.services.businesscommunications.v1.model.RequestAgentLaunchRequest;
 import com.google.api.services.businesscommunications.v1.model.RequestAgentVerificationRequest;
-import com.google.api.services.businesscommunications.v1.model.RcsBusinessMessagingAgentWebEntry;
+import com.google.api.services.businesscommunications.v1.model.WebEntry;
 import com.google.api.services.rcsbusinessmessaging.v1.RCSBusinessMessaging;
 import com.google.api.services.rcsbusinessmessaging.v1.model.AgentContentMessage;
 import com.google.api.services.rcsbusinessmessaging.v1.model.AgentMessage;
@@ -306,12 +306,12 @@ public final class RbmApiOperations {
     checkNotEmpty(rbmAgent.getTermsConditions().getUri(), "Agent's privacy URL is required");
 
     checkCollectionNotEmpty(rbmAgent.getEmails(), "Agent must contain valid email entries",
-        RcsBusinessMessagingAgentEmailEntry::getAddress, RcsBusinessMessagingAgentEmailEntry::getLabel);
+        EmailEntry::getAddress, EmailEntry::getLabel);
     checkCollectionNotEmpty(rbmAgent.getWebsites(), "Agent must contain valid web entries",
-        RcsBusinessMessagingAgentWebEntry::getUri, RcsBusinessMessagingAgentWebEntry::getLabel);
+        WebEntry::getUri, WebEntry::getLabel);
     checkCollectionNotEmpty(rbmAgent.getPhoneNumbers(), "Agent must contain valid phone entries",
         ph -> ph.getPhoneNumber() != null ? ph.getPhoneNumber().getNumber() : null,
-        RcsBusinessMessagingAgentPhoneEntry::getLabel);
+        PhoneEntry::getLabel);
 
     String restName = brand.getName() + "/agents/";
     Agent agent = new Agent().setName(restName).setDisplayName(displayName)
@@ -338,7 +338,7 @@ public final class RbmApiOperations {
     Agent agentToUpdate = new Agent().setName(rbmAgent.getName()).setDisplayName(newDisplayName)
         .setRcsBusinessMessagingAgent(new RcsBusinessMessagingAgent().setHeroUri(
                 "https://www.gstatic.com/rbmconsole/images/google_logo_background_white_color_1440x720px.png")
-            .setPhoneNumbers(Collections.singletonList(new RcsBusinessMessagingAgentPhoneEntry().setLabel("Main")
+            .setPhoneNumbers(Collections.singletonList(new PhoneEntry().setLabel("Main")
                 .setPhoneNumber(new Phone().setNumber("+16509966666")))));
 
     String mask = String.join(",", new String[]{"rcs_business_messaging_agent.hero_uri",
@@ -445,7 +445,7 @@ public final class RbmApiOperations {
    * @throws IOException In case of any IO problems.
    */
   public AgentLaunch requestRbmAgentLaunch(String agentId, List<String> regionIdsToAdd,
-      Optional<RcsBusinessMessagingLaunchQuestionnaire> questionnaire) throws IOException {
+      Optional<Questionnaire> questionnaire) throws IOException {
     if (regionIdsToAdd.isEmpty() && !questionnaire.isPresent()) {
       throw new IllegalArgumentException("Questionnaire or list of regions is required");
     }
@@ -526,7 +526,7 @@ public final class RbmApiOperations {
           new RcsBusinessMessagingRegionLaunch().setLaunchState("LAUNCH_STATE_UNLAUNCHED")
               .setUpdateTime(now));
     }
-    rbmLaunch.setQuestionnaire(new RcsBusinessMessagingLaunchQuestionnaire().setOptinDescription("Patched at " + now));
+    rbmLaunch.setQuestionnaire(new Questionnaire().setOptinDescription("Patched at " + now));
     String mask = "agent_launch.rcs_business_messaging.questionnaire.optin_description";
     return updateAgentLaunch(agentId, new AgentLaunch().setRcsBusinessMessaging(rbmLaunch), mask);
   }
@@ -542,13 +542,25 @@ public final class RbmApiOperations {
    */
   public AgentLaunch updateAgentLaunch(String agentId, AgentLaunch launch, String updateMask)
       throws IOException {
+    return updateAgentLaunch(agentId, launch, updateMask, null);
+  }
+
+  /**
+   * Updates agent launch state with optional acting party.
+   */
+  public AgentLaunch updateAgentLaunch(String agentId, AgentLaunch launch, String updateMask, String actingParty)
+      throws IOException {
     checkAgentId(agentId);
     checkNotNull(launch, "Launch data is required");
 
     String restName = agentId + "/launch";
     logger.info("Updating agent launch: " + restName);
-    AgentLaunch updatedLaunch = bcBuilder.build().brands().agents().updateLaunch(restName, launch)
-        .setUpdateMask(updateMask).execute();
+    com.google.api.services.businesscommunications.v1.BusinessCommunications.Brands.Agents.UpdateLaunch request =
+        bcBuilder.build().brands().agents().updateLaunch(restName, launch).setUpdateMask(updateMask);
+    if (actingParty != null) {
+      request.setActingParty(actingParty);
+    }
+    AgentLaunch updatedLaunch = request.execute();
     logger.info("Updating launch: " + updatedLaunch.getName());
     return updatedLaunch;
   }
@@ -728,7 +740,7 @@ public final class RbmApiOperations {
     if (agent == null || Strings.isNullOrEmpty(agent.getDisplayName())) {
       throw new IllegalArgumentException("Valid agent with display name is required.");
     }
-    if (agent.getBusinessMessagesAgent() == null && agent.getRcsBusinessMessagingAgent() == null) {
+    if (agent.getRcsBusinessMessagingAgent() == null) {
       throw new IllegalArgumentException("Valid agent with detailed info is required.");
     }
   }

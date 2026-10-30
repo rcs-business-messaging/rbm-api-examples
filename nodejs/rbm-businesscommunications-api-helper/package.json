@@ -1,6 +1,6 @@
 {
   "name": "@google/rbm-businesscommunications",
-  "version": "1.0.8",
+  "version": "1.0.10",
   "author": "Google Inc.",
   "engines": {
     "node": ">=10"
